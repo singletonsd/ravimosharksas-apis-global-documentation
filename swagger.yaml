@@ -1,0 +1,2986 @@
+swagger: '2.0'
+basePath: /
+info:
+  version: 1.0.36
+  title: Ravimo Global API
+  description: Ravimo Mobile and Web Global API
+  contact:
+    name: API Support
+    url: 'http://www.ravimoshark.com/site/default.aspx'
+    email: joseph.assouline@ravimoshark.com
+paths:
+  /Startsession:
+    post:
+      summary: Provide Session Token
+      description: ' Provide Session Token and user.Name, NumberOfCartElements, user.refclient'
+      tags:
+        - User
+      operationId: startSession
+      consumes:
+        - application/json
+        - text/json
+      produces:
+        - application/json
+        - text/json
+      parameters:
+        - $ref: '#/parameters/Token'
+        - $ref: '#/parameters/LANG'
+      responses:
+        '200':
+          description: Semper Fi
+          schema:
+            $ref: '#/definitions/Session'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/CustomError'
+  /Profile:
+    post:
+      summary: Register User
+      description: Registration
+      tags:
+        - User
+      operationId: setProfile
+      consumes:
+        - application/json
+      produces:
+        - application/json
+        - text/json
+      parameters:
+        - $ref: '#/parameters/Token'
+        - $ref: '#/parameters/LANG'
+        - name: User
+          in: body
+          required: true
+          description: User's data
+          schema:
+            $ref: '#/definitions/Users'
+        - name: Password
+          in: query
+          required: true
+          description: User's password.
+          type: string
+      responses:
+        '200':
+          description: Semper Fi
+          schema:
+            $ref: '#/definitions/Users'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/CustomError'
+    get:
+      summary: Get client's information.
+      description: get profile info
+      tags:
+        - User
+      operationId: getProfile
+      consumes:
+        - application/json
+        - text/json
+      produces:
+        - application/json
+        - text/json
+      parameters:
+        - $ref: '#/parameters/Token'
+        - $ref: '#/parameters/LANG'
+      responses:
+        '200':
+          description: Semper Fi
+          schema:
+            $ref: '#/definitions/Users'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/CustomError'
+    put:
+      summary: update client's information.
+      description: change profile info
+      tags:
+        - User
+      operationId: putProfile
+      consumes:
+        - application/json
+        - text/json
+      produces:
+        - application/json
+        - text/json
+      parameters:
+        - $ref: '#/parameters/Token'
+        - $ref: '#/parameters/LANG'
+        - name: User
+          description: User details
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/Users'
+      responses:
+        '200':
+          description: Semper Fi
+          schema:
+            $ref: '#/definitions/Users'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/CustomError'
+  /Login:
+    get:
+      summary: Login by email and password.
+      description: Login
+      tags:
+        - User
+      operationId: login
+      consumes:
+        - application/json
+        - text/json
+      produces:
+        - application/json
+        - text/json
+      parameters:
+        - $ref: '#/parameters/Token'
+        - $ref: '#/parameters/LANG'
+        - name: IAmTech
+          in: query
+          required: false
+          description: Only for technicien users.
+          default: ''
+          type: string
+          format: ''
+        - name: Email
+          in: query
+          required: true
+          description: User's email.
+          default: ''
+          type: string
+          format: ''
+        - name: Password
+          in: query
+          required: true
+          description: User's password.
+          default: ''
+          type: string
+          format: ''
+      responses:
+        '200':
+          description: Semper Fi
+          schema:
+            $ref: '#/definitions/Session'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/CustomError'
+  /ForgotPassword/Client:
+    post:
+      summary: Send email to user who lost password
+      description: forgotPasswoord
+      tags:
+        - Password
+      operationId: forgotPasswordClient
+      consumes:
+        - application/json
+        - text/json
+      produces:
+        - application/json
+        - text/json
+      parameters:
+        - $ref: '#/parameters/Token'
+        - $ref: '#/parameters/LANG'
+        - name: Email
+          in: query
+          required: true
+          description: User's email
+          type: string
+        - name: KillSessions
+          in: query
+          required: true
+          description: If session's asociated with that email must be cleared.
+          type: boolean
+      responses:
+        '200':
+          description: Semper Fi
+          schema:
+            type: string
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/CustomError'
+  /ForgotPassword/Technicien:
+    post:
+      summary: Send email to technicien who lost password
+      description: forgotPassword_technicien
+      tags:
+        - Password
+      operationId: forgotPasswordTechnicien
+      consumes:
+        - application/json
+        - text/json
+      produces:
+        - application/json
+        - text/json
+      parameters:
+        - $ref: '#/parameters/Token'
+        - $ref: '#/parameters/LANG'
+        - name: Email
+          in: query
+          required: true
+          description: User's email
+          type: string
+        - name: KillSessions
+          in: query
+          required: true
+          description: If session's asociated with that email must be cleared.
+          type: boolean
+      responses:
+        '200':
+          description: Semper Fi
+          schema:
+            type: string
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/CustomError'
+  /Password:
+    get:
+      summary: Change password by providing email's token.
+      description: Request a new password with forget token.
+      tags:
+        - Password
+      operationId: changePasswordWithToken
+      consumes:
+        - application/json
+        - text/json
+      produces:
+        - application/json
+        - text/json
+      parameters:
+        - name: Token
+          in: query
+          description: Forgot password token
+          required: true
+          type: string
+        - name: NewPassword
+          in: query
+          description: Forgot password token
+          required: true
+          type: string
+      responses:
+        '200':
+          description: Semper Fi
+          schema:
+            type: string
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/CustomError'
+    patch:
+      summary: Change password by providing old password.
+      description: change user password
+      tags:
+        - Password
+      operationId: changePasswordWithOldPassword
+      consumes:
+        - application/json
+        - text/json
+      produces:
+        - application/json
+        - text/json
+      parameters:
+        - $ref: '#/parameters/Token'
+        - $ref: '#/parameters/LANG'
+        - name: OldPassword
+          in: query
+          required: true
+          description: Old password
+          type: string
+        - name: NewPassword
+          in: query
+          required: true
+          description: Old password
+          type: string
+      responses:
+        '200':
+          description: status
+          schema:
+            type: string
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/CustomError'
+  /ChangeEmail:
+    post:
+      summary: Change user email.
+      description: Change user email
+      tags:
+        - Email
+      operationId: changeEmail
+      consumes:
+        - application/json
+        - text/json
+      produces:
+        - application/json
+        - text/json
+      parameters:
+        - $ref: '#/parameters/Token'
+        - $ref: '#/parameters/LANG'
+        - name: Email
+          in: query
+          required: true
+          description: User's email
+          type: string
+      responses:
+        '200':
+          description: status
+          schema:
+            type: string
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/CustomError'
+  /CheckEmail:
+    get:
+      description: CheckEmail
+      tags:
+        - Email
+      operationId: checkEmail
+      consumes:
+        - application/json
+        - text/json
+      produces:
+        - application/json
+        - text/json
+      parameters:
+        - name: Key
+          in: query
+          required: true
+          description: Key to reset password
+          type: string
+        - name: Email
+          in: query
+          required: true
+          description: account email
+          type: string
+      responses:
+        '200':
+          description: Semper Fi
+          schema:
+            type: string
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/CustomError'
+  /SendEmailVerification:
+    post:
+      description: Send email verification
+      tags:
+        - Email
+      operationId: sendEmailVerification
+      consumes:
+        - application/json
+        - text/json
+      produces:
+        - application/json
+        - text/json
+      parameters:
+        - name: Email
+          in: query
+          required: true
+          description: account email
+          type: string
+      responses:
+        '200':
+          description: Semper Fi
+          schema:
+            type: string
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/CustomError'
+  /Address:
+    get:
+      summary: Get user's addresses
+      description: ' get adress'
+      tags:
+        - Address
+      operationId: getAddress
+      consumes:
+        - application/json
+        - text/json
+      produces:
+        - application/json
+        - text/json
+      parameters:
+        - $ref: '#/parameters/Token'
+        - $ref: '#/parameters/LANG'
+        - name: RefClient
+          in: query
+          description: Only for techniciens.
+          required: false
+          type: string
+          format: ''
+        - name: AddressId
+          in: query
+          required: false
+          description: Address' id.
+          default: ''
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: Semper Fi
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/ClientsAddresses'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/CustomError'
+    delete:
+      description: Delete user's address
+      tags:
+        - Address
+      operationId: delAddress
+      consumes:
+        - application/json
+        - text/json
+      produces:
+        - application/json
+        - text/json
+      parameters:
+        - $ref: '#/parameters/Token'
+        - $ref: '#/parameters/LANG'
+        - name: AddressId
+          in: query
+          required: true
+          description: Address' id.
+          type: string
+      responses:
+        '200':
+          description: Semper Fi
+          schema:
+            type: string
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/CustomError'
+    post:
+      summary: Submit a new user's address.
+      description: Submit a new user's address.
+      tags:
+        - Address
+      operationId: setAddress
+      consumes:
+        - application/json
+        - text/json
+      produces:
+        - application/json
+        - text/json
+      parameters:
+        - $ref: '#/parameters/Token'
+        - $ref: '#/parameters/LANG'
+        - name: address
+          in: body
+          required: true
+          description: Address data
+          schema:
+            $ref: '#/definitions/Request_ClientsAddresses'
+      responses:
+        '200':
+          description: Semper Fi
+          schema:
+            $ref: '#/definitions/ClientsAddresses'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/CustomError'
+    put:
+      summary: Update registered address.
+      description: Update an existing address.
+      tags:
+        - Address
+      operationId: putAddress
+      consumes:
+        - application/json
+        - text/json
+      produces:
+        - application/json
+        - text/json
+      parameters:
+        - $ref: '#/parameters/Token'
+        - $ref: '#/parameters/LANG'
+        - name: address
+          in: body
+          required: true
+          description: Address data
+          schema:
+            type: object
+            $ref: '#/definitions/Request_ClientsAddresses'
+      responses:
+        '200':
+          description: Semper Fi
+          schema:
+            $ref: '#/definitions/ClientsAddresses'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/CustomError'
+  /Products:
+    get:
+      summary: Get detail of products filtered.
+      description: Get detail of products filtered.
+      operationId: getProducts
+      tags:
+        - Products
+      produces:
+        - application/json
+        - text/json
+      consumes:
+        - application/json
+        - text/json
+      parameters:
+        - $ref: '#/parameters/Token'
+        - $ref: '#/parameters/LANG'
+        - $ref: '#/parameters/Category'
+        - name: RefArticle
+          in: query
+          required: false
+          description: Article's reference
+          default: ''
+          type: string
+        - name: DesignationArticle
+          in: query
+          required: false
+          description: ''
+          default: ''
+          type: string
+          format: ''
+      responses:
+        '200':
+          description: Semper Fi.
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Products'
+        default:
+          description: Error occurred.
+          schema:
+            $ref: '#/definitions/CustomError'
+  /ProductsList:
+    get:
+      summary: Get list of products by category.
+      description: Get list of products by category.
+      tags:
+        - Products
+      operationId: getListProducts
+      consumes:
+        - application/json
+        - text/json
+      produces:
+        - application/json
+        - text/json
+      parameters:
+        - $ref: '#/parameters/Token'
+        - $ref: '#/parameters/LANG'
+        - $ref: '#/parameters/Category'
+      responses:
+        '200':
+          description: Semper Fi
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Min_Products'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/CustomError'
+  /Categories:
+    get:
+      summary: Get categories of products.
+      description: Get categories of products.
+      tags:
+        - Products
+      operationId: getCategories
+      consumes:
+        - application/json
+        - text/json
+      produces:
+        - application/json
+        - text/json
+      parameters:
+        - $ref: '#/parameters/Token'
+        - $ref: '#/parameters/LANG'
+      responses:
+        '200':
+          description: Semper Fi
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Categories'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/CustomError'
+  /Carts:
+    post:
+      summary: Add item (existing or not) to cart.
+      description: Add item (existing or not) to cart.
+      tags:
+        - Cart
+      operationId: addProduct
+      consumes:
+        - application/json
+        - text/json
+      produces:
+        - application/json
+        - text/json
+      parameters:
+        - $ref: '#/parameters/Token'
+        - $ref: '#/parameters/LANG'
+        - name: Item
+          in: body
+          required: true
+          description: identifiant produit à ajouter
+          schema:
+            $ref: '#/definitions/Request_Items'
+      responses:
+        '200':
+          description: Semper Fi
+          schema:
+            $ref: '#/definitions/Carts'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/CustomError'
+    get:
+      summary: Get cart's info
+      description: Get cart's info
+      tags:
+        - Cart
+      operationId: getCart
+      consumes:
+        - application/json
+        - text/json
+      produces:
+        - application/json
+        - text/json
+      parameters:
+        - $ref: '#/parameters/Token'
+        - $ref: '#/parameters/LANG'
+      responses:
+        '200':
+          description: Semper Fi
+          schema:
+            $ref: '#/definitions/Carts'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/CustomError'
+    delete:
+      summary: Delete item from cart.
+      description: Delete item from cart.
+      tags:
+        - Cart
+      operationId: delProductCart
+      consumes:
+        - application/json
+        - text/json
+      produces:
+        - application/json
+        - text/json
+      parameters:
+        - $ref: '#/parameters/Token'
+        - $ref: '#/parameters/LANG'
+        - name: RefArticle
+          in: query
+          required: true
+          description: Article's reference.
+          type: string
+      responses:
+        '200':
+          description: Semper Fi
+          schema:
+            $ref: '#/definitions/Carts'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/CustomError'
+  /Orders:
+    get:
+      summary: Get all client's orders
+      description: Register client's addresses.
+      tags:
+        - Order
+      operationId: getListOrders
+      consumes:
+        - application/json
+        - text/json
+      produces:
+        - application/json
+        - text/json
+      parameters:
+        - $ref: '#/parameters/Token'
+        - $ref: '#/parameters/LANG'
+        - name: OrderId
+          in: query
+          required: false
+          description: order's id
+          type: integer
+          format: int32
+        - name: Start
+          in: query
+          description: 'Start Date. Format: YYYY-MM-DD'
+          required: false
+          type: string
+          format: date
+        - name: End
+          in: query
+          description: 'End date. Format: YYYY-MM-DD'
+          required: false
+          type: string
+          format: date
+      responses:
+        '200':
+          description: Semper Fi
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Orders'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/CustomError'
+    post:
+      summary: Post an order.
+      description: ''
+      operationId: setOrder
+      produces:
+        - application/json
+        - text/json
+      consumes:
+        - application/json
+        - text/json
+      tags:
+        - Order
+      parameters:
+        - $ref: '#/parameters/Token'
+        - $ref: '#/parameters/LANG'
+        - name: Order
+          in: body
+          required: true
+          description: Order object
+          schema:
+            $ref: '#/definitions/Orders'
+      responses:
+        '200':
+          description: Semper Fi.
+          schema:
+            $ref: '#/definitions/Orders'
+        default:
+          description: Error occurred.
+          schema:
+            $ref: '#/definitions/CustomError'
+  /Contracts:
+    get:
+      summary: Get all client's contracts.
+      description: Get all client's contracts.
+      tags:
+        - Contracts
+      operationId: getContractList
+      consumes:
+        - application/json
+        - text/json
+      produces:
+        - application/json
+        - text/json
+      parameters:
+        - $ref: '#/parameters/Token'
+        - $ref: '#/parameters/LANG'
+        - name: Active
+          in: query
+          required: false
+          description: Return only active contracts or all.
+          type: boolean
+          format: ''
+        - name: RefClient
+          in: query
+          description: Only for techniciens.
+          required: false
+          type: string
+          format: ''
+        - name: RefContract
+          in: query
+          description: Only for techniciens.
+          required: false
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: Semper Fi. Array of Contracts.
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Request_Contracts'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/CustomError'
+  /Activity:
+    get:
+      summary: Get user's activities.
+      description: Get user's activities.
+      tags:
+        - Activity
+      operationId: getListActivities
+      consumes:
+        - application/json
+        - text/json
+      produces:
+        - application/json
+        - text/json
+      parameters:
+        - $ref: '#/parameters/Token'
+        - $ref: '#/parameters/LANG'
+        - name: Start
+          in: query
+          description: 'Start Date. Format: YYYY-MM-DD'
+          required: false
+          type: string
+          format: date
+        - name: End
+          in: query
+          description: 'End date. Format: YYYY-MM-DD'
+          required: false
+          type: string
+          format: date
+        - name: RefClient
+          in: query
+          description: Only for techniciens.
+          required: false
+          type: string
+          format: ''
+      responses:
+        '200':
+          description: Semper Fi
+          schema:
+            $ref: '#/definitions/Activities'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/CustomError'
+  /Activity/Pdf:
+    get:
+      summary: Get user's activities in a pdf file.
+      description: Get user's activities in a pdf file.
+      tags:
+        - Activity
+      operationId: getListActivitiesInPDF
+      consumes:
+        - application/json
+        - text/json
+      produces:
+        - application/pdf
+      parameters:
+        - $ref: '#/parameters/Token'
+        - $ref: '#/parameters/LANG'
+        - name: Start
+          in: query
+          description: 'Start date. Format: YYYY-MM-DD'
+          required: false
+          type: string
+          format: date
+        - name: End
+          in: query
+          description: 'End date. Format: YYYY-MM-DD'
+          required: false
+          type: string
+          format: date
+        - name: RefClient
+          in: query
+          required: false
+          description: ''
+          default: ''
+          type: string
+          format: ''
+      responses:
+        '200':
+          description: activity file
+          schema:
+            type: file
+        '400':
+          description: Error description.
+          schema:
+            type: string
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/CustomError'
+  /Taches:
+    get:
+      summary: Get all taches filtered by values provided.
+      description: Get all taches filtered by values provided.
+      operationId: getListTaches
+      tags:
+        - Taches
+      produces:
+        - application/json
+        - text/json
+      consumes:
+        - application/json
+        - text/json
+      parameters:
+        - $ref: '#/parameters/Token'
+        - $ref: '#/parameters/LANG'
+        - name: TechnicienId
+          in: query
+          required: false
+          description: Technicien's id.
+          default: ''
+          type: integer
+          format: int32
+        - name: TaskId
+          in: query
+          required: false
+          description: Task's id.
+          default: ''
+          type: integer
+          format: int32
+        - name: ClientsAddressId
+          in: query
+          required: false
+          description: ClientsAddress' id.
+          default: ''
+          type: integer
+          format: int32
+        - name: RefClient
+          in: query
+          required: false
+          description: ''
+          default: ''
+          type: string
+          format: ''
+        - name: DateAppel
+          in: query
+          required: false
+          default: ''
+          description: 'Call''s Day. Format: YYYY-MM-DD'
+          type: string
+          format: date
+        - name: Date_Depan
+          in: query
+          required: false
+          default: ''
+          description: 'Fix''s Day. Format: YYYY-MM-DD'
+          type: string
+          format: date
+        - name: Fixed
+          in: query
+          required: false
+          default: 'false'
+          description: If the tasks were fixed or not
+          type: boolean
+          format: ''
+        - name: MachineId
+          in: query
+          required: false
+          description: Machine's id.
+          default: ''
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: Semper Fi.
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Taches'
+        default:
+          description: Error occurred.
+          schema:
+            $ref: '#/definitions/CustomError'
+    post:
+      summary: Add new Tache
+      description: ''
+      operationId: setTache
+      produces:
+        - application/json
+        - text/json
+      consumes:
+        - application/json
+        - text/json
+      tags:
+        - Taches
+      parameters:
+        - $ref: '#/parameters/Token'
+        - $ref: '#/parameters/LANG'
+        - name: Tache
+          in: body
+          required: true
+          description: Tache object
+          schema:
+            $ref: '#/definitions/Request_Taches'
+        - name: NotificateToTech
+          in: query
+          required: false
+          description: If send notification to technician's phone.
+          type: boolean
+          format: ''
+      responses:
+        '200':
+          description: Semper Fi.
+          schema:
+            $ref: '#/definitions/Request_Taches'
+        default:
+          description: Error occurred.
+          schema:
+            $ref: '#/definitions/CustomError'
+    put:
+      summary: Modify existing tache.
+      description: Modify existing tache.
+      operationId: putTache
+      produces:
+        - application/json
+        - text/json
+      consumes:
+        - application/json
+        - text/json
+      tags:
+        - Taches
+      parameters:
+        - $ref: '#/parameters/Token'
+        - $ref: '#/parameters/LANG'
+        - name: Tache
+          in: body
+          required: true
+          description: Tache object
+          schema:
+            $ref: '#/definitions/Request_Taches'
+        - name: NotificateToTech
+          in: query
+          required: false
+          description: If send notification to technician's phone.
+          type: boolean
+          format: ''
+      responses:
+        '200':
+          description: Semper Fi.
+          schema:
+            $ref: '#/definitions/Request_Taches'
+        default:
+          description: Error occurred.
+          schema:
+            $ref: '#/definitions/CustomError'
+    patch:
+      summary: Modify code of an existing tache.
+      description: Modify code of an existing tache.
+      operationId: putCodeTache
+      produces:
+        - application/json
+        - text/json
+      consumes:
+        - application/json
+        - text/json
+      tags:
+        - Taches
+      parameters:
+        - $ref: '#/parameters/Token'
+        - $ref: '#/parameters/LANG'
+        - name: Tache
+          in: body
+          required: true
+          description: Tache object
+          schema:
+            $ref: '#/definitions/Request_Taches'
+      responses:
+        '200':
+          description: Semper Fi.
+          schema:
+            $ref: '#/definitions/Request_Taches'
+        default:
+          description: Error occurred.
+          schema:
+            $ref: '#/definitions/CustomError'
+  /Visites:
+    get:
+      summary: Get all Visites filtered by values provided.
+      description: Get all Visites filtered by values provided.
+      operationId: getListVisites
+      tags:
+        - Visites
+      produces:
+        - application/json
+        - text/json
+      consumes:
+        - application/json
+        - text/json
+      parameters:
+        - $ref: '#/parameters/Token'
+        - $ref: '#/parameters/LANG'
+        - name: TechnicienId
+          in: query
+          required: false
+          description: ''
+          default: ''
+          type: integer
+          format: int32
+        - name: Visitid
+          in: query
+          required: false
+          description: ''
+          default: ''
+          type: integer
+          format: int32
+        - name: ClientsAddressId
+          in: query
+          required: false
+          description: ''
+          default: ''
+          type: integer
+          format: int32
+        - name: RefClient
+          in: query
+          required: false
+          description: ''
+          default: ''
+          type: string
+          format: ''
+        - name: DateVisite
+          in: query
+          required: false
+          description: 'Format: YYYY-MM-DD HH:mm:ss Z.'
+          default: ''
+          type: string
+          format: date
+        - name: MachineId
+          in: query
+          required: false
+          description: Machine's id.
+          default: ''
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: Semper Fi.
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Visites'
+        default:
+          description: Error occurred.
+          schema:
+            $ref: '#/definitions/CustomError'
+    post:
+      summary: Add new Visite.
+      description: Add new Visite.
+      operationId: setVisite
+      produces:
+        - application/json
+        - text/json
+      consumes:
+        - application/json
+        - text/json
+      tags:
+        - Visites
+      parameters:
+        - $ref: '#/parameters/Token'
+        - $ref: '#/parameters/LANG'
+        - name: Visite
+          in: body
+          required: true
+          description: Visite object
+          schema:
+            $ref: '#/definitions/Request_Visites'
+      responses:
+        '200':
+          description: Semper Fi.
+          schema:
+            $ref: '#/definitions/Request_Visites'
+        default:
+          description: Error occurred.
+          schema:
+            $ref: '#/definitions/CustomError'
+    put:
+      summary: Modify existing Visite.
+      description: Modify existing Visite.
+      operationId: putVisite
+      produces:
+        - application/json
+        - text/json
+      consumes:
+        - application/json
+        - text/json
+      tags:
+        - Visites
+      parameters:
+        - $ref: '#/parameters/Token'
+        - $ref: '#/parameters/LANG'
+        - name: Visite
+          in: body
+          required: true
+          description: Visite object
+          schema:
+            $ref: '#/definitions/Request_Visites'
+      responses:
+        '200':
+          description: Semper Fi.
+          schema:
+            $ref: '#/definitions/Request_Visites'
+        default:
+          description: Error occurred.
+          schema:
+            $ref: '#/definitions/CustomError'
+  /Visites/Next:
+    get:
+      summary: Get Visites to be done filtered by values provided.
+      description: Get Visites to be done filtered by values provided.
+      operationId: getListNextVisites
+      tags:
+        - Visites
+      produces:
+        - application/json
+        - text/json
+      consumes:
+        - application/json
+        - text/json
+      parameters:
+        - $ref: '#/parameters/Token'
+        - $ref: '#/parameters/LANG'
+        - name: TechnicienId
+          in: query
+          required: false
+          description: ''
+          default: ''
+          type: integer
+          format: int32
+        - name: ClientsAddressId
+          in: query
+          required: false
+          description: ''
+          default: ''
+          type: integer
+          format: int32
+        - name: RefClient
+          in: query
+          required: false
+          description: ''
+          default: ''
+          type: string
+          format: ''
+        - name: DateVisite
+          in: query
+          required: false
+          description: 'Format: YYYY-MM-DD HH:mm:ss Z.'
+          default: ''
+          type: string
+          format: date
+        - name: MachineId
+          in: query
+          required: false
+          description: Machine's id.
+          default: ''
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: Semper Fi.
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Visites'
+        default:
+          description: Error occurred.
+          schema:
+            $ref: '#/definitions/CustomError'
+  /Interventions:
+    get:
+      summary: Get all Interventions filtered by values provided.
+      description: Get all Interventions filtered by values provided.
+      operationId: getListInterventions
+      tags:
+        - Interventions
+      produces:
+        - application/json
+        - text/json
+      consumes:
+        - application/json
+        - text/json
+      parameters:
+        - $ref: '#/parameters/Token'
+        - $ref: '#/parameters/LANG'
+        - name: InterventionId
+          in: query
+          required: false
+          description: ''
+          default: ''
+          type: integer
+          format: int32
+        - name: RefArticle
+          in: query
+          required: false
+          description: ''
+          default: ''
+          type: string
+          format: ''
+        - name: TaskId
+          in: query
+          required: false
+          description: ''
+          default: ''
+          type: integer
+          format: int32
+        - name: ZoneResaId
+          in: query
+          required: false
+          description: ''
+          default: ''
+          type: integer
+          format: int32
+        - name: MachineId
+          in: query
+          required: false
+          description: ''
+          default: ''
+          type: integer
+          format: int32
+        - name: RefClient
+          in: query
+          required: false
+          description: ''
+          default: ''
+          type: string
+          format: ''
+      responses:
+        '200':
+          description: Semper Fi.
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Interventions'
+        default:
+          description: Error occurred.
+          schema:
+            $ref: '#/definitions/CustomError'
+    post:
+      summary: Add new Intervention.
+      description: Add new Intervention.
+      operationId: setIntervention
+      produces:
+        - application/json
+        - text/json
+      consumes:
+        - application/json
+        - text/json
+      tags:
+        - Interventions
+      parameters:
+        - $ref: '#/parameters/Token'
+        - $ref: '#/parameters/LANG'
+        - name: Visite
+          in: body
+          required: true
+          description: Intervention object
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Request_Interventions'
+      responses:
+        '200':
+          description: Semper Fi.
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Request_Interventions'
+        default:
+          description: Error occurred.
+          schema:
+            $ref: '#/definitions/CustomError'
+    put:
+      summary: Modify existing intervention.
+      description: Modify existing intervention.
+      operationId: putIntervention
+      produces:
+        - application/json
+        - text/json
+      consumes:
+        - application/json
+        - text/json
+      tags:
+        - Interventions
+      parameters:
+        - $ref: '#/parameters/Token'
+        - $ref: '#/parameters/LANG'
+        - name: Intervention
+          in: body
+          required: true
+          description: Intervention object
+          schema:
+            $ref: '#/definitions/Request_Interventions'
+      responses:
+        '200':
+          description: Semper Fi.
+          schema:
+            $ref: '#/definitions/Request_Interventions'
+        default:
+          description: Error occurred.
+          schema:
+            $ref: '#/definitions/CustomError'
+    delete:
+      description: Delete intervention
+      tags:
+        - Interventions
+      operationId: delIntervention
+      consumes:
+        - application/json
+        - text/json
+      produces:
+        - application/json
+        - text/json
+      parameters:
+        - $ref: '#/parameters/Token'
+        - $ref: '#/parameters/LANG'
+        - name: InterventionId
+          in: query
+          required: true
+          description: Interventions' id.
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: Semper Fi.
+          schema:
+            type: string
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/CustomError'
+  /Pieces:
+    get:
+      summary: Get all Pieces filtered by values provided.
+      description: Get all Pieces filtered by values provided.
+      tags:
+        - Pieces
+      operationId: getListPieces
+      produces:
+        - application/json
+        - text/json
+      consumes:
+        - application/json
+        - text/json
+      parameters:
+        - $ref: '#/parameters/Token'
+        - $ref: '#/parameters/LANG'
+        - name: RefArticle
+          in: query
+          required: false
+          description: ''
+          default: ''
+          type: string
+          format: ''
+        - name: DesignationArticle
+          in: query
+          required: false
+          description: ''
+          default: ''
+          type: string
+          format: ''
+        - name: IntituleFamille
+          in: query
+          required: false
+          description: ''
+          default: ''
+          type: string
+          format: ''
+        - name: DetergentType
+          in: query
+          required: false
+          description: ''
+          default: ''
+          type: string
+          format: ''
+        - $ref: '#/parameters/Category'
+      responses:
+        '200':
+          description: Semper Fi.
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Pieces'
+        default:
+          description: Error occurred.
+          schema:
+            $ref: '#/definitions/CustomError'
+  /Machines:
+    get:
+      summary: Get all Pieces filtered by values provided.
+      description: Get all Pieces filtered by values provided.
+      tags:
+        - Machines
+      operationId: getListMachines
+      produces:
+        - application/json
+        - text/json
+      consumes:
+        - application/json
+        - text/json
+      parameters:
+        - $ref: '#/parameters/Token'
+        - $ref: '#/parameters/LANG'
+        - name: RefArticle
+          in: query
+          required: false
+          description: ''
+          default: ''
+          type: string
+          format: ''
+        - name: DesignationArticle
+          in: query
+          required: false
+          description: ''
+          default: ''
+          type: string
+          format: ''
+        - name: MachineId
+          in: query
+          required: false
+          description: ''
+          default: ''
+          type: integer
+          format: int32
+        - name: NumSerie
+          in: query
+          required: false
+          description: ''
+          default: ''
+          type: string
+          format: ''
+        - name: RefClient
+          in: query
+          required: false
+          description: ''
+          default: ''
+          type: string
+          format: ''
+      responses:
+        '200':
+          description: Semper Fi.
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Machines'
+        default:
+          description: Error occurred.
+          schema:
+            $ref: '#/definitions/CustomError'
+  /Locations:
+    get:
+      summary: Get all machines with its respective contract filtered by values provided.
+      description: Get all machines filtered by values provided.
+      tags:
+        - Machines
+      operationId: getListLocations
+      produces:
+        - application/json
+        - text/json
+      consumes:
+        - application/json
+        - text/json
+      parameters:
+        - $ref: '#/parameters/Token'
+        - $ref: '#/parameters/LANG'
+        - name: RefContract
+          in: query
+          required: false
+          description: ''
+          default: ''
+          type: string
+          format: ''
+        - name: RefArticle
+          in: query
+          required: false
+          description: ''
+          default: ''
+          type: string
+          format: ''
+        - name: MachineId
+          in: query
+          required: false
+          description: ''
+          default: ''
+          type: integer
+          format: int32
+        - name: NumSerie
+          in: query
+          required: false
+          description: ''
+          default: ''
+          type: string
+          format: ''
+        - name: RefClient
+          in: query
+          required: false
+          description: ''
+          default: ''
+          type: string
+          format: ''
+      responses:
+        '200':
+          description: Semper Fi.
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Locations'
+        default:
+          description: Error occurred.
+          schema:
+            $ref: '#/definitions/CustomError'
+  /ClientsList:
+    get:
+      summary: Get all Clients filtered by values provided.
+      description: Get all Pieces filtered by values provided.
+      tags:
+        - Clients
+      operationId: getListClients
+      produces:
+        - application/json
+        - text/json
+      consumes:
+        - application/json
+        - text/json
+      parameters:
+        - $ref: '#/parameters/Token'
+        - $ref: '#/parameters/LANG'
+        - name: RefClient
+          in: query
+          required: false
+          description: ''
+          default: ''
+          type: string
+          format: ''
+        - name: Abrege
+          in: query
+          required: false
+          description: ''
+          default: ''
+          type: string
+          format: ''
+        - name: Nom
+          in: query
+          required: false
+          description: ''
+          default: ''
+          type: string
+          format: ''
+        - name: Secteur
+          in: query
+          required: false
+          description: ''
+          default: ''
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: Semper Fi.
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Clients'
+        default:
+          description: Error occurred.
+          schema:
+            $ref: '#/definitions/CustomError'
+  /Facebook/Login:
+    get:
+      summary: Login by Facebook account.
+      description: URL to redirect to facebook page.
+      tags:
+        - User
+      operationId: loginFacebook
+      consumes:
+        - application/json
+        - text/json
+      produces:
+        - application/json
+        - text/json
+      parameters: []
+      responses:
+        '200':
+          description: Semper Fi
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/CustomError'
+  /Facebook/Callback:
+    get:
+      summary: Callback from facebook auth.
+      description: Get the user parameters.
+      tags:
+        - User
+      operationId: facebookCallback
+      consumes:
+        - application/json
+        - text/json
+      produces:
+        - application/json
+        - text/json
+      parameters: []
+      responses:
+        '200':
+          description: Semper Fi
+          schema:
+            $ref: '#/definitions/Session'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/CustomError'
+  /Google:
+    get:
+      summary: Google token
+      description: getting user details from G
+      tags:
+        - User
+      operationId: loginGoogle
+      consumes:
+        - application/json
+        - text/json
+      produces:
+        - application/json
+        - text/json
+      parameters:
+        - $ref: '#/parameters/Token'
+        - $ref: '#/parameters/LANG'
+        - name: Googletoken
+          in: query
+          description: Googletoken
+          required: true
+          type: string
+      responses:
+        '200':
+          description: Semper Fi
+          schema:
+            $ref: '#/definitions/Session'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/CustomError'
+  /Orders/Final:
+    get:
+      summary: resume panier.
+      description: ' resume panier'
+      tags:
+        - Order
+      operationId: finalizeOrder
+      consumes:
+        - application/json
+        - text/json
+      produces:
+        - application/json
+        - text/json
+      parameters:
+        - $ref: '#/parameters/Token'
+        - $ref: '#/parameters/LANG'
+      responses:
+        '200':
+          description: Semper Fi
+          schema:
+            $ref: '#/definitions/Carts'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/CustomError'
+  /Orders/Pay:
+    post:
+      summary: lance procedur payement.
+      description: lance procedur payement
+      tags:
+        - Order
+      operationId: payOrder
+      consumes:
+        - application/json
+        - text/json
+      produces:
+        - application/json
+        - text/json
+      parameters:
+        - $ref: '#/parameters/Token'
+        - $ref: '#/parameters/LANG'
+      responses:
+        '200':
+          description: Semper Fi
+          schema:
+            $ref: '#/definitions/Carts'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/CustomError'
+  /Orders/CheckPayment:
+    post:
+      summary: check payment Token.
+      description: check payment Token
+      tags:
+        - Order
+      operationId: checkPayment
+      consumes:
+        - application/json
+        - text/json
+      produces:
+        - application/json
+        - text/json
+      parameters:
+        - $ref: '#/parameters/Token'
+        - $ref: '#/parameters/LANG'
+      responses:
+        '200':
+          description: idOrder
+          schema:
+            type: array
+            items:
+              type: integer
+              format: int32
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/CustomError'
+  /Consuptions:
+    get:
+      summary: Get clients' consuptions.
+      description: Get clients' consuptions.
+      tags:
+        - Consuptions
+      operationId: getConsuptions
+      consumes:
+        - application/json
+        - text/json
+      produces:
+        - application/json
+        - text/json
+      parameters:
+        - $ref: '#/parameters/Token'
+        - $ref: '#/parameters/LANG'
+        - name: RefClient
+          in: query
+          required: false
+          description: ''
+          default: ''
+          type: string
+          format: ''
+        - name: DateVente
+          in: query
+          required: false
+          default: ''
+          description: 'Selling''s Day. Format: YYYY-MM-DD'
+          type: string
+          format: date
+        - name: RefArticle
+          in: query
+          required: false
+          description: ''
+          default: ''
+          type: string
+          format: ''
+      responses:
+        '200':
+          description: Semper Fi
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Consuptions'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/CustomError'
+  '/order/{idOrder}/fill':
+    post:
+      description: ' contenue ancienne commande'
+      tags:
+        - order
+      operationId: orderidorderfill_post
+      consumes:
+        - application/json
+        - text/json
+      produces:
+        - application/json
+        - text/json
+      parameters:
+        - $ref: '#/parameters/Token'
+        - $ref: '#/parameters/LANG'
+        - $ref: '#/parameters/idOrder'
+      responses:
+        '200':
+          description: nbEltInCart
+          schema:
+            type: array
+            items:
+              type: integer
+              format: int32
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/CustomError'
+  '/order/{idOrder}/bill':
+    post:
+      description: ' Genere Pdf Invoice'
+      tags:
+        - order
+      operationId: orderidorderbill_post
+      consumes: []
+      produces:
+        - multipart/form-data
+        - ' application/x-www-form-urlencoded'
+      parameters:
+        - $ref: '#/parameters/Token'
+        - $ref: '#/parameters/LANG'
+        - $ref: '#/parameters/idOrder'
+      responses:
+        '200':
+          description: Invoice
+          schema:
+            type: file
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/CustomError'
+definitions:
+  Session:
+    type: object
+    properties:
+      ClientId:
+        type: integer
+        format: int32
+      TechnicienId:
+        type: integer
+        format: int32
+      Nom:
+        type: string
+        format: ''
+      RefClient:
+        type: string
+      Token:
+        type: string
+      Email:
+        type: string
+      Cart:
+        $ref: '#/definitions/Carts'
+      Secteur:
+        type: integer
+        format: int32
+  Users:
+    type: object
+    properties:
+      RefClient:
+        type: string
+      Abrege:
+        type: string
+      Prenom:
+        type: string
+      Nom:
+        type: string
+      Etat:
+        type: string
+      Groupe:
+        type: string
+      Statut:
+        type: string
+      RaisonSociale:
+        type: string
+      Email:
+        type: string
+      Siret:
+        type: string
+      TvaIntraco:
+        type: integer
+        format: int32
+      Civilite:
+        type: string
+      Secteur:
+        type: string
+  Clients:
+    type: object
+    required:
+      - RefClient
+    properties:
+      RefClient:
+        type: string
+        format: ''
+      Abrege:
+        type: string
+        format: ''
+      Prenom:
+        type: string
+        format: ''
+      Nom:
+        type: string
+        format: ''
+      Etat:
+        type: string
+        format: ''
+      Groupe:
+        type: string
+        format: ''
+      StatutGroupe:
+        type: string
+        format: ''
+      Statut:
+        type: string
+        format: ''
+      RaisonSociale:
+        type: string
+        format: ''
+      TypeClient:
+        type: string
+        format: ''
+      Score:
+        type: integer
+        format: int32
+      Secteur:
+        type: integer
+        format: int32
+      Frequence:
+        type: integer
+        format: int32
+      Email:
+        type: string
+        format: ''
+      Interdit:
+        type: boolean
+        format: ''
+      LastSuccessfulAttempt:
+        type: string
+        format: date-time
+      IdFacebook:
+        type: string
+        format: ''
+      IdGoogle:
+        type: string
+        format: ''
+      Siret:
+        type: string
+        format: ''
+      TvaIntraco:
+        type: string
+        format: ''
+      Civilite:
+        type: string
+        format: ''
+      NbConnectionAttempt:
+        type: integer
+        format: int32
+      ValidationKey:
+        type: string
+        format: ''
+  Min_Clients:
+    type: object
+    required:
+      - RefClient
+    properties:
+      RefClient:
+        type: string
+        format: ''
+  ClientsAddresses:
+    type: object
+    required:
+      - id
+      - Client
+    properties:
+      id:
+        type: integer
+        format: int32
+      Client:
+        $ref: '#/definitions/Clients'
+      Name:
+        type: string
+        format: ''
+      Numero:
+        type: string
+        format: ''
+      Address:
+        type: string
+        format: ''
+      CodePostal:
+        type: integer
+        format: int32
+      Complement:
+        type: string
+        format: ''
+      Ville:
+        type: string
+        format: ''
+      Pays:
+        type: string
+        format: ''
+      Telephone:
+        type: string
+        format: ''
+      Nom:
+        type: string
+        format: ''
+      Livraison:
+        type: string
+        format: ''
+      Lat:
+        type: number
+        format: double
+      Long_:
+        type: number
+        format: double
+      TypeAddress:
+        type: string
+        format: ''
+  Request_ClientsAddresses:
+    type: object
+    required:
+      - id
+    properties:
+      id:
+        type: integer
+        format: int32
+      RefClient:
+        type: string
+        format: ''
+      Name:
+        type: string
+        format: ''
+      Numero:
+        type: string
+        format: ''
+      Address:
+        type: string
+        format: ''
+      CodePostal:
+        type: integer
+        format: int32
+      Complement:
+        type: string
+        format: ''
+      Ville:
+        type: string
+        format: ''
+      Pays:
+        type: string
+        format: ''
+      Telephone:
+        type: string
+        format: ''
+      Nom:
+        type: string
+        format: ''
+      Livraison:
+        type: string
+        format: ''
+      Lat:
+        type: number
+        format: double
+      Long_:
+        type: number
+        format: double
+      TypeAddress:
+        type: string
+        format: ''
+  Pieces:
+    type: object
+    required:
+      - RefArticle
+    properties:
+      RefArticle:
+        type: string
+        format: ''
+      DesignationArticle:
+        type: string
+        format: ''
+      Statut:
+        type: string
+        format: ''
+      PrixVente:
+        type: number
+        format: double
+      UniteVente:
+        type: number
+        format: double
+      IntituleFamille:
+        type: string
+        format: ''
+      DernierPrixAchat:
+        type: number
+        format: double
+      Conditionnement:
+        type: string
+        format: ''
+      DetergentType:
+        type: string
+        format: ''
+      Poids:
+        type: number
+        format: double
+      PoidSuc:
+        type: number
+        format: double
+  Min_Pieces:
+    type: object
+    required:
+      - RefArticle
+    properties:
+      RefArticle:
+        type: string
+        format: ''
+      DesignationArticle:
+        type: string
+        format: ''
+      PrixVente:
+        type: number
+        format: double
+      UniteVente:
+        type: number
+        format: double
+      Poids:
+        type: number
+        format: double
+      PoidSuc:
+        type: number
+        format: double
+  Machine_Pieces:
+    type: object
+    required:
+      - RefArticle
+    properties:
+      RefArticle:
+        type: string
+        format: ''
+      DesignationArticle:
+        type: string
+        format: ''
+  Cart_Pieces:
+    type: object
+    required:
+      - RefArticle
+    properties:
+      RefArticle:
+        type: string
+        format: ''
+      DesignationArticle:
+        type: string
+        format: ''
+  Machines:
+    type: object
+    required:
+      - id
+      - Piece
+    properties:
+      id:
+        type: integer
+        format: int32
+      Piece:
+        $ref: '#/definitions/Pieces'
+      NumSerie:
+        type: string
+        format: ''
+      RefContract:
+        type: string
+        format: ''
+  Min_Machines:
+    type: object
+    required:
+      - id
+      - Piece
+    properties:
+      id:
+        type: integer
+        format: int32
+      Piece:
+        $ref: '#/definitions/Machine_Pieces'
+      NumSerie:
+        type: string
+        format: ''
+  Locations:
+    type: object
+    required:
+      - id
+      - Machine
+    properties:
+      id:
+        type: integer
+        format: int32
+      Machine:
+        $ref: '#/definitions/Min_Machines'
+      Contract:
+        $ref: '#/definitions/Contracts'
+  ZoneResas:
+    type: object
+    required:
+      - id
+    properties:
+      id:
+        type: integer
+        format: int32
+      Technicien:
+        type: string
+        format: ''
+      secteur:
+        type: integer
+        format: int32
+      email:
+        type: string
+        format: ''
+  Taches:
+    type: object
+    required:
+      - id
+      - ClientsAddress
+      - ZoneResa
+    properties:
+      id:
+        type: integer
+        format: int32
+      ClientsAddress:
+        $ref: '#/definitions/ClientsAddresses'
+      Machine:
+        $ref: '#/definitions/Machines'
+      ZoneResa:
+        $ref: '#/definitions/ZoneResas'
+      DateAppel:
+        type: string
+        format: date
+      TypeInter:
+        type: string
+        format: ''
+      DescriptionPanne:
+        type: string
+        format: ''
+      PrioritePrice:
+        type: integer
+        format: int32
+      Date_Depan:
+        type: string
+        format: date
+      MO:
+        type: number
+        format: double
+      DescriptionDepan:
+        type: string
+      Savpayant:
+        type: boolean
+      Initiator:
+        type: string
+        format: ''
+      Code:
+        type: integer
+        format: int32
+      GPSStatusCode:
+        type: integer
+        format: int32
+      TechRating:
+        type: number
+        format: double
+      ClientRating:
+        type: number
+        format: double
+  Request_Taches:
+    type: object
+    required:
+      - id
+      - ClientsAddressId
+      - ZoneResaId
+    properties:
+      id:
+        type: integer
+        format: int32
+      ClientsAddressId:
+        type: integer
+        format: int32
+      MachineId:
+        type: integer
+        format: int32
+      ZoneResaId:
+        type: integer
+        format: int32
+      DateAppel:
+        type: string
+        format: date
+      TypeInter:
+        type: string
+        format: ''
+      DescriptionPanne:
+        type: string
+        format: ''
+      PrioritePrice:
+        type: integer
+        format: int32
+      DateDepan:
+        type: string
+        format: date
+      MO:
+        type: number
+        format: double
+      DescriptionDepan:
+        type: string
+      Savpayant:
+        type: boolean
+      Initiator:
+        type: string
+        format: ''
+      Code:
+        type: integer
+        format: int32
+      GPSStatusCode:
+        type: integer
+        format: int32
+      TechRating:
+        type: number
+        format: double
+      ClientRating:
+        type: number
+        format: double
+  Visites:
+    type: object
+    required:
+      - id
+      - ZoneResa
+    properties:
+      id:
+        type: integer
+        format: int32
+      Machine:
+        $ref: '#/definitions/Machines'
+      ZoneResa:
+        $ref: '#/definitions/ZoneResas'
+      ClientsAddress:
+        $ref: '#/definitions/ClientsAddresses'
+      DateVisite:
+        type: string
+        format: date
+      TH:
+        type: integer
+        format: int32
+      TemperatureLavage:
+        type: integer
+        format: int32
+      TemperatureRincage:
+        type: integer
+        format: int32
+      Conductivite:
+        type: integer
+        format: int32
+      Commentaire:
+        type: string
+        format: ''
+  Request_Visites:
+    type: object
+    required:
+      - id
+      - ZoneResaId
+    properties:
+      id:
+        type: integer
+        format: int32
+      MachineId:
+        type: integer
+        format: int32
+      ZoneResaId:
+        type: integer
+        format: int32
+      ClientsAddressId:
+        type: integer
+        format: int32
+      DateVisite:
+        type: string
+        format: date
+      TH:
+        type: integer
+        format: int32
+      TemperatureLavage:
+        type: integer
+        format: int32
+      TemperatureRincage:
+        type: integer
+        format: int32
+      Conductivite:
+        type: integer
+        format: int32
+      Commentaire:
+        type: string
+        format: ''
+  Interventions:
+    type: object
+    required:
+      - id
+      - Tache
+      - Piece
+    properties:
+      id:
+        type: integer
+        format: int32
+      Tache:
+        $ref: '#/definitions/Taches'
+      Piece:
+        $ref: '#/definitions/Pieces'
+      Quantite:
+        type: integer
+        format: int32
+  Request_Interventions:
+    type: object
+    required:
+      - id
+      - TacheId
+      - RefArticle
+    properties:
+      id:
+        type: integer
+        format: int32
+      TacheId:
+        type: integer
+        format: int32
+      RefArticle:
+        type: string
+        format: ''
+      Quantite:
+        type: integer
+        format: int32
+  Categories:
+    type: object
+    properties:
+      Category:
+        type: string
+        format: ''
+      ImagePath:
+        type: string
+        format: ''
+  PiecesFiche:
+    type: object
+    required:
+      - id
+      - Piece
+    properties:
+      id:
+        type: integer
+        format: int32
+      Piece:
+        $ref: '#/definitions/Pieces'
+      description:
+        type: string
+      Category:
+        type: string
+      ImagePath:
+        type: string
+  Min_PiecesFiche:
+    type: object
+    required:
+      - id
+    properties:
+      id:
+        type: integer
+        format: int32
+      description:
+        type: string
+      Category:
+        type: string
+      ImagePath:
+        type: string
+  PiecesDetail:
+    type: object
+    required:
+      - id
+      - Piece
+    properties:
+      id:
+        type: integer
+        format: int32
+      Piece:
+        $ref: '#/definitions/Pieces'
+      Title:
+        type: string
+      Content:
+        type: string
+      Ligne:
+        type: integer
+        format: int32
+      Unit:
+        type: string
+        format: ''
+  Min_PiecesDetail:
+    type: object
+    required:
+      - id
+    properties:
+      id:
+        type: integer
+        format: int32
+      Title:
+        type: string
+      Content:
+        type: string
+      Ligne:
+        type: integer
+        format: int32
+      Unit:
+        type: string
+        format: ''
+  PiecesKeyPoints:
+    type: object
+    required:
+      - id
+      - Piece
+    properties:
+      id:
+        type: integer
+        format: int32
+      Piece:
+        $ref: '#/definitions/Pieces'
+      Content:
+        type: string
+      Ligne:
+        type: integer
+        format: int32
+  Min_PiecesKeyPoints:
+    type: object
+    required:
+      - id
+    properties:
+      id:
+        type: integer
+        format: int32
+      Content:
+        type: string
+      Ligne:
+        type: integer
+        format: int32
+  Products:
+    type: object
+    required:
+      - Piece
+    properties:
+      Piece:
+        $ref: '#/definitions/Min_Pieces'
+      PiecesFiche:
+        $ref: '#/definitions/Min_PiecesFiche'
+      PiecesKeyPoints:
+        type: array
+        items:
+          $ref: '#/definitions/Min_PiecesKeyPoints'
+      PiecesDetail:
+        type: array
+        items:
+          $ref: '#/definitions/Min_PiecesDetail'
+  Min_Products:
+    type: object
+    required:
+      - Piece
+    properties:
+      Piece:
+        $ref: '#/definitions/Min_Pieces'
+      PiecesFiche:
+        $ref: '#/definitions/Min_PiecesFiche'
+  Carts:
+    required:
+      - id
+    type: object
+    properties:
+      id:
+        type: string
+      PaymentToken:
+        type: string
+      ValidationDate:
+        type: string
+        format: date-time
+      PT:
+        type: number
+        format: float
+      Items:
+        type: array
+        items:
+          $ref: '#/definitions/Items'
+  Min_Carts:
+    required:
+      - id
+    type: object
+    properties:
+      id:
+        type: string
+  Request_Carts:
+    required:
+      - id
+    type: object
+    properties:
+      id:
+        type: string
+      RefClient:
+        type: string
+        format: ''
+      Token:
+        type: string
+        format: ''
+      PaymentToken:
+        type: string
+      ValidationDate:
+        type: string
+        format: date-time
+      PT:
+        type: number
+        format: float
+      Elements:
+        type: integer
+        format: int32
+  CartItems:
+    required:
+      - id
+    type: object
+    properties:
+      id:
+        type: integer
+        format: int32
+      Piece:
+        $ref: '#/definitions/Cart_Pieces'
+      Cart:
+        $ref: '#/definitions/Min_Carts'
+      PU:
+        type: number
+        format: float
+      PT:
+        type: number
+        format: float
+      Remise:
+        type: number
+        format: float
+      Quantite:
+        type: integer
+        format: int32
+  Items:
+    required:
+      - id
+    type: object
+    properties:
+      id:
+        type: integer
+        format: int32
+      Piece:
+        $ref: '#/definitions/Cart_Pieces'
+      PU:
+        type: number
+        format: float
+      PT:
+        type: number
+        format: float
+      Remise:
+        type: number
+        format: float
+      Quantite:
+        type: integer
+        format: int32
+  Request_Items:
+    required:
+      - RefArticle
+    type: object
+    properties:
+      RefArticle:
+        type: string
+        format: ''
+      Quantite:
+        type: integer
+        format: int32
+  Min_Orders:
+    type: object
+    required:
+      - id
+    properties:
+      id:
+        type: integer
+        format: int32
+      BillingAddress:
+        $ref: '#/definitions/Request_ClientsAddresses'
+      ShippingAddress:
+        $ref: '#/definitions/Request_ClientsAddresses'
+      DateCommande:
+        type: string
+        format: date-time
+      Traiter:
+        type: boolean
+        format: ''
+      Cart:
+        $ref: '#/definitions/Request_Carts'
+  Orders:
+    type: object
+    required:
+      - id
+    properties:
+      id:
+        type: integer
+        format: int32
+      BillingAddress:
+        $ref: '#/definitions/Request_ClientsAddresses'
+      ShippingAddress:
+        $ref: '#/definitions/Request_ClientsAddresses'
+      DateCommande:
+        type: string
+        format: date-time
+      Traiter:
+        type: boolean
+        format: ''
+      Cart:
+        $ref: '#/definitions/Carts'
+  Request_Order_Address:
+    type: object
+    properties:
+      BillingAddress:
+        $ref: '#/definitions/Request_ClientsAddresses'
+      ShippingAddress:
+        $ref: '#/definitions/Request_ClientsAddresses'
+  Activities:
+    type: object
+    properties:
+      Addresses:
+        type: array
+        items:
+          $ref: '#/definitions/Request_ClientsAddresses'
+      Orders:
+        type: array
+        items:
+          $ref: '#/definitions/Min_Orders'
+      Contracts:
+        type: array
+        items:
+          $ref: '#/definitions/Contracts'
+      Taches:
+        type: array
+        items:
+          $ref: '#/definitions/Taches'
+      Interventions:
+        type: array
+        items:
+          $ref: '#/definitions/Interventions'
+      Visites:
+        type: array
+        items:
+          $ref: '#/definitions/Visites'
+      Locations:
+        type: array
+        items:
+          $ref: '#/definitions/Locations'
+  Contracts:
+    type: object
+    properties:
+      RefContract:
+        type: integer
+        format: int32
+      Machines:
+        type: array
+        items:
+          $ref: '#/definitions/Min_Machines'
+      Client:
+        $ref: '#/definitions/Min_Clients'
+      DateDebut:
+        type: string
+        format: date
+      DateFin:
+        type: string
+        format: date
+      Reconduction:
+        type: string
+        format: ''
+      Loyer:
+        type: number
+        format: float
+      Miniconso:
+        type: number
+        format: float
+  Request_Contracts:
+    type: object
+    properties:
+      RefContract:
+        type: integer
+        format: int32
+      Machines:
+        type: array
+        items:
+          $ref: '#/definitions/Min_Machines'
+      DateDebut:
+        type: string
+        format: date-time
+      DateFin:
+        type: string
+        format: date-time
+      Reconduction:
+        type: string
+        format: ''
+      Loyer:
+        type: number
+        format: float
+      Miniconso:
+        type: number
+        format: float
+  CustomError:
+    properties:
+      code:
+        type: integer
+        format: int32
+      Message:
+        type: string
+        format: ''
+  Consuptions:
+    type: object
+    required:
+      - id
+      - Piece
+    properties:
+      id:
+        type: integer
+        format: int32
+      Client:
+        $ref: '#/definitions/Clients'
+      Piece:
+        $ref: '#/definitions/Pieces'
+      Qte:
+        type: integer
+        format: int32
+      CA:
+        type: number
+        format: float
+      DateVente:
+        type: string
+        format: date-time
+  Request_Consuptions:
+    type: object
+    required:
+      - id
+      - RefArticle
+    properties:
+      id:
+        type: integer
+        format: int32
+      RefClient:
+        type: string
+        format: ''
+      RefArticle:
+        type: string
+        format: ''
+      Qte:
+        type: integer
+        format: int32
+      CA:
+        type: number
+        format: float
+      DateVente:
+        type: string
+        format: date-time
+parameters:
+  Token:
+    type: string
+    in: header
+    required: true
+    name: Token
+    description: user token
+  LANG:
+    type: string
+    in: header
+    required: true
+    name: LANG
+    default: FR
+    description: user LANG
+  idOrder:
+    name: idOrder
+    in: path
+    required: true
+    type: integer
+    format: int32
+    description: ' id order'
+  Category:
+    name: Category
+    in: query
+    description: 'subcategoryname == WaterTreatment, Dishwasher, Detergents, MACHINES, REPAIRED_PIECES, '
+    required: false
+    type: string
