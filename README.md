@@ -9,7 +9,7 @@
 [![pipeline status](https://gitlab.com/singleton.com.ar/ravimosharksas/apis/global/documentation/badges/master/pipeline.svg)](https://gitlab.com/singleton.com.ar/ravimosharksas/apis/global/documentation/commits/master)  [![coverage report](https://gitlab.com/singleton.com.ar/ravimosharksas/apis/global/documentation/badges/master/coverage.svg)](https://gitlab.com/singleton.com.ar/ravimosharksas/apis/global/documentation/commits/master)  <img src="http://online.swagger.io/validator?url=https://online.swagger.io/validator?url=https://global.apis.singleton.com.ar/ravimosharksas.gitlab.io/documentation/swagger.yaml">
 
 Swagger documentation of global API. See HTML documentation in
-[https://singleton.com.ar.gitlab.io/ravimosharksas/apis/global/documentation](https://singleton.com.argitlab.io/ravimosharksas/apis/global/documentation)
+[https://singleton.com.ar.gitlab.io/ravimosharksas/apis/global/documentation](https://singleton.com.ar.gitlab.io/ravimosharksas/apis/global/documentation)
 
 ## CONFIGURATIONS
 

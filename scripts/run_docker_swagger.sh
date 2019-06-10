@@ -17,6 +17,9 @@ __file="${__dir}/$(basename "${BASH_SOURCE[0]}")"
 __base="$(basename ${__file} .sh)"
 __root="$(cd "$(dirname "${__dir}")" && pwd)"
 
-docker run --rm -d -p 8082:8080/tcp \
+PORT=8082
+docker run --rm -d -p ${PORT}:8080/tcp \
     -e SWAGGER_JSON=/foo/swagger.yaml -v ${PWD}:/foo \
     swaggerapi/swagger-editor:latest
+
+echo "Swagger editor available in localhost:${PORT}"
