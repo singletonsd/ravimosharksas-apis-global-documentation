@@ -1,29 +1,21 @@
 # RavimoShark SAS - APIS - Global - Documentation
 
-----------------------
+> The **main repository** is hosted in [gitlab.com/ravimosharksas/apis/global/documentation](https://gitlab.com/ravimosharksas/apis/global/documentation.git) but it is automaticaly mirrored to [github.com](https://github.com/singletonsd/ravimosharksas-apis-global-documentation.git) and to [gitlab.com/singletonsd/ravimosharksas/apis/global/documentation](https://gitlab.com/singletonsd/ravimosharksas/apis/global/documentation.git). If you are in the Github page it may occur that is not updated to the last version.
 
 ## PROJECT INFORMATION
 
-----------------------
-
-[![pipeline status](https://gitlab.com/singleton.com.ar/ravimosharksas/apis/global/documentation/badges/master/pipeline.svg)](https://gitlab.com/singleton.com.ar/ravimosharksas/apis/global/documentation/commits/master)  [![coverage report](https://gitlab.com/singleton.com.ar/ravimosharksas/apis/global/documentation/badges/master/coverage.svg)](https://gitlab.com/singleton.com.ar/ravimosharksas/apis/global/documentation/commits/master)  <img src="http://online.swagger.io/validator?url=https://online.swagger.io/validator?url=https://global.apis.singleton.com.ar/ravimosharksas.gitlab.io/documentation/swagger.yaml">
+<img src="http://online.swagger.io/validator?url=https://ravimosharksas.gitlab.io/apis/global/documentation/swagger.yaml">
 
 Swagger documentation of global API. See HTML documentation in
-[https://singleton.com.ar.gitlab.io/ravimosharksas/apis/global/documentation](https://singleton.com.ar.gitlab.io/ravimosharksas/apis/global/documentation)
+[https://ravimosharksas.gitlab.io/apis/global/documentation](https://ravimosharksas.gitlab.io/apis/global/documentation)
 
 ## CONFIGURATIONS
-
-----------------------
 
 Connected to [swagger hub](https://app.swaggerhub.com/apis/ravimosharksas/Global). Each time documentation changes, it will be commit into this repository.
 
 ## MODEL DIAGRAM
 
-----------------------
-
 ## CONTRIBUTING
-
-----------------------
 
 Contributions to this repository are very welcome.
 
@@ -31,20 +23,16 @@ To contribute, please fork this repository on GitLab and send a pull request wit
 
 If you have submitted a PR and not received any feedback for a while, feel free to [ping me on Twitter](https://twitter.com/patoperpetua) [or find me on facebook](https://www.facebook.com/pato.arg)
 
-----------------------
-
 ## TODO
 
 * [ ] Config tool to generate models diagram.
 * [ ] Config client libraries on commit.
-* [x] Config swagger hub integration.
+* [ ] Config swagger hub integration.
 * [x] Upload html documentation to gitlab pages.
 * [ ] Upload html documentation to servers.
-
-----------------------
 
 ## IMPROVES TO NEXT VERSION
 
 ----------------------
 
-© [Singleton](http://www.singleton.com.ar), Argentina, 2019.
+© [Singleton](http://www.singletonsd.com), Argentina, 2019.
