@@ -490,7 +490,7 @@ paths:
           schema:
             type: array
             items:
-              $ref: '#/definitions/clientsAddresses'
+              $ref: '#/definitions/addresses'
         default:
           description: Unexpected error
           schema:
@@ -549,12 +549,12 @@ paths:
           required: true
           description: Address data
           schema:
-            $ref: '#/definitions/clientsAddresses'
+            $ref: '#/definitions/addresses'
       responses:
         '200':
           description: Semper Fi
           schema:
-            $ref: '#/definitions/clientsAddresses'
+            $ref: '#/definitions/addresses'
         default:
           description: Unexpected error
           schema:
@@ -582,12 +582,12 @@ paths:
           required: true
           description: Address data
           schema:
-            $ref: '#/definitions/clientsAddresses'
+            $ref: '#/definitions/addresses'
       responses:
         '200':
           description: Semper Fi
           schema:
-            $ref: '#/definitions/clientsAddresses'
+            $ref: '#/definitions/addresses'
         default:
           description: Unexpected error
           schema:
@@ -721,7 +721,7 @@ paths:
           required: true
           description: identifiant produit à ajouter
           schema:
-            $ref: '#/definitions/items'
+            $ref: '#/definitions/cartItems'
       responses:
         '200':
           description: Semper Fi
