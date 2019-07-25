@@ -2055,7 +2055,6 @@ definitions:
         format: int32
       nom:
         type: string
-        format: ''
       refClient:
         type: string
       token:
@@ -2102,34 +2101,24 @@ definitions:
     properties:
       refClient:
         type: string
-        format: ''
       abrege:
         type: string
-        format: ''
       prenom:
         type: string
-        format: ''
       nom:
         type: string
-        format: ''
       etat:
         type: string
-        format: ''
       groupe:
         type: string
-        format: ''
       statutGroupe:
         type: string
-        format: ''
       statut:
         type: string
-        format: ''
       raisonSociale:
         type: string
-        format: ''
       typeClient:
         type: string
-        format: ''
       score:
         type: integer
         format: int32
@@ -2141,35 +2130,27 @@ definitions:
         format: int32
       email:
         type: string
-        format: ''
       interdit:
         type: boolean
-        format: ''
       lastSuccessfulAttempt:
         type: string
         format: date-time
       idFacebook:
         type: string
-        format: ''
       idGoogle:
         type: string
-        format: ''
       siret:
         type: string
-        format: ''
       tvaIntraco:
         type: string
-        format: ''
       civilite:
         type: string
-        format: ''
       nbConnectionAttempt:
         type: integer
         format: int32
       validationKey:
         type: string
-        format: ''
-  clientsAddresses:
+  addresses:
     type: object
     properties:
       id:
@@ -2179,34 +2160,25 @@ definitions:
         $ref: '#/definitions/clients'
       name:
         type: string
-        format: ''
       numero:
         type: string
-        format: ''
       address:
         type: string
-        format: ''
       codePostal:
         type: integer
         format: int32
       complement:
         type: string
-        format: ''
       ville:
         type: string
-        format: ''
       pays:
         type: string
-        format: ''
       telephone:
         type: string
-        format: ''
       nom:
         type: string
-        format: ''
       livraison:
         type: string
-        format: ''
       latitude:
         type: number
         format: double
@@ -2215,19 +2187,15 @@ definitions:
         format: double
       typeAddress:
         type: string
-        format: ''
   pieces:
     type: object
     properties:
       refArticle:
         type: string
-        format: ''
       designationArticle:
         type: string
-        format: ''
       statut:
         type: string
-        format: ''
       prixVente:
         type: number
         format: double
@@ -2236,40 +2204,19 @@ definitions:
         format: double
       intituleFamille:
         type: string
-        format: ''
       dernierPrixAchat:
         type: number
         format: double
       conditionnement:
         type: string
-        format: ''
       detergentType:
         type: string
-        format: ''
       poids:
         type: number
         format: double
       poidSuc:
         type: number
         format: double
-  machinePieces:
-    type: object
-    properties:
-      refArticle:
-        type: string
-        format: ''
-      designationArticle:
-        type: string
-        format: ''
-  cartPieces:
-    type: object
-    properties:
-      refArticle:
-        type: string
-        format: ''
-      designationArticle:
-        type: string
-        format: ''
   machines:
     type: object
     properties:
@@ -2302,13 +2249,11 @@ definitions:
         format: int32
       technicien:
         type: string
-        format: ''
       secteur:
         type: integer
         format: int32
       email:
         type: string
-        format: ''
   taches:
     type: object
     properties:
@@ -2316,7 +2261,7 @@ definitions:
         type: integer
         format: int32
       clientsAddress:
-        $ref: '#/definitions/clientsAddresses'
+        $ref: '#/definitions/addresses'
       machine:
         $ref: '#/definitions/machines'
       zoneResa:
@@ -2372,7 +2317,7 @@ definitions:
       zoneResa:
         $ref: '#/definitions/zoneResas'
       clientsAddress:
-        $ref: '#/definitions/clientsAddresses'
+        $ref: '#/definitions/addresses'
       dateVisite:
         type: string
         format: date
@@ -2409,10 +2354,8 @@ definitions:
     properties:
       Category:
         type: string
-        format: ''
       ImagePath:
         type: string
-        format: ''
   piecesFiche:
     type: object
     required:
@@ -2447,7 +2390,6 @@ definitions:
         format: int32
       unit:
         type: string
-        format: ''
   piecesKeyPoints:
     type: object
     required:
@@ -2495,7 +2437,7 @@ definitions:
       items:
         type: array
         items:
-          $ref: '#/definitions/items'
+          $ref: '#/definitions/cartItems'
   cartItems:
     type: object
     properties:
@@ -2503,29 +2445,9 @@ definitions:
         type: integer
         format: int32
       piece:
-        $ref: '#/definitions/cartPieces'
+        $ref: '#/definitions/pieces'
       cart:
         $ref: '#/definitions/carts'
-      pu:
-        type: number
-        format: float
-      pt:
-        type: number
-        format: float
-      remise:
-        type: number
-        format: float
-      quantite:
-        type: integer
-        format: int32
-  items:
-    type: object
-    properties:
-      id:
-        type: integer
-        format: int32
-      piece:
-        $ref: '#/definitions/cartPieces'
       pu:
         type: number
         format: float
@@ -2545,9 +2467,9 @@ definitions:
         type: integer
         format: int32
       billingAddress:
-        $ref: '#/definitions/clientsAddresses'
+        $ref: '#/definitions/addresses'
       shippingAddress:
-        $ref: '#/definitions/clientsAddresses'
+        $ref: '#/definitions/addresses'
       dateCommande:
         type: string
         format: date-time
@@ -2562,7 +2484,7 @@ definitions:
       addresses:
         type: array
         items:
-          $ref: '#/definitions/clientsAddresses'
+          $ref: '#/definitions/addresses'
       orders:
         type: array
         items:
@@ -2644,10 +2566,10 @@ definitions:
   metadata:
     type: "object"
     properties:
-#      links:
-#        type: "array"
-#        items:
-#          type: "string"
+      links:
+        type: "array"
+        items:
+          type: "string"
       first:
         type: "integer"
         format: "int64"
