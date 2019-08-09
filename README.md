@@ -26,10 +26,12 @@ If you have submitted a PR and not received any feedback for a while, feel free 
 ## TODO
 
 * [ ] Config tool to generate models diagram.
-* [ ] Config client libraries on commit.
+* [x] Config client libraries on commit.
 * [ ] Config swagger hub integration.
 * [x] Upload html documentation to gitlab pages.
 * [ ] Upload html documentation to servers.
+* [ ] Use scripts from remote repository.
+* [ ] Gitlab ci-cd template from remote repository.
 
 ## IMPROVES TO NEXT VERSION
 
