@@ -3,12 +3,6 @@ image: maven:3.6.1-jdk-13-alpine
 before_script:
     - apk add --no-cache bash curl git
 
-only:
-  refs:
-    - master
-  changes:
-    - swagger.yaml
-  
 stages:
   - deploy
 
@@ -22,6 +16,11 @@ pages:
   artifacts:
     paths:
     - public
+  only:
+    refs:
+      - master
+    changes:
+      - swagger.yaml
 
 trigger_libs:
   stage: deploy
@@ -29,3 +28,8 @@ trigger_libs:
     - apk add --no-cache bash curl git
   script:
     - "curl -X POST -F token=${TRIGGER_RAVIMO_API_GLOBAL_LIB_ANGULAR} -F ref=master https://gitlab.com/api/v4/projects/13483643/trigger/pipeline"
+  only:
+    refs:
+      - master
+    changes:
+      - swagger.yaml
