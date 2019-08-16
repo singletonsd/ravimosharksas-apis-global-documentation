@@ -2307,7 +2307,7 @@ definitions:
     type: object
     required:
       - id
-      - ZoneResa
+      - zoneResa
     properties:
       id:
         type: integer
@@ -2394,7 +2394,7 @@ definitions:
     type: object
     required:
       - id
-      - Piece
+      - piece
     properties:
       id:
         type: integer
