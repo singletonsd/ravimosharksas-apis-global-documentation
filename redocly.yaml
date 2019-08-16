@@ -1,0 +1,7 @@
+apiTitle: Ravimo Global API
+splitSpec: true
+codeSamples: true
+swaggerUI: true
+travis: false
+repo: ravimosharksas/apis-global-documentation
+oasVersion: '2.0'
