@@ -16,7 +16,7 @@ stages:
   - deploy
 
 install:
-  stage: build
+  stage: install
   script:
     - npm i
   only:
