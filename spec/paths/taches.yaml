@@ -17,21 +17,18 @@ get:
       in: query
       required: false
       description: Technicien's id.
-      default: ''
       type: integer
       format: int32
     - name: TaskId
       in: query
       required: false
       description: Task's id.
-      default: ''
       type: integer
       format: int32
     - name: ClientsAddressId
       in: query
       required: false
       description: ClientsAddress' id.
-      default: ''
       type: integer
       format: int32
     - name: RefClient
@@ -44,21 +41,19 @@ get:
     - name: DateAppel
       in: query
       required: false
-      default: ''
       description: 'Call''s Day. Format: YYYY-MM-DD'
       type: string
       format: date
     - name: Date_Depan
       in: query
       required: false
-      default: ''
       description: 'Fix''s Day. Format: YYYY-MM-DD'
       type: string
       format: date
     - name: Fixed
       in: query
       required: false
-      default: 'false'
+      default: false
       description: If the tasks were fixed or not
       type: boolean
       format: ''
@@ -66,7 +61,6 @@ get:
       in: query
       required: false
       description: Machine's id.
-      default: ''
       type: integer
       format: int32
   responses:

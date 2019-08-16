@@ -17,21 +17,18 @@ get:
       in: query
       required: false
       description: ''
-      default: ''
       type: integer
       format: int32
     - name: Visitid
       in: query
       required: false
       description: ''
-      default: ''
       type: integer
       format: int32
     - name: ClientsAddressId
       in: query
       required: false
       description: ''
-      default: ''
       type: integer
       format: int32
     - name: RefClient
@@ -45,14 +42,12 @@ get:
       in: query
       required: false
       description: 'Format: YYYY-MM-DD HH:mm:ss Z.'
-      default: ''
       type: string
       format: date
     - name: MachineId
       in: query
       required: false
       description: Machine's id.
-      default: ''
       type: integer
       format: int32
   responses:

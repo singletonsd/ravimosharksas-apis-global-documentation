@@ -13,13 +13,7 @@ get:
   parameters:
     - $ref: '#/parameters/Token'
     - $ref: '#/parameters/LANG'
-    - name: InterventionId
-      in: query
-      required: false
-      description: ''
-      default: ''
-      type: integer
-      format: int32
+    - $ref: '#/parameters/idParam'
     - name: RefArticle
       in: query
       required: false
@@ -31,21 +25,18 @@ get:
       in: query
       required: false
       description: ''
-      default: ''
       type: integer
       format: int32
     - name: ZoneResaId
       in: query
       required: false
       description: ''
-      default: ''
       type: integer
       format: int32
     - name: MachineId
       in: query
       required: false
       description: ''
-      default: ''
       type: integer
       format: int32
     - name: RefClient
@@ -153,12 +144,7 @@ delete:
   parameters:
     - $ref: '#/parameters/Token'
     - $ref: '#/parameters/LANG'
-    - name: InterventionId
-      in: query
-      required: true
-      description: Interventions' id.
-      type: integer
-      format: int32
+    - $ref: '#/parameters/idParam'
   responses:
     '200':
       description: Semper Fi.

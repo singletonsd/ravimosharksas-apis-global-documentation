@@ -15,17 +15,11 @@ get:
     - $ref: '#/parameters/LANG'
     - name: RefClient
       in: query
-      description: Only for techniciens.
+      description: Only for technicians.
       required: false
       type: string
       format: ''
-    - name: AddressId
-      in: query
-      required: false
-      description: Address' id.
-      default: ''
-      type: integer
-      format: int32
+    - $ref: '#/parameters/idParam'
   responses:
     '200':
       description: Semper Fi
@@ -54,11 +48,7 @@ delete:
   parameters:
     - $ref: '#/parameters/Token'
     - $ref: '#/parameters/LANG'
-    - name: AddressId
-      in: query
-      required: true
-      description: Address' id.
-      type: string
+    - $ref: '#/parameters/idParam'
   responses:
     '200':
       description: Semper Fi

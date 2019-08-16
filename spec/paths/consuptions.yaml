@@ -23,7 +23,6 @@ get:
     - name: DateVente
       in: query
       required: false
-      default: ''
       description: 'Selling''s Day. Format: YYYY-MM-DD'
       type: string
       format: date

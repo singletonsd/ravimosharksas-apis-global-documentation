@@ -78,6 +78,13 @@ parameters:
     type: string
   idParam:
     name: id
+    in: query
+    description: id to delete or search
+    required: true
+    type: integer
+    format: int64
+  idParamPath:
+    name: id
     in: path
     description: id to delete or search
     required: true

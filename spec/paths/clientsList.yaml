@@ -38,7 +38,6 @@ get:
       in: query
       required: false
       description: ''
-      default: ''
       type: integer
       format: int32
   responses:
