@@ -12,6 +12,7 @@ install:
   script:
     - npm i
   cache:
+    key: "$CI_PIPELINE_ID"
     paths:
       - node_modules/
   only:
@@ -25,6 +26,7 @@ test:
   script:
     - npm run test
   cache:
+    key: "$CI_PIPELINE_ID"
     paths:
       - node_modules/
   only:
@@ -38,6 +40,7 @@ build:
   script:
     - npm run build
   cache:
+    key: "$CI_PIPELINE_ID"
     paths:
       - dist/
   only:
@@ -58,6 +61,7 @@ pages:
   script:
     - rm -rf "${TARGET_FOLDER}"
     - mkdir -p "${TARGET_FOLDER}"
+    - ls
     - cp -r dist/* "${TARGET_FOLDER}/*"
   artifacts:
     paths:
