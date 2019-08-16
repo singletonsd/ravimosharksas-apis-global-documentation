@@ -32,6 +32,8 @@ If you have submitted a PR and not received any feedback for a while, feel free 
 * [ ] Upload html documentation to servers.
 * [ ] Use scripts from remote repository.
 * [ ] Gitlab ci-cd template from remote repository.
+* [ ] Split swagger.yaml into multiple files.
+* [ ] Use [ReDoc](https://github.com/Redocly/redoc) documentation framework.
 
 ## IMPROVES TO NEXT VERSION
 
