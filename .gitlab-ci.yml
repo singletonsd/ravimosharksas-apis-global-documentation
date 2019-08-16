@@ -1,5 +1,8 @@
 image: node:8-alpine
 
+cache:
+  key: ${CI_COMMIT_REF_SLUG}
+
 stages:
   - install
   - test
@@ -12,7 +15,6 @@ install:
   script:
     - npm i
   cache:
-    key: "$CI_PIPELINE_ID"
     paths:
       - node_modules/
   only:
@@ -26,7 +28,6 @@ test:
   script:
     - npm run test
   cache:
-    key: "$CI_PIPELINE_ID"
     paths:
       - node_modules/
   only:
@@ -40,7 +41,6 @@ build:
   script:
     - npm run build
   cache:
-    key: "$CI_PIPELINE_ID"
     paths:
       - dist/
   only:
