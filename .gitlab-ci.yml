@@ -45,7 +45,6 @@ pages:
     - apk add --no-cache bash curl git
   script:
     - rm -r public
-    - npm run gh-pages
     - cp -r /dist/* public/*
   artifacts:
     paths:

@@ -7,7 +7,7 @@
     "start": "swagger-repo serve",
     "build": "swagger-repo build -o dist",
     "test": "swagger-repo validate",
-    "gh-pages": "swagger-repo gh-pages"
+    "gh-pages": "rm -rf web_deploy && mkdir -p web_deploy && cp -r dist/* web_deploy && swagger-repo gh-pages"
   },
   "devDependencies": {
     "swagger-repo": "2.0.0-rc.15"
