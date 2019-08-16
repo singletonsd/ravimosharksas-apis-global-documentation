@@ -13,6 +13,7 @@ stages:
 install:
   stage: install
   script:
+    - echo "$CI_PROJECT_PATH"
     - npm i
   artifacts:
     paths:
