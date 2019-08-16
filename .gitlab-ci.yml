@@ -2,6 +2,9 @@ image: node:8-alpine
 
 cache:
   key: ${CI_COMMIT_REF_SLUG}
+  paths:
+      - dist/
+      - node_modules/
 
 stages:
   - install
@@ -14,9 +17,6 @@ install:
   stage: install
   script:
     - npm i
-  cache:
-    paths:
-      - node_modules/
   only:
     changes:
       - spec/**/*
@@ -27,9 +27,6 @@ test:
   stage: test
   script:
     - npm run test
-  cache:
-    paths:
-      - node_modules/
   only:
     changes:
       - spec/**/*
@@ -40,9 +37,6 @@ build:
   stage: build
   script:
     - npm run build
-  cache:
-    paths:
-      - dist/
   only:
     changes:
       - spec/**/*
@@ -80,6 +74,7 @@ trigger_libs:
     - apk add --no-cache curl
   script:
     - "curl -X POST -F token=${TRIGGER_RAVIMO_API_GLOBAL_LIB_ANGULAR} -F ref=master https://gitlab.com/api/v4/projects/13483643/trigger/pipeline"
+  cache: {}
   only:
     refs:
       - master
