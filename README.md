@@ -12,8 +12,8 @@ Swagger documentation of global API. See HTML documentation in
 ## Links
 
 - [Reference Documentation (ReDoc)](https://ravimosharksas.github.io/apis/)
-- [SwaggerUI](https://ravimosharksas.github.io/apis/swagger-ui/)
-- OpenAPI Raw Files: [JSON](https://ravimosharksas.github.io/apis/openapi.json) [YAML](https://ravimosharksas.github.io/apis/openapi.yaml)
+- OpenAPI Raw Files: [JSON](https://ravimosharksas.gitlab.io/apis/global/documentation/openapi.json) [YAML](https://ravimosharksas.gitlab.io/apis/global/documentation/openapi.yaml)
+- [ReDoc Repository Example](https://github.com/Rebilly/RebillyAPI)
 
 **Warning:** All above links are updated only after Travis CI finishes deployment
 
