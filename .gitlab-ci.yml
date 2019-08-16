@@ -1,5 +1,8 @@
 image: node:8-alpine
 
+variables:
+  ORIGINAL_REPOSITORY: "ravimosharksas/apis/global/documentation"
+
 stages:
   - install
   - test
@@ -85,3 +88,5 @@ trigger_libs:
       - spec/**/*
       - .gitlab-ci.yml
       - package.json
+    variables:
+      - $CI_PROJECT_PATH == "${ORIGINAL_REPOSITORY}"
