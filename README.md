@@ -4,7 +4,7 @@
 
 ## PROJECT INFORMATION
 
-<img src="http://online.swagger.io/validator?url=https://ravimosharksas.gitlab.io/apis/global/documentation/swagger.yaml">
+<img src="http://online.swagger.io/validator?url=https://ravimosharksas.gitlab.io/apis/global/documentation/openapi.json">
 
 Swagger documentation of global API. See HTML documentation in
 [https://ravimosharksas.gitlab.io/apis/global/documentation](https://ravimosharksas.gitlab.io/apis/global/documentation)
