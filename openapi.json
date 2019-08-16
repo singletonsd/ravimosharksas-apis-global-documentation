@@ -1,0 +1,4170 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "2.0.0",
+    "title": "Ravimo Global API",
+    "description": "Ravimo Mobile and Web Global API",
+    "contact": {
+      "name": "API Support",
+      "url": "http://www.ravimoshark.com/site/default.aspx",
+      "email": "joseph.assouline@ravimoshark.com"
+    }
+  },
+  "host": "localhost",
+  "basePath": "/",
+  "schemes": [
+    "http",
+    "https"
+  ],
+  "securityDefinitions": {
+    "appToken": {
+      "type": "apiKey",
+      "name": "X_APP_ID",
+      "in": "header"
+    },
+    "userToken": {
+      "type": "apiKey",
+      "name": "X_USER_KEY",
+      "in": "header"
+    }
+  },
+  "parameters": {
+    "Token": {
+      "type": "string",
+      "in": "header",
+      "required": true,
+      "name": "Token",
+      "description": "user token"
+    },
+    "LANG": {
+      "type": "string",
+      "in": "header",
+      "required": true,
+      "name": "LANG",
+      "default": "FR",
+      "description": "user LANG"
+    },
+    "idOrder": {
+      "name": "idOrder",
+      "in": "path",
+      "required": true,
+      "type": "integer",
+      "format": "int32",
+      "description": " id order"
+    },
+    "Category": {
+      "name": "Category",
+      "in": "query",
+      "description": "subcategoryname == WaterTreatment, Dishwasher, Detergents, MACHINES, REPAIRED_PIECES,",
+      "required": false,
+      "type": "string"
+    },
+    "skipParam": {
+      "name": "skip",
+      "in": "query",
+      "description": "number of item to skip",
+      "required": true,
+      "type": "integer",
+      "format": "int32"
+    },
+    "limitParam": {
+      "name": "limit",
+      "in": "query",
+      "description": "max records to return",
+      "required": true,
+      "type": "integer",
+      "format": "int32"
+    },
+    "orderByParam": {
+      "name": "orderBy",
+      "in": "query",
+      "description": "order by property.",
+      "required": false,
+      "type": "string"
+    },
+    "filterParam": {
+      "name": "filter",
+      "in": "query",
+      "description": "filter data.",
+      "required": false,
+      "type": "string"
+    },
+    "idParam": {
+      "name": "id",
+      "in": "path",
+      "description": "id to delete or search",
+      "required": true,
+      "type": "integer",
+      "format": "int64"
+    },
+    "deletedParam": {
+      "name": "deleted",
+      "in": "query",
+      "description": "Get all, deleted, not deleted data. Default not deleted.",
+      "required": false,
+      "type": "string",
+      "default": "NOT-DELETED",
+      "enum": [
+        "NOT-DELETED",
+        "DELETED",
+        "ALL"
+      ]
+    },
+    "metadataParam": {
+      "name": "metadata",
+      "in": "query",
+      "description": "If metadata is needed (for pagination controls)",
+      "required": false,
+      "type": "boolean"
+    },
+    "idUserParam": {
+      "name": "idUser",
+      "in": "query",
+      "description": "id of user to get information only from it",
+      "required": false,
+      "type": "integer",
+      "format": "int64"
+    },
+    "idAccountParam": {
+      "name": "idAccount",
+      "in": "query",
+      "description": "id of an account to get information only from it",
+      "required": false,
+      "type": "integer",
+      "format": "int64"
+    },
+    "emailDataParam": {
+      "name": "data",
+      "in": "body",
+      "required": true,
+      "schema": {
+        "$ref": "#/definitions/emailDataParameter"
+      }
+    }
+  },
+  "paths": {
+    "/activity": {
+      "get": {
+        "summary": "Get user's activities.",
+        "description": "Get user's activities.",
+        "tags": [
+          "Activity"
+        ],
+        "operationId": "getListActivities",
+        "consumes": [
+          "application/json",
+          "text/json"
+        ],
+        "produces": [
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "$ref": "#/parameters/Token"
+          },
+          {
+            "$ref": "#/parameters/LANG"
+          },
+          {
+            "name": "Start",
+            "in": "query",
+            "description": "Start Date. Format: YYYY-MM-DD",
+            "required": false,
+            "type": "string",
+            "format": "date"
+          },
+          {
+            "name": "End",
+            "in": "query",
+            "description": "End date. Format: YYYY-MM-DD",
+            "required": false,
+            "type": "string",
+            "format": "date"
+          },
+          {
+            "name": "RefClient",
+            "in": "query",
+            "description": "Only for techniciens.",
+            "required": false,
+            "type": "string",
+            "format": ""
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Semper Fi",
+            "schema": {
+              "$ref": "#/definitions/activities"
+            }
+          },
+          "default": {
+            "description": "Unexpected error",
+            "schema": {
+              "$ref": "#/definitions/customError"
+            }
+          }
+        },
+        "security": [
+          {
+            "appToken": []
+          },
+          {
+            "userToken": []
+          }
+        ]
+      }
+    },
+    "/activity/Pdf": {
+      "get": {
+        "summary": "Get user's activities in a pdf file.",
+        "description": "Get user's activities in a pdf file.",
+        "tags": [
+          "Activity"
+        ],
+        "operationId": "getListActivitiesInPDF",
+        "consumes": [
+          "application/json",
+          "text/json"
+        ],
+        "produces": [
+          "application/pdf"
+        ],
+        "parameters": [
+          {
+            "$ref": "#/parameters/Token"
+          },
+          {
+            "$ref": "#/parameters/LANG"
+          },
+          {
+            "name": "Start",
+            "in": "query",
+            "description": "Start date. Format: YYYY-MM-DD",
+            "required": false,
+            "type": "string",
+            "format": "date"
+          },
+          {
+            "name": "End",
+            "in": "query",
+            "description": "End date. Format: YYYY-MM-DD",
+            "required": false,
+            "type": "string",
+            "format": "date"
+          },
+          {
+            "name": "RefClient",
+            "in": "query",
+            "required": false,
+            "description": "",
+            "default": "",
+            "type": "string",
+            "format": ""
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "activity file",
+            "schema": {
+              "type": "file"
+            }
+          },
+          "400": {
+            "description": "Error description.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          "default": {
+            "description": "Unexpected error",
+            "schema": {
+              "$ref": "#/definitions/customError"
+            }
+          }
+        },
+        "security": [
+          {
+            "appToken": []
+          },
+          {
+            "userToken": []
+          }
+        ]
+      }
+    },
+    "/address": {
+      "get": {
+        "summary": "Get user's addresses",
+        "description": " get adress",
+        "tags": [
+          "Address"
+        ],
+        "operationId": "getAddress",
+        "consumes": [
+          "application/json",
+          "text/json"
+        ],
+        "produces": [
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "$ref": "#/parameters/Token"
+          },
+          {
+            "$ref": "#/parameters/LANG"
+          },
+          {
+            "name": "RefClient",
+            "in": "query",
+            "description": "Only for techniciens.",
+            "required": false,
+            "type": "string",
+            "format": ""
+          },
+          {
+            "name": "AddressId",
+            "in": "query",
+            "required": false,
+            "description": "Address' id.",
+            "default": "",
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Semper Fi",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/addresses"
+              }
+            }
+          },
+          "default": {
+            "description": "Unexpected error",
+            "schema": {
+              "$ref": "#/definitions/customError"
+            }
+          }
+        },
+        "security": [
+          {
+            "appToken": []
+          },
+          {
+            "userToken": []
+          }
+        ]
+      },
+      "delete": {
+        "description": "Delete user's address",
+        "tags": [
+          "Address"
+        ],
+        "operationId": "delAddress",
+        "consumes": [
+          "application/json",
+          "text/json"
+        ],
+        "produces": [
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "$ref": "#/parameters/Token"
+          },
+          {
+            "$ref": "#/parameters/LANG"
+          },
+          {
+            "name": "AddressId",
+            "in": "query",
+            "required": true,
+            "description": "Address' id.",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Semper Fi",
+            "schema": {
+              "type": "string"
+            }
+          },
+          "default": {
+            "description": "Unexpected error",
+            "schema": {
+              "$ref": "#/definitions/customError"
+            }
+          }
+        },
+        "security": [
+          {
+            "appToken": []
+          },
+          {
+            "userToken": []
+          }
+        ]
+      },
+      "post": {
+        "summary": "Submit a new user's address.",
+        "description": "Submit a new user's address.",
+        "tags": [
+          "Address"
+        ],
+        "operationId": "setAddress",
+        "consumes": [
+          "application/json",
+          "text/json"
+        ],
+        "produces": [
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "$ref": "#/parameters/Token"
+          },
+          {
+            "$ref": "#/parameters/LANG"
+          },
+          {
+            "name": "address",
+            "in": "body",
+            "required": true,
+            "description": "Address data",
+            "schema": {
+              "$ref": "#/definitions/addresses"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Semper Fi",
+            "schema": {
+              "$ref": "#/definitions/addresses"
+            }
+          },
+          "default": {
+            "description": "Unexpected error",
+            "schema": {
+              "$ref": "#/definitions/customError"
+            }
+          }
+        },
+        "security": [
+          {
+            "appToken": []
+          },
+          {
+            "userToken": []
+          }
+        ]
+      },
+      "put": {
+        "summary": "Update registered address.",
+        "description": "Update an existing address.",
+        "tags": [
+          "Address"
+        ],
+        "operationId": "putAddress",
+        "consumes": [
+          "application/json",
+          "text/json"
+        ],
+        "produces": [
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "$ref": "#/parameters/Token"
+          },
+          {
+            "$ref": "#/parameters/LANG"
+          },
+          {
+            "name": "address",
+            "in": "body",
+            "required": true,
+            "description": "Address data",
+            "schema": {
+              "$ref": "#/definitions/addresses"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Semper Fi",
+            "schema": {
+              "$ref": "#/definitions/addresses"
+            }
+          },
+          "default": {
+            "description": "Unexpected error",
+            "schema": {
+              "$ref": "#/definitions/customError"
+            }
+          }
+        },
+        "security": [
+          {
+            "appToken": []
+          },
+          {
+            "userToken": []
+          }
+        ]
+      }
+    },
+    "/carts": {
+      "post": {
+        "summary": "Add item (existing or not) to cart.",
+        "description": "Add item (existing or not) to cart.",
+        "tags": [
+          "Cart"
+        ],
+        "operationId": "addProduct",
+        "consumes": [
+          "application/json",
+          "text/json"
+        ],
+        "produces": [
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "$ref": "#/parameters/Token"
+          },
+          {
+            "$ref": "#/parameters/LANG"
+          },
+          {
+            "name": "Item",
+            "in": "body",
+            "required": true,
+            "description": "identifiant produit à ajouter",
+            "schema": {
+              "$ref": "#/definitions/cartItems"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Semper Fi",
+            "schema": {
+              "$ref": "#/definitions/carts"
+            }
+          },
+          "default": {
+            "description": "Unexpected error",
+            "schema": {
+              "$ref": "#/definitions/customError"
+            }
+          }
+        },
+        "security": [
+          {
+            "appToken": []
+          },
+          {
+            "userToken": []
+          }
+        ]
+      },
+      "get": {
+        "summary": "Get cart's info",
+        "description": "Get cart's info",
+        "tags": [
+          "Cart"
+        ],
+        "operationId": "getCart",
+        "consumes": [
+          "application/json",
+          "text/json"
+        ],
+        "produces": [
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "$ref": "#/parameters/Token"
+          },
+          {
+            "$ref": "#/parameters/LANG"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Semper Fi",
+            "schema": {
+              "$ref": "#/definitions/carts"
+            }
+          },
+          "default": {
+            "description": "Unexpected error",
+            "schema": {
+              "$ref": "#/definitions/customError"
+            }
+          }
+        },
+        "security": [
+          {
+            "appToken": []
+          },
+          {
+            "userToken": []
+          }
+        ]
+      },
+      "delete": {
+        "summary": "Delete item from cart.",
+        "description": "Delete item from cart.",
+        "tags": [
+          "Cart"
+        ],
+        "operationId": "delProductCart",
+        "consumes": [
+          "application/json",
+          "text/json"
+        ],
+        "produces": [
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "$ref": "#/parameters/Token"
+          },
+          {
+            "$ref": "#/parameters/LANG"
+          },
+          {
+            "name": "RefArticle",
+            "in": "query",
+            "required": true,
+            "description": "Article's reference.",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Semper Fi",
+            "schema": {
+              "$ref": "#/definitions/carts"
+            }
+          },
+          "default": {
+            "description": "Unexpected error",
+            "schema": {
+              "$ref": "#/definitions/customError"
+            }
+          }
+        },
+        "security": [
+          {
+            "appToken": []
+          },
+          {
+            "userToken": []
+          }
+        ]
+      }
+    },
+    "/categories": {
+      "get": {
+        "summary": "Get categories of products.",
+        "description": "Get categories of products.",
+        "tags": [
+          "Products"
+        ],
+        "operationId": "getCategories",
+        "consumes": [
+          "application/json",
+          "text/json"
+        ],
+        "produces": [
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "$ref": "#/parameters/Token"
+          },
+          {
+            "$ref": "#/parameters/LANG"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Semper Fi",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/categories"
+              }
+            }
+          },
+          "default": {
+            "description": "Unexpected error",
+            "schema": {
+              "$ref": "#/definitions/customError"
+            }
+          }
+        },
+        "security": [
+          {
+            "appToken": []
+          },
+          {
+            "userToken": []
+          }
+        ]
+      }
+    },
+    "/clientsList": {
+      "get": {
+        "summary": "Get all Clients filtered by values provided.",
+        "description": "Get all Pieces filtered by values provided.",
+        "tags": [
+          "Clients"
+        ],
+        "operationId": "getListClients",
+        "produces": [
+          "application/json",
+          "text/json"
+        ],
+        "consumes": [
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "$ref": "#/parameters/Token"
+          },
+          {
+            "$ref": "#/parameters/LANG"
+          },
+          {
+            "name": "RefClient",
+            "in": "query",
+            "required": false,
+            "description": "",
+            "default": "",
+            "type": "string",
+            "format": ""
+          },
+          {
+            "name": "Abrege",
+            "in": "query",
+            "required": false,
+            "description": "",
+            "default": "",
+            "type": "string",
+            "format": ""
+          },
+          {
+            "name": "Nom",
+            "in": "query",
+            "required": false,
+            "description": "",
+            "default": "",
+            "type": "string",
+            "format": ""
+          },
+          {
+            "name": "Secteur",
+            "in": "query",
+            "required": false,
+            "description": "",
+            "default": "",
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Semper Fi.",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/clients"
+              }
+            }
+          },
+          "default": {
+            "description": "Error occurred.",
+            "schema": {
+              "$ref": "#/definitions/customError"
+            }
+          }
+        },
+        "security": [
+          {
+            "appToken": []
+          },
+          {
+            "userToken": []
+          }
+        ]
+      }
+    },
+    "/consuptions": {
+      "get": {
+        "summary": "Get clients' consuptions.",
+        "description": "Get clients' consuptions.",
+        "tags": [
+          "Consuptions"
+        ],
+        "operationId": "getConsuptions",
+        "consumes": [
+          "application/json",
+          "text/json"
+        ],
+        "produces": [
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "$ref": "#/parameters/Token"
+          },
+          {
+            "$ref": "#/parameters/LANG"
+          },
+          {
+            "name": "RefClient",
+            "in": "query",
+            "required": false,
+            "description": "",
+            "default": "",
+            "type": "string",
+            "format": ""
+          },
+          {
+            "name": "DateVente",
+            "in": "query",
+            "required": false,
+            "default": "",
+            "description": "Selling's Day. Format: YYYY-MM-DD",
+            "type": "string",
+            "format": "date"
+          },
+          {
+            "name": "RefArticle",
+            "in": "query",
+            "required": false,
+            "description": "",
+            "default": "",
+            "type": "string",
+            "format": ""
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Semper Fi",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/consuptions"
+              }
+            }
+          },
+          "default": {
+            "description": "Unexpected error",
+            "schema": {
+              "$ref": "#/definitions/customError"
+            }
+          }
+        },
+        "security": [
+          {
+            "appToken": []
+          },
+          {
+            "userToken": []
+          }
+        ]
+      }
+    },
+    "/contracts": {
+      "get": {
+        "summary": "Get all client's contracts.",
+        "description": "Get all client's contracts.",
+        "tags": [
+          "Contracts"
+        ],
+        "operationId": "getContractList",
+        "consumes": [
+          "application/json",
+          "text/json"
+        ],
+        "produces": [
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "$ref": "#/parameters/Token"
+          },
+          {
+            "$ref": "#/parameters/LANG"
+          },
+          {
+            "name": "Active",
+            "in": "query",
+            "required": false,
+            "description": "Return only active contracts or all.",
+            "type": "boolean",
+            "format": ""
+          },
+          {
+            "name": "RefClient",
+            "in": "query",
+            "description": "Only for techniciens.",
+            "required": false,
+            "type": "string",
+            "format": ""
+          },
+          {
+            "name": "RefContract",
+            "in": "query",
+            "description": "Only for techniciens.",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Semper Fi. Array of Contracts.",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/contracts"
+              }
+            }
+          },
+          "default": {
+            "description": "Unexpected error",
+            "schema": {
+              "$ref": "#/definitions/customError"
+            }
+          }
+        },
+        "security": [
+          {
+            "appToken": []
+          },
+          {
+            "userToken": []
+          }
+        ]
+      }
+    },
+    "/interventions": {
+      "get": {
+        "summary": "Get all Interventions filtered by values provided.",
+        "description": "Get all Interventions filtered by values provided.",
+        "operationId": "getListInterventions",
+        "tags": [
+          "Interventions"
+        ],
+        "produces": [
+          "application/json",
+          "text/json"
+        ],
+        "consumes": [
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "$ref": "#/parameters/Token"
+          },
+          {
+            "$ref": "#/parameters/LANG"
+          },
+          {
+            "name": "InterventionId",
+            "in": "query",
+            "required": false,
+            "description": "",
+            "default": "",
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "RefArticle",
+            "in": "query",
+            "required": false,
+            "description": "",
+            "default": "",
+            "type": "string",
+            "format": ""
+          },
+          {
+            "name": "TaskId",
+            "in": "query",
+            "required": false,
+            "description": "",
+            "default": "",
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "ZoneResaId",
+            "in": "query",
+            "required": false,
+            "description": "",
+            "default": "",
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "MachineId",
+            "in": "query",
+            "required": false,
+            "description": "",
+            "default": "",
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "RefClient",
+            "in": "query",
+            "required": false,
+            "description": "",
+            "default": "",
+            "type": "string",
+            "format": ""
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Semper Fi.",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/interventions"
+              }
+            }
+          },
+          "default": {
+            "description": "Error occurred.",
+            "schema": {
+              "$ref": "#/definitions/customError"
+            }
+          }
+        },
+        "security": [
+          {
+            "appToken": []
+          },
+          {
+            "userToken": []
+          }
+        ]
+      },
+      "post": {
+        "summary": "Add new Intervention.",
+        "description": "Add new Intervention.",
+        "operationId": "setIntervention",
+        "produces": [
+          "application/json",
+          "text/json"
+        ],
+        "consumes": [
+          "application/json",
+          "text/json"
+        ],
+        "tags": [
+          "Interventions"
+        ],
+        "parameters": [
+          {
+            "$ref": "#/parameters/Token"
+          },
+          {
+            "$ref": "#/parameters/LANG"
+          },
+          {
+            "name": "Visite",
+            "in": "body",
+            "required": true,
+            "description": "Intervention object",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/interventions"
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Semper Fi.",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/interventions"
+              }
+            }
+          },
+          "default": {
+            "description": "Error occurred.",
+            "schema": {
+              "$ref": "#/definitions/customError"
+            }
+          }
+        },
+        "security": [
+          {
+            "appToken": []
+          },
+          {
+            "userToken": []
+          }
+        ]
+      },
+      "put": {
+        "summary": "Modify existing intervention.",
+        "description": "Modify existing intervention.",
+        "operationId": "putIntervention",
+        "produces": [
+          "application/json",
+          "text/json"
+        ],
+        "consumes": [
+          "application/json",
+          "text/json"
+        ],
+        "tags": [
+          "Interventions"
+        ],
+        "parameters": [
+          {
+            "$ref": "#/parameters/Token"
+          },
+          {
+            "$ref": "#/parameters/LANG"
+          },
+          {
+            "name": "Intervention",
+            "in": "body",
+            "required": true,
+            "description": "Intervention object",
+            "schema": {
+              "$ref": "#/definitions/interventions"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Semper Fi.",
+            "schema": {
+              "$ref": "#/definitions/interventions"
+            }
+          },
+          "default": {
+            "description": "Error occurred.",
+            "schema": {
+              "$ref": "#/definitions/customError"
+            }
+          }
+        },
+        "security": [
+          {
+            "appToken": []
+          },
+          {
+            "userToken": []
+          }
+        ]
+      },
+      "delete": {
+        "description": "Delete intervention",
+        "tags": [
+          "Interventions"
+        ],
+        "operationId": "delIntervention",
+        "consumes": [
+          "application/json",
+          "text/json"
+        ],
+        "produces": [
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "$ref": "#/parameters/Token"
+          },
+          {
+            "$ref": "#/parameters/LANG"
+          },
+          {
+            "name": "InterventionId",
+            "in": "query",
+            "required": true,
+            "description": "Interventions' id.",
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Semper Fi.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          "default": {
+            "description": "Unexpected error",
+            "schema": {
+              "$ref": "#/definitions/customError"
+            }
+          }
+        },
+        "security": [
+          {
+            "appToken": []
+          },
+          {
+            "userToken": []
+          }
+        ]
+      }
+    },
+    "/locations": {
+      "get": {
+        "summary": "Get all machines with its respective contract filtered by values provided.",
+        "description": "Get all machines filtered by values provided.",
+        "tags": [
+          "Machines"
+        ],
+        "operationId": "getListLocations",
+        "produces": [
+          "application/json",
+          "text/json"
+        ],
+        "consumes": [
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "$ref": "#/parameters/Token"
+          },
+          {
+            "$ref": "#/parameters/LANG"
+          },
+          {
+            "name": "RefContract",
+            "in": "query",
+            "required": false,
+            "description": "",
+            "default": "",
+            "type": "string",
+            "format": ""
+          },
+          {
+            "name": "RefArticle",
+            "in": "query",
+            "required": false,
+            "description": "",
+            "default": "",
+            "type": "string",
+            "format": ""
+          },
+          {
+            "name": "MachineId",
+            "in": "query",
+            "required": false,
+            "description": "",
+            "default": "",
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "NumSerie",
+            "in": "query",
+            "required": false,
+            "description": "",
+            "default": "",
+            "type": "string",
+            "format": ""
+          },
+          {
+            "name": "RefClient",
+            "in": "query",
+            "required": false,
+            "description": "",
+            "default": "",
+            "type": "string",
+            "format": ""
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Semper Fi.",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/locations"
+              }
+            }
+          },
+          "default": {
+            "description": "Error occurred.",
+            "schema": {
+              "$ref": "#/definitions/customError"
+            }
+          }
+        },
+        "security": [
+          {
+            "appToken": []
+          },
+          {
+            "userToken": []
+          }
+        ]
+      }
+    },
+    "/machines": {
+      "get": {
+        "summary": "Get all Pieces filtered by values provided.",
+        "description": "Get all Pieces filtered by values provided.",
+        "tags": [
+          "Machines"
+        ],
+        "operationId": "getListMachines",
+        "produces": [
+          "application/json",
+          "text/json"
+        ],
+        "consumes": [
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "$ref": "#/parameters/Token"
+          },
+          {
+            "$ref": "#/parameters/LANG"
+          },
+          {
+            "name": "RefArticle",
+            "in": "query",
+            "required": false,
+            "description": "",
+            "default": "",
+            "type": "string",
+            "format": ""
+          },
+          {
+            "name": "DesignationArticle",
+            "in": "query",
+            "required": false,
+            "description": "",
+            "default": "",
+            "type": "string",
+            "format": ""
+          },
+          {
+            "name": "MachineId",
+            "in": "query",
+            "required": false,
+            "description": "",
+            "default": "",
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "NumSerie",
+            "in": "query",
+            "required": false,
+            "description": "",
+            "default": "",
+            "type": "string",
+            "format": ""
+          },
+          {
+            "name": "RefClient",
+            "in": "query",
+            "required": false,
+            "description": "",
+            "default": "",
+            "type": "string",
+            "format": ""
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Semper Fi.",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/machines"
+              }
+            }
+          },
+          "default": {
+            "description": "Error occurred.",
+            "schema": {
+              "$ref": "#/definitions/customError"
+            }
+          }
+        },
+        "security": [
+          {
+            "appToken": []
+          },
+          {
+            "userToken": []
+          }
+        ]
+      }
+    },
+    "/order/{idOrder}/bill": {
+      "post": {
+        "description": " Genere Pdf Invoice",
+        "tags": [
+          "order"
+        ],
+        "operationId": "orderidorderbill_post",
+        "consumes": [],
+        "produces": [
+          "multipart/form-data",
+          " application/x-www-form-urlencoded"
+        ],
+        "parameters": [
+          {
+            "$ref": "#/parameters/Token"
+          },
+          {
+            "$ref": "#/parameters/LANG"
+          },
+          {
+            "$ref": "#/parameters/idOrder"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Invoice",
+            "schema": {
+              "type": "file"
+            }
+          },
+          "default": {
+            "description": "Unexpected error",
+            "schema": {
+              "$ref": "#/definitions/customError"
+            }
+          }
+        },
+        "security": [
+          {
+            "appToken": []
+          },
+          {
+            "userToken": []
+          }
+        ]
+      }
+    },
+    "/order/{idOrder}/fill": {
+      "post": {
+        "description": " contenue ancienne commande",
+        "tags": [
+          "order"
+        ],
+        "operationId": "orderidorderfill_post",
+        "consumes": [
+          "application/json",
+          "text/json"
+        ],
+        "produces": [
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "$ref": "#/parameters/Token"
+          },
+          {
+            "$ref": "#/parameters/LANG"
+          },
+          {
+            "$ref": "#/parameters/idOrder"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "nbEltInCart",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "integer",
+                "format": "int32"
+              }
+            }
+          },
+          "default": {
+            "description": "Unexpected error",
+            "schema": {
+              "$ref": "#/definitions/customError"
+            }
+          }
+        },
+        "security": [
+          {
+            "appToken": []
+          },
+          {
+            "userToken": []
+          }
+        ]
+      }
+    },
+    "/orders": {
+      "get": {
+        "summary": "Get all client's orders",
+        "description": "Register client's addresses.",
+        "tags": [
+          "Order"
+        ],
+        "operationId": "getListOrders",
+        "consumes": [
+          "application/json",
+          "text/json"
+        ],
+        "produces": [
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "$ref": "#/parameters/Token"
+          },
+          {
+            "$ref": "#/parameters/LANG"
+          },
+          {
+            "name": "OrderId",
+            "in": "query",
+            "required": false,
+            "description": "order's id",
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "Start",
+            "in": "query",
+            "description": "Start Date. Format: YYYY-MM-DD",
+            "required": false,
+            "type": "string",
+            "format": "date"
+          },
+          {
+            "name": "End",
+            "in": "query",
+            "description": "End date. Format: YYYY-MM-DD",
+            "required": false,
+            "type": "string",
+            "format": "date"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Semper Fi",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/orders"
+              }
+            }
+          },
+          "default": {
+            "description": "Unexpected error",
+            "schema": {
+              "$ref": "#/definitions/customError"
+            }
+          }
+        },
+        "security": [
+          {
+            "appToken": []
+          },
+          {
+            "userToken": []
+          }
+        ]
+      },
+      "post": {
+        "summary": "Post an order.",
+        "description": "",
+        "operationId": "setOrder",
+        "produces": [
+          "application/json",
+          "text/json"
+        ],
+        "consumes": [
+          "application/json",
+          "text/json"
+        ],
+        "tags": [
+          "Order"
+        ],
+        "parameters": [
+          {
+            "$ref": "#/parameters/Token"
+          },
+          {
+            "$ref": "#/parameters/LANG"
+          },
+          {
+            "name": "Order",
+            "in": "body",
+            "required": true,
+            "description": "Order object",
+            "schema": {
+              "$ref": "#/definitions/orders"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Semper Fi.",
+            "schema": {
+              "$ref": "#/definitions/orders"
+            }
+          },
+          "default": {
+            "description": "Error occurred.",
+            "schema": {
+              "$ref": "#/definitions/customError"
+            }
+          }
+        },
+        "security": [
+          {
+            "appToken": []
+          },
+          {
+            "userToken": []
+          }
+        ]
+      }
+    },
+    "/Orders/checkPayment": {
+      "post": {
+        "summary": "check payment Token.",
+        "description": "check payment Token",
+        "tags": [
+          "Order"
+        ],
+        "operationId": "checkPayment",
+        "consumes": [
+          "application/json",
+          "text/json"
+        ],
+        "produces": [
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "$ref": "#/parameters/Token"
+          },
+          {
+            "$ref": "#/parameters/LANG"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "idOrder",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "integer",
+                "format": "int32"
+              }
+            }
+          },
+          "default": {
+            "description": "Unexpected error",
+            "schema": {
+              "$ref": "#/definitions/customError"
+            }
+          }
+        },
+        "security": [
+          {
+            "appToken": []
+          },
+          {
+            "userToken": []
+          }
+        ]
+      }
+    },
+    "/orders/final": {
+      "get": {
+        "summary": "resume panier.",
+        "description": " resume panier",
+        "tags": [
+          "Order"
+        ],
+        "operationId": "finalizeOrder",
+        "consumes": [
+          "application/json",
+          "text/json"
+        ],
+        "produces": [
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "$ref": "#/parameters/Token"
+          },
+          {
+            "$ref": "#/parameters/LANG"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Semper Fi",
+            "schema": {
+              "$ref": "#/definitions/carts"
+            }
+          },
+          "default": {
+            "description": "Unexpected error",
+            "schema": {
+              "$ref": "#/definitions/customError"
+            }
+          }
+        },
+        "security": [
+          {
+            "appToken": []
+          },
+          {
+            "userToken": []
+          }
+        ]
+      }
+    },
+    "/orders/pay": {
+      "post": {
+        "summary": "lance procedur payement.",
+        "description": "lance procedur payement",
+        "tags": [
+          "Order"
+        ],
+        "operationId": "payOrder",
+        "consumes": [
+          "application/json",
+          "text/json"
+        ],
+        "produces": [
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "$ref": "#/parameters/Token"
+          },
+          {
+            "$ref": "#/parameters/LANG"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Semper Fi",
+            "schema": {
+              "$ref": "#/definitions/carts"
+            }
+          },
+          "default": {
+            "description": "Unexpected error",
+            "schema": {
+              "$ref": "#/definitions/customError"
+            }
+          }
+        },
+        "security": [
+          {
+            "appToken": []
+          },
+          {
+            "userToken": []
+          }
+        ]
+      }
+    },
+    "/pieces": {
+      "get": {
+        "summary": "Get all Pieces filtered by values provided.",
+        "description": "Get all Pieces filtered by values provided.",
+        "tags": [
+          "Pieces"
+        ],
+        "operationId": "getListPieces",
+        "produces": [
+          "application/json",
+          "text/json"
+        ],
+        "consumes": [
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "$ref": "#/parameters/Token"
+          },
+          {
+            "$ref": "#/parameters/LANG"
+          },
+          {
+            "name": "RefArticle",
+            "in": "query",
+            "required": false,
+            "description": "",
+            "default": "",
+            "type": "string",
+            "format": ""
+          },
+          {
+            "name": "DesignationArticle",
+            "in": "query",
+            "required": false,
+            "description": "",
+            "default": "",
+            "type": "string",
+            "format": ""
+          },
+          {
+            "name": "IntituleFamille",
+            "in": "query",
+            "required": false,
+            "description": "",
+            "default": "",
+            "type": "string",
+            "format": ""
+          },
+          {
+            "name": "DetergentType",
+            "in": "query",
+            "required": false,
+            "description": "",
+            "default": "",
+            "type": "string",
+            "format": ""
+          },
+          {
+            "$ref": "#/parameters/Category"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Semper Fi.",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/pieces"
+              }
+            }
+          },
+          "default": {
+            "description": "Error occurred.",
+            "schema": {
+              "$ref": "#/definitions/customError"
+            }
+          }
+        },
+        "security": [
+          {
+            "appToken": []
+          },
+          {
+            "userToken": []
+          }
+        ]
+      }
+    },
+    "/products": {
+      "get": {
+        "summary": "Get detail of products filtered.",
+        "description": "Get detail of products filtered.",
+        "operationId": "getProducts",
+        "tags": [
+          "Products"
+        ],
+        "produces": [
+          "application/json",
+          "text/json"
+        ],
+        "consumes": [
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "$ref": "#/parameters/Token"
+          },
+          {
+            "$ref": "#/parameters/LANG"
+          },
+          {
+            "$ref": "#/parameters/Category"
+          },
+          {
+            "name": "RefArticle",
+            "in": "query",
+            "required": false,
+            "description": "Article's reference",
+            "default": "",
+            "type": "string"
+          },
+          {
+            "name": "DesignationArticle",
+            "in": "query",
+            "required": false,
+            "description": "",
+            "default": "",
+            "type": "string",
+            "format": ""
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Semper Fi.",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/products"
+              }
+            }
+          },
+          "default": {
+            "description": "Error occurred.",
+            "schema": {
+              "$ref": "#/definitions/customError"
+            }
+          }
+        },
+        "security": [
+          {
+            "appToken": []
+          },
+          {
+            "userToken": []
+          }
+        ]
+      }
+    },
+    "/productsList": {
+      "get": {
+        "summary": "Get list of products by category.",
+        "description": "Get list of products by category.",
+        "tags": [
+          "Products"
+        ],
+        "operationId": "getListProducts",
+        "consumes": [
+          "application/json",
+          "text/json"
+        ],
+        "produces": [
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "$ref": "#/parameters/Token"
+          },
+          {
+            "$ref": "#/parameters/LANG"
+          },
+          {
+            "$ref": "#/parameters/Category"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Semper Fi",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/products"
+              }
+            }
+          },
+          "default": {
+            "description": "Unexpected error",
+            "schema": {
+              "$ref": "#/definitions/customError"
+            }
+          }
+        },
+        "security": [
+          {
+            "appToken": []
+          },
+          {
+            "userToken": []
+          }
+        ]
+      }
+    },
+    "/taches": {
+      "get": {
+        "summary": "Get all taches filtered by values provided.",
+        "description": "Get all taches filtered by values provided.",
+        "operationId": "getListTaches",
+        "tags": [
+          "Taches"
+        ],
+        "produces": [
+          "application/json",
+          "text/json"
+        ],
+        "consumes": [
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "$ref": "#/parameters/Token"
+          },
+          {
+            "$ref": "#/parameters/LANG"
+          },
+          {
+            "name": "TechnicienId",
+            "in": "query",
+            "required": false,
+            "description": "Technicien's id.",
+            "default": "",
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "TaskId",
+            "in": "query",
+            "required": false,
+            "description": "Task's id.",
+            "default": "",
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "ClientsAddressId",
+            "in": "query",
+            "required": false,
+            "description": "ClientsAddress' id.",
+            "default": "",
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "RefClient",
+            "in": "query",
+            "required": false,
+            "description": "",
+            "default": "",
+            "type": "string",
+            "format": ""
+          },
+          {
+            "name": "DateAppel",
+            "in": "query",
+            "required": false,
+            "default": "",
+            "description": "Call's Day. Format: YYYY-MM-DD",
+            "type": "string",
+            "format": "date"
+          },
+          {
+            "name": "Date_Depan",
+            "in": "query",
+            "required": false,
+            "default": "",
+            "description": "Fix's Day. Format: YYYY-MM-DD",
+            "type": "string",
+            "format": "date"
+          },
+          {
+            "name": "Fixed",
+            "in": "query",
+            "required": false,
+            "default": "false",
+            "description": "If the tasks were fixed or not",
+            "type": "boolean",
+            "format": ""
+          },
+          {
+            "name": "MachineId",
+            "in": "query",
+            "required": false,
+            "description": "Machine's id.",
+            "default": "",
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Semper Fi.",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/taches"
+              }
+            }
+          },
+          "default": {
+            "description": "Error occurred.",
+            "schema": {
+              "$ref": "#/definitions/customError"
+            }
+          }
+        },
+        "security": [
+          {
+            "appToken": []
+          },
+          {
+            "userToken": []
+          }
+        ]
+      },
+      "post": {
+        "summary": "Add new Tache",
+        "description": "",
+        "operationId": "setTache",
+        "produces": [
+          "application/json",
+          "text/json"
+        ],
+        "consumes": [
+          "application/json",
+          "text/json"
+        ],
+        "tags": [
+          "Taches"
+        ],
+        "parameters": [
+          {
+            "$ref": "#/parameters/Token"
+          },
+          {
+            "$ref": "#/parameters/LANG"
+          },
+          {
+            "name": "Tache",
+            "in": "body",
+            "required": true,
+            "description": "Tache object",
+            "schema": {
+              "$ref": "#/definitions/taches"
+            }
+          },
+          {
+            "name": "NotificateToTech",
+            "in": "query",
+            "required": false,
+            "description": "If send notification to technician's phone.",
+            "type": "boolean",
+            "format": ""
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Semper Fi.",
+            "schema": {
+              "$ref": "#/definitions/taches"
+            }
+          },
+          "default": {
+            "description": "Error occurred.",
+            "schema": {
+              "$ref": "#/definitions/customError"
+            }
+          }
+        },
+        "security": [
+          {
+            "appToken": []
+          },
+          {
+            "userToken": []
+          }
+        ]
+      },
+      "put": {
+        "summary": "Modify existing tache.",
+        "description": "Modify existing tache.",
+        "operationId": "putTache",
+        "produces": [
+          "application/json",
+          "text/json"
+        ],
+        "consumes": [
+          "application/json",
+          "text/json"
+        ],
+        "tags": [
+          "Taches"
+        ],
+        "parameters": [
+          {
+            "$ref": "#/parameters/Token"
+          },
+          {
+            "$ref": "#/parameters/LANG"
+          },
+          {
+            "name": "Tache",
+            "in": "body",
+            "required": true,
+            "description": "Tache object",
+            "schema": {
+              "$ref": "#/definitions/taches"
+            }
+          },
+          {
+            "name": "NotificateToTech",
+            "in": "query",
+            "required": false,
+            "description": "If send notification to technician's phone.",
+            "type": "boolean",
+            "format": ""
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Semper Fi.",
+            "schema": {
+              "$ref": "#/definitions/taches"
+            }
+          },
+          "default": {
+            "description": "Error occurred.",
+            "schema": {
+              "$ref": "#/definitions/customError"
+            }
+          }
+        },
+        "security": [
+          {
+            "appToken": []
+          },
+          {
+            "userToken": []
+          }
+        ]
+      },
+      "patch": {
+        "summary": "Modify code of an existing tache.",
+        "description": "Modify code of an existing tache.",
+        "operationId": "putCodeTache",
+        "produces": [
+          "application/json",
+          "text/json"
+        ],
+        "consumes": [
+          "application/json",
+          "text/json"
+        ],
+        "tags": [
+          "Taches"
+        ],
+        "parameters": [
+          {
+            "$ref": "#/parameters/Token"
+          },
+          {
+            "$ref": "#/parameters/LANG"
+          },
+          {
+            "name": "Tache",
+            "in": "body",
+            "required": true,
+            "description": "Tache object",
+            "schema": {
+              "$ref": "#/definitions/taches"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Semper Fi.",
+            "schema": {
+              "$ref": "#/definitions/taches"
+            }
+          },
+          "default": {
+            "description": "Error occurred.",
+            "schema": {
+              "$ref": "#/definitions/customError"
+            }
+          }
+        },
+        "security": [
+          {
+            "appToken": []
+          },
+          {
+            "userToken": []
+          }
+        ]
+      }
+    },
+    "/user": {
+      "post": {
+        "summary": "Register User",
+        "description": "Registration",
+        "tags": [
+          "User"
+        ],
+        "operationId": "setProfile",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "$ref": "#/parameters/LANG"
+          },
+          {
+            "name": "User",
+            "in": "body",
+            "required": true,
+            "description": "User's data",
+            "schema": {
+              "$ref": "#/definitions/users"
+            }
+          },
+          {
+            "name": "Password",
+            "in": "query",
+            "required": true,
+            "description": "User's password.",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Semper Fi",
+            "schema": {
+              "$ref": "#/definitions/users"
+            }
+          },
+          "default": {
+            "description": "Unexpected error",
+            "schema": {
+              "$ref": "#/definitions/customError"
+            }
+          }
+        },
+        "security": [
+          {
+            "appToken": []
+          }
+        ]
+      },
+      "get": {
+        "summary": "Get client's information.",
+        "description": "get profile info",
+        "tags": [
+          "User"
+        ],
+        "operationId": "getProfile",
+        "consumes": [
+          "application/json",
+          "text/json"
+        ],
+        "produces": [
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "$ref": "#/parameters/Token"
+          },
+          {
+            "$ref": "#/parameters/LANG"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Semper Fi",
+            "schema": {
+              "$ref": "#/definitions/users"
+            }
+          },
+          "default": {
+            "description": "Unexpected error",
+            "schema": {
+              "$ref": "#/definitions/customError"
+            }
+          }
+        },
+        "security": [
+          {
+            "appToken": []
+          },
+          {
+            "userToken": []
+          }
+        ]
+      },
+      "put": {
+        "summary": "update client's information.",
+        "description": "change profile info",
+        "tags": [
+          "User"
+        ],
+        "operationId": "putProfile",
+        "consumes": [
+          "application/json",
+          "text/json"
+        ],
+        "produces": [
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "$ref": "#/parameters/LANG"
+          },
+          {
+            "name": "User",
+            "description": "User details",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/users"
+            }
+          }
+        ],
+        "security": [
+          {
+            "appToken": []
+          },
+          {
+            "userToken": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Semper Fi",
+            "schema": {
+              "$ref": "#/definitions/users"
+            }
+          },
+          "default": {
+            "description": "Unexpected error",
+            "schema": {
+              "$ref": "#/definitions/customError"
+            }
+          }
+        }
+      }
+    },
+    "/user/email/change": {
+      "post": {
+        "summary": "Change user email.",
+        "description": "Change user email",
+        "tags": [
+          "User",
+          "Email"
+        ],
+        "operationId": "changeEmail",
+        "consumes": [
+          "application/json",
+          "text/json"
+        ],
+        "produces": [
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "$ref": "#/parameters/LANG"
+          },
+          {
+            "name": "email",
+            "in": "query",
+            "required": true,
+            "description": "User's email",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "status",
+            "schema": {
+              "type": "string"
+            }
+          },
+          "default": {
+            "description": "Unexpected error",
+            "schema": {
+              "$ref": "#/definitions/customError"
+            }
+          }
+        },
+        "security": [
+          {
+            "appToken": []
+          },
+          {
+            "userToken": []
+          }
+        ]
+      }
+    },
+    "/user/email/check": {
+      "get": {
+        "description": "CheckEmail",
+        "tags": [
+          "User",
+          "Email"
+        ],
+        "operationId": "checkEmail",
+        "consumes": [
+          "application/json",
+          "text/json"
+        ],
+        "produces": [
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "name": "token",
+            "in": "query",
+            "required": true,
+            "description": "Key to reset password",
+            "type": "string"
+          },
+          {
+            "name": "email",
+            "in": "query",
+            "required": true,
+            "description": "account email",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Semper Fi",
+            "schema": {
+              "type": "string"
+            }
+          },
+          "default": {
+            "description": "Unexpected error",
+            "schema": {
+              "$ref": "#/definitions/customError"
+            }
+          }
+        },
+        "security": [
+          {
+            "appToken": []
+          }
+        ]
+      }
+    },
+    "/user/email/send": {
+      "post": {
+        "description": "Send email verification",
+        "tags": [
+          "User",
+          "Email"
+        ],
+        "operationId": "sendEmailVerification",
+        "consumes": [
+          "application/json",
+          "text/json"
+        ],
+        "produces": [
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "name": "email",
+            "in": "query",
+            "required": true,
+            "description": "account email",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Semper Fi",
+            "schema": {
+              "type": "string"
+            }
+          },
+          "default": {
+            "description": "Unexpected error",
+            "schema": {
+              "$ref": "#/definitions/customError"
+            }
+          }
+        },
+        "security": [
+          {
+            "appToken": []
+          },
+          {
+            "userToken": []
+          }
+        ]
+      }
+    },
+    "/user/login": {
+      "get": {
+        "summary": "Login by email and password.",
+        "description": "Login",
+        "tags": [
+          "User",
+          "Login"
+        ],
+        "operationId": "login",
+        "consumes": [
+          "application/json",
+          "text/json"
+        ],
+        "produces": [
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "$ref": "#/parameters/LANG"
+          },
+          {
+            "name": "email",
+            "in": "query",
+            "required": true,
+            "description": "User's email.",
+            "type": "string",
+            "format": ""
+          },
+          {
+            "name": "password",
+            "in": "query",
+            "required": true,
+            "description": "User's password.",
+            "type": "string",
+            "format": ""
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Semper Fi",
+            "schema": {
+              "$ref": "#/definitions/session"
+            }
+          },
+          "default": {
+            "description": "Unexpected error",
+            "schema": {
+              "$ref": "#/definitions/customError"
+            }
+          }
+        },
+        "security": [
+          {
+            "appToken": []
+          },
+          {
+            "userToken": []
+          }
+        ]
+      }
+    },
+    "/user/login/facebook": {
+      "get": {
+        "summary": "Login by Facebook account.",
+        "description": "URL to redirect to facebook page.",
+        "tags": [
+          "User",
+          "Login"
+        ],
+        "operationId": "loginFacebook",
+        "consumes": [
+          "application/json",
+          "text/json"
+        ],
+        "produces": [
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Semper Fi"
+          },
+          "default": {
+            "description": "Unexpected error",
+            "schema": {
+              "$ref": "#/definitions/customError"
+            }
+          }
+        }
+      }
+    },
+    "/user/login/facebook/callback": {
+      "get": {
+        "summary": "Callback from facebook auth.",
+        "description": "Get the user parameters.",
+        "tags": [
+          "User",
+          "Login"
+        ],
+        "operationId": "facebookCallback",
+        "consumes": [
+          "application/json",
+          "text/json"
+        ],
+        "produces": [
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Semper Fi",
+            "schema": {
+              "$ref": "#/definitions/session"
+            }
+          },
+          "default": {
+            "description": "Unexpected error",
+            "schema": {
+              "$ref": "#/definitions/customError"
+            }
+          }
+        }
+      }
+    },
+    "/user/login/google": {
+      "get": {
+        "summary": "Google token",
+        "description": "getting user details from G",
+        "tags": [
+          "User",
+          "Login"
+        ],
+        "operationId": "loginGoogle",
+        "consumes": [
+          "application/json",
+          "text/json"
+        ],
+        "produces": [
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "$ref": "#/parameters/Token"
+          },
+          {
+            "$ref": "#/parameters/LANG"
+          },
+          {
+            "name": "Googletoken",
+            "in": "query",
+            "description": "Googletoken",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Semper Fi",
+            "schema": {
+              "$ref": "#/definitions/session"
+            }
+          },
+          "default": {
+            "description": "Unexpected error",
+            "schema": {
+              "$ref": "#/definitions/customError"
+            }
+          }
+        }
+      }
+    },
+    "/user/password": {
+      "get": {
+        "summary": "Change password by providing email's token.",
+        "description": "Request a new password with forget token.",
+        "tags": [
+          "User",
+          "Password"
+        ],
+        "operationId": "changePasswordWithToken",
+        "consumes": [
+          "application/json",
+          "text/json"
+        ],
+        "produces": [
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "name": "newPassword",
+            "in": "query",
+            "description": "Forgot password token",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Semper Fi",
+            "schema": {
+              "type": "string"
+            }
+          },
+          "default": {
+            "description": "Unexpected error",
+            "schema": {
+              "$ref": "#/definitions/customError"
+            }
+          }
+        },
+        "security": [
+          {
+            "appToken": []
+          }
+        ]
+      },
+      "patch": {
+        "summary": "Change password by providing old password.",
+        "description": "change user password",
+        "tags": [
+          "User",
+          "Password"
+        ],
+        "operationId": "changePasswordWithOldPassword",
+        "consumes": [
+          "application/json",
+          "text/json"
+        ],
+        "produces": [
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "$ref": "#/parameters/LANG"
+          },
+          {
+            "name": "passwordOld",
+            "in": "query",
+            "required": true,
+            "description": "Old password",
+            "type": "string"
+          },
+          {
+            "name": "passwordNew",
+            "in": "query",
+            "required": true,
+            "description": "Old password",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "status",
+            "schema": {
+              "type": "string"
+            }
+          },
+          "default": {
+            "description": "Unexpected error",
+            "schema": {
+              "$ref": "#/definitions/customError"
+            }
+          }
+        },
+        "security": [
+          {
+            "appToken": []
+          },
+          {
+            "userToken": []
+          }
+        ]
+      }
+    },
+    "/user/password/forgot": {
+      "post": {
+        "summary": "Send email to user who lost password",
+        "description": "forgotPassword",
+        "tags": [
+          "User",
+          "Password"
+        ],
+        "operationId": "forgotPasswordClient",
+        "consumes": [
+          "application/json",
+          "text/json"
+        ],
+        "produces": [
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "$ref": "#/parameters/LANG"
+          },
+          {
+            "name": "email",
+            "in": "query",
+            "required": true,
+            "description": "User's email",
+            "type": "string"
+          },
+          {
+            "name": "killSessions",
+            "in": "query",
+            "required": true,
+            "description": "If session's asociated with that email must be cleared.",
+            "type": "boolean"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Semper Fi",
+            "schema": {
+              "type": "string"
+            }
+          },
+          "default": {
+            "description": "Unexpected error",
+            "schema": {
+              "$ref": "#/definitions/customError"
+            }
+          }
+        },
+        "security": [
+          {
+            "appToken": []
+          }
+        ]
+      }
+    },
+    "/user/verifyToken": {
+      "post": {
+        "summary": "Provide Session Token",
+        "description": " Provide Session Token and user.Name, NumberOfCartElements, user.refclient",
+        "tags": [
+          "User",
+          "Login"
+        ],
+        "operationId": "startSession",
+        "consumes": [
+          "application/json",
+          "text/json"
+        ],
+        "produces": [
+          "application/json",
+          "text/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Semper Fi",
+            "schema": {
+              "$ref": "#/definitions/session"
+            }
+          },
+          "default": {
+            "description": "Unexpected error",
+            "schema": {
+              "$ref": "#/definitions/customError"
+            }
+          }
+        },
+        "security": [
+          {
+            "appToken": []
+          },
+          {
+            "userToken": []
+          }
+        ]
+      }
+    },
+    "/visites": {
+      "get": {
+        "summary": "Get all Visites filtered by values provided.",
+        "description": "Get all Visites filtered by values provided.",
+        "operationId": "getListVisites",
+        "tags": [
+          "Visites"
+        ],
+        "produces": [
+          "application/json",
+          "text/json"
+        ],
+        "consumes": [
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "$ref": "#/parameters/Token"
+          },
+          {
+            "$ref": "#/parameters/LANG"
+          },
+          {
+            "name": "TechnicienId",
+            "in": "query",
+            "required": false,
+            "description": "",
+            "default": "",
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "Visitid",
+            "in": "query",
+            "required": false,
+            "description": "",
+            "default": "",
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "ClientsAddressId",
+            "in": "query",
+            "required": false,
+            "description": "",
+            "default": "",
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "RefClient",
+            "in": "query",
+            "required": false,
+            "description": "",
+            "default": "",
+            "type": "string",
+            "format": ""
+          },
+          {
+            "name": "DateVisite",
+            "in": "query",
+            "required": false,
+            "description": "Format: YYYY-MM-DD HH:mm:ss Z.",
+            "default": "",
+            "type": "string",
+            "format": "date"
+          },
+          {
+            "name": "MachineId",
+            "in": "query",
+            "required": false,
+            "description": "Machine's id.",
+            "default": "",
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Semper Fi.",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/visites"
+              }
+            }
+          },
+          "default": {
+            "description": "Error occurred.",
+            "schema": {
+              "$ref": "#/definitions/customError"
+            }
+          }
+        },
+        "security": [
+          {
+            "appToken": []
+          },
+          {
+            "userToken": []
+          }
+        ]
+      },
+      "post": {
+        "summary": "Add new Visite.",
+        "description": "Add new Visite.",
+        "operationId": "setVisite",
+        "produces": [
+          "application/json",
+          "text/json"
+        ],
+        "consumes": [
+          "application/json",
+          "text/json"
+        ],
+        "tags": [
+          "Visites"
+        ],
+        "parameters": [
+          {
+            "$ref": "#/parameters/Token"
+          },
+          {
+            "$ref": "#/parameters/LANG"
+          },
+          {
+            "name": "Visite",
+            "in": "body",
+            "required": true,
+            "description": "Visite object",
+            "schema": {
+              "$ref": "#/definitions/visites"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Semper Fi.",
+            "schema": {
+              "$ref": "#/definitions/visites"
+            }
+          },
+          "default": {
+            "description": "Error occurred.",
+            "schema": {
+              "$ref": "#/definitions/customError"
+            }
+          }
+        },
+        "security": [
+          {
+            "appToken": []
+          },
+          {
+            "userToken": []
+          }
+        ]
+      },
+      "put": {
+        "summary": "Modify existing Visite.",
+        "description": "Modify existing Visite.",
+        "operationId": "putVisite",
+        "produces": [
+          "application/json",
+          "text/json"
+        ],
+        "consumes": [
+          "application/json",
+          "text/json"
+        ],
+        "tags": [
+          "Visites"
+        ],
+        "parameters": [
+          {
+            "$ref": "#/parameters/Token"
+          },
+          {
+            "$ref": "#/parameters/LANG"
+          },
+          {
+            "name": "Visite",
+            "in": "body",
+            "required": true,
+            "description": "Visite object",
+            "schema": {
+              "$ref": "#/definitions/visites"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Semper Fi.",
+            "schema": {
+              "$ref": "#/definitions/visites"
+            }
+          },
+          "default": {
+            "description": "Error occurred.",
+            "schema": {
+              "$ref": "#/definitions/customError"
+            }
+          }
+        },
+        "security": [
+          {
+            "appToken": []
+          },
+          {
+            "userToken": []
+          }
+        ]
+      }
+    },
+    "/visites/next": {
+      "get": {
+        "summary": "Get Visites to be done filtered by values provided.",
+        "description": "Get Visites to be done filtered by values provided.",
+        "operationId": "getListNextVisites",
+        "tags": [
+          "Visites"
+        ],
+        "produces": [
+          "application/json",
+          "text/json"
+        ],
+        "consumes": [
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "$ref": "#/parameters/Token"
+          },
+          {
+            "$ref": "#/parameters/LANG"
+          },
+          {
+            "name": "TechnicienId",
+            "in": "query",
+            "required": false,
+            "description": "",
+            "default": "",
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "ClientsAddressId",
+            "in": "query",
+            "required": false,
+            "description": "",
+            "default": "",
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "RefClient",
+            "in": "query",
+            "required": false,
+            "description": "",
+            "default": "",
+            "type": "string",
+            "format": ""
+          },
+          {
+            "name": "DateVisite",
+            "in": "query",
+            "required": false,
+            "description": "Format: YYYY-MM-DD HH:mm:ss Z.",
+            "default": "",
+            "type": "string",
+            "format": "date"
+          },
+          {
+            "name": "MachineId",
+            "in": "query",
+            "required": false,
+            "description": "Machine's id.",
+            "default": "",
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Semper Fi.",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/visites"
+              }
+            }
+          },
+          "default": {
+            "description": "Error occurred.",
+            "schema": {
+              "$ref": "#/definitions/customError"
+            }
+          }
+        },
+        "security": [
+          {
+            "appToken": []
+          },
+          {
+            "userToken": []
+          }
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "activities": {
+      "type": "object",
+      "properties": {
+        "addresses": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/addresses"
+          }
+        },
+        "orders": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/orders"
+          }
+        },
+        "contracts": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/contracts"
+          }
+        },
+        "taches": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/taches"
+          }
+        },
+        "interventions": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/interventions"
+          }
+        },
+        "visites": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/visites"
+          }
+        },
+        "locations": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/locations"
+          }
+        }
+      }
+    },
+    "addresses": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "client": {
+          "$ref": "#/definitions/clients"
+        },
+        "name": {
+          "type": "string"
+        },
+        "numero": {
+          "type": "string"
+        },
+        "address": {
+          "type": "string"
+        },
+        "codePostal": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "complement": {
+          "type": "string"
+        },
+        "ville": {
+          "type": "string"
+        },
+        "pays": {
+          "type": "string"
+        },
+        "telephone": {
+          "type": "string"
+        },
+        "nom": {
+          "type": "string"
+        },
+        "livraison": {
+          "type": "string"
+        },
+        "latitude": {
+          "type": "number",
+          "format": "double"
+        },
+        "longitude": {
+          "type": "number",
+          "format": "double"
+        },
+        "typeAddress": {
+          "type": "string"
+        }
+      }
+    },
+    "cartItems": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "piece": {
+          "$ref": "#/definitions/pieces"
+        },
+        "cart": {
+          "$ref": "#/definitions/carts"
+        },
+        "pu": {
+          "type": "number",
+          "format": "float"
+        },
+        "pt": {
+          "type": "number",
+          "format": "float"
+        },
+        "remise": {
+          "type": "number",
+          "format": "float"
+        },
+        "quantite": {
+          "type": "integer",
+          "format": "int32"
+        }
+      }
+    },
+    "carts": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "paymentToken": {
+          "type": "string"
+        },
+        "validationDate": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "pt": {
+          "type": "number",
+          "format": "float"
+        },
+        "items": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/cartItems"
+          }
+        }
+      }
+    },
+    "categories": {
+      "type": "object",
+      "properties": {
+        "Category": {
+          "type": "string"
+        },
+        "ImagePath": {
+          "type": "string"
+        }
+      }
+    },
+    "clients": {
+      "type": "object",
+      "properties": {
+        "refClient": {
+          "type": "string"
+        },
+        "abrege": {
+          "type": "string"
+        },
+        "prenom": {
+          "type": "string"
+        },
+        "nom": {
+          "type": "string"
+        },
+        "etat": {
+          "type": "string"
+        },
+        "groupe": {
+          "type": "string"
+        },
+        "statutGroupe": {
+          "type": "string"
+        },
+        "statut": {
+          "type": "string"
+        },
+        "raisonSociale": {
+          "type": "string"
+        },
+        "typeClient": {
+          "type": "string"
+        },
+        "score": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "secteur": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "frequence": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "email": {
+          "type": "string"
+        },
+        "interdit": {
+          "type": "boolean"
+        },
+        "lastSuccessfulAttempt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "idFacebook": {
+          "type": "string"
+        },
+        "idGoogle": {
+          "type": "string"
+        },
+        "siret": {
+          "type": "string"
+        },
+        "tvaIntraco": {
+          "type": "string"
+        },
+        "civilite": {
+          "type": "string"
+        },
+        "nbConnectionAttempt": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "validationKey": {
+          "type": "string"
+        }
+      }
+    },
+    "consuptions": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "client": {
+          "$ref": "#/definitions/clients"
+        },
+        "piece": {
+          "$ref": "#/definitions/pieces"
+        },
+        "qte": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "ca": {
+          "type": "number",
+          "format": "float"
+        },
+        "dateVente": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "contracts": {
+      "type": "object",
+      "properties": {
+        "refContract": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "machines": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/machines"
+          }
+        },
+        "client": {
+          "$ref": "#/definitions/clients"
+        },
+        "dateDebut": {
+          "type": "string",
+          "format": "date"
+        },
+        "dateFin": {
+          "type": "string",
+          "format": "date"
+        },
+        "reconduction": {
+          "type": "string",
+          "format": ""
+        },
+        "loyer": {
+          "type": "number",
+          "format": "float"
+        },
+        "miniconso": {
+          "type": "number",
+          "format": "float"
+        }
+      }
+    },
+    "customError": {
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "Message": {
+          "type": "string",
+          "format": ""
+        }
+      }
+    },
+    "deletedParameter": {
+      "type": "string",
+      "default": "ACTIVE",
+      "enum": [
+        "ACTIVE",
+        "DELETED",
+        "ALL"
+      ]
+    },
+    "deletedResponse": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        }
+      }
+    },
+    "emailDataParameter": {
+      "type": "object",
+      "required": [
+        "email",
+        "urlResponse"
+      ],
+      "properties": {
+        "email": {
+          "type": "string"
+        },
+        "urlResponse": {
+          "type": "string"
+        }
+      }
+    },
+    "error204Response": {
+      "type": "string"
+    },
+    "error401Response": {
+      "type": "object",
+      "required": [
+        "message"
+      ],
+      "properties": {
+        "message": {
+          "type": "string"
+        }
+      }
+    },
+    "interventions": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "tache": {
+          "$ref": "#/definitions/taches"
+        },
+        "piece": {
+          "$ref": "#/definitions/pieces"
+        },
+        "quantite": {
+          "type": "integer",
+          "format": "int32"
+        }
+      }
+    },
+    "locations": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "machine": {
+          "$ref": "#/definitions/machines"
+        },
+        "contract": {
+          "$ref": "#/definitions/contracts"
+        }
+      }
+    },
+    "machines": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "piece": {
+          "$ref": "#/definitions/pieces"
+        },
+        "numSerie": {
+          "type": "string",
+          "format": ""
+        },
+        "refContract": {
+          "type": "string",
+          "format": ""
+        }
+      }
+    },
+    "metadata": {
+      "type": "object",
+      "properties": {
+        "links": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "first": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "prev": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "self": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "next": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "last": {
+          "type": "integer",
+          "format": "int64"
+        }
+      }
+    },
+    "orders": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "billingAddress": {
+          "$ref": "#/definitions/addresses"
+        },
+        "shippingAddress": {
+          "$ref": "#/definitions/addresses"
+        },
+        "dateCommande": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "traiter": {
+          "type": "boolean",
+          "format": ""
+        },
+        "cart": {
+          "$ref": "#/definitions/carts"
+        }
+      }
+    },
+    "pieces": {
+      "type": "object",
+      "properties": {
+        "refArticle": {
+          "type": "string"
+        },
+        "designationArticle": {
+          "type": "string"
+        },
+        "statut": {
+          "type": "string"
+        },
+        "prixVente": {
+          "type": "number",
+          "format": "double"
+        },
+        "uniteVente": {
+          "type": "number",
+          "format": "double"
+        },
+        "intituleFamille": {
+          "type": "string"
+        },
+        "dernierPrixAchat": {
+          "type": "number",
+          "format": "double"
+        },
+        "conditionnement": {
+          "type": "string"
+        },
+        "detergentType": {
+          "type": "string"
+        },
+        "poids": {
+          "type": "number",
+          "format": "double"
+        },
+        "poidSuc": {
+          "type": "number",
+          "format": "double"
+        }
+      }
+    },
+    "piecesDetail": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "piece": {
+          "$ref": "#/definitions/pieces"
+        },
+        "title": {
+          "type": "string"
+        },
+        "content": {
+          "type": "string"
+        },
+        "ligne": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "unit": {
+          "type": "string"
+        }
+      }
+    },
+    "piecesFiche": {
+      "type": "object",
+      "required": [
+        "id",
+        "Piece"
+      ],
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "Piece": {
+          "$ref": "#/definitions/pieces"
+        },
+        "description": {
+          "type": "string"
+        },
+        "Category": {
+          "type": "string"
+        },
+        "ImagePath": {
+          "type": "string"
+        }
+      }
+    },
+    "piecesKeyPoints": {
+      "type": "object",
+      "required": [
+        "id",
+        "piece"
+      ],
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "piece": {
+          "$ref": "#/definitions/pieces"
+        },
+        "content": {
+          "type": "string"
+        },
+        "ligne": {
+          "type": "integer",
+          "format": "int32"
+        }
+      }
+    },
+    "products": {
+      "type": "object",
+      "properties": {
+        "piece": {
+          "$ref": "#/definitions/pieces"
+        },
+        "piecesFiche": {
+          "$ref": "#/definitions/piecesFiche"
+        },
+        "piecesKeyPoints": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/piecesKeyPoints"
+          }
+        },
+        "piecesDetail": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/piecesDetail"
+          }
+        }
+      }
+    },
+    "session": {
+      "type": "object",
+      "properties": {
+        "clientId": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "technicienId": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "nom": {
+          "type": "string"
+        },
+        "refClient": {
+          "type": "string"
+        },
+        "token": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "cart": {
+          "$ref": "#/definitions/carts"
+        },
+        "secteur": {
+          "type": "integer",
+          "format": "int32"
+        }
+      }
+    },
+    "taches": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "clientsAddress": {
+          "$ref": "#/definitions/addresses"
+        },
+        "machine": {
+          "$ref": "#/definitions/machines"
+        },
+        "zoneResa": {
+          "$ref": "#/definitions/zoneResas"
+        },
+        "dateAppel": {
+          "type": "string",
+          "format": "date"
+        },
+        "typeInter": {
+          "type": "string",
+          "format": ""
+        },
+        "descriptionPanne": {
+          "type": "string",
+          "format": ""
+        },
+        "prioritePrice": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "date_Depan": {
+          "type": "string",
+          "format": "date"
+        },
+        "mo": {
+          "type": "number",
+          "format": "double"
+        },
+        "descriptionDepan": {
+          "type": "string"
+        },
+        "savpayant": {
+          "type": "boolean"
+        },
+        "initiator": {
+          "type": "string",
+          "format": ""
+        },
+        "code": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "gpsStatusCode": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "techRating": {
+          "type": "number",
+          "format": "double"
+        },
+        "clientRating": {
+          "type": "number",
+          "format": "double"
+        }
+      }
+    },
+    "users": {
+      "type": "object",
+      "properties": {
+        "refClient": {
+          "type": "string"
+        },
+        "abrege": {
+          "type": "string"
+        },
+        "prenom": {
+          "type": "string"
+        },
+        "nom": {
+          "type": "string"
+        },
+        "etat": {
+          "type": "string"
+        },
+        "groupe": {
+          "type": "string"
+        },
+        "statut": {
+          "type": "string"
+        },
+        "raisonSociale": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "siret": {
+          "type": "string"
+        },
+        "tvaIntraco": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "civilite": {
+          "type": "string"
+        },
+        "secteur": {
+          "type": "string"
+        }
+      }
+    },
+    "visites": {
+      "type": "object",
+      "required": [
+        "id",
+        "zoneResa"
+      ],
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "machine": {
+          "$ref": "#/definitions/machines"
+        },
+        "zoneResa": {
+          "$ref": "#/definitions/zoneResas"
+        },
+        "clientsAddress": {
+          "$ref": "#/definitions/addresses"
+        },
+        "dateVisite": {
+          "type": "string",
+          "format": "date"
+        },
+        "th": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "temperatureLavage": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "temperatureRincage": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "conductivite": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "commentaire": {
+          "type": "string",
+          "format": ""
+        }
+      }
+    },
+    "zoneResas": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "technicien": {
+          "type": "string"
+        },
+        "secteur": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "email": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}
