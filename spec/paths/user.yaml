@@ -1,0 +1,94 @@
+post:
+  summary: Register User
+  description: Registration
+  tags:
+    - User
+  operationId: setProfile
+  consumes:
+    - application/json
+  produces:
+    - application/json
+    - text/json
+  parameters:
+    - $ref: '#/parameters/LANG'
+    - name: User
+      in: body
+      required: true
+      description: User's data
+      schema:
+        $ref: '#/definitions/users'
+    - name: Password
+      in: query
+      required: true
+      description: User's password.
+      type: string
+  responses:
+    '200':
+      description: Semper Fi
+      schema:
+        $ref: '#/definitions/users'
+    default:
+      description: Unexpected error
+      schema:
+        $ref: '#/definitions/customError'
+  security:
+    - appToken: []
+get:
+  summary: Get client's information.
+  description: get profile info
+  tags:
+    - User
+  operationId: getProfile
+  consumes:
+    - application/json
+    - text/json
+  produces:
+    - application/json
+    - text/json
+  parameters:
+    - $ref: '#/parameters/Token'
+    - $ref: '#/parameters/LANG'
+  responses:
+    '200':
+      description: Semper Fi
+      schema:
+        $ref: '#/definitions/users'
+    default:
+      description: Unexpected error
+      schema:
+        $ref: '#/definitions/customError'
+  security:
+    - appToken: []
+    - userToken: []
+put:
+  summary: update client's information.
+  description: change profile info
+  tags:
+    - User
+  operationId: putProfile
+  consumes:
+    - application/json
+    - text/json
+  produces:
+    - application/json
+    - text/json
+  parameters:
+    - $ref: '#/parameters/LANG'
+    - name: User
+      description: User details
+      in: body
+      required: true
+      schema:
+        $ref: '#/definitions/users'
+  security:
+    - appToken: []
+    - userToken: []
+  responses:
+    '200':
+      description: Semper Fi
+      schema:
+        $ref: '#/definitions/users'
+    default:
+      description: Unexpected error
+      schema:
+        $ref: '#/definitions/customError'

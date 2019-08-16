@@ -1,0 +1,32 @@
+post:
+  summary: Change user email.
+  description: Change user email
+  tags:
+    - User
+    - Email
+  operationId: changeEmail
+  consumes:
+    - application/json
+    - text/json
+  produces:
+    - application/json
+    - text/json
+  parameters:
+    - $ref: '#/parameters/LANG'
+    - name: email
+      in: query
+      required: true
+      description: User's email
+      type: string
+  responses:
+    '200':
+      description: status
+      schema:
+        type: string
+    default:
+      description: Unexpected error
+      schema:
+        $ref: '#/definitions/customError'
+  security:
+    - appToken: []
+    - userToken: []

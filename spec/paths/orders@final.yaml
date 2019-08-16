@@ -1,0 +1,27 @@
+get:
+  summary: resume panier.
+  description: ' resume panier'
+  tags:
+    - Order
+  operationId: finalizeOrder
+  consumes:
+    - application/json
+    - text/json
+  produces:
+    - application/json
+    - text/json
+  parameters:
+    - $ref: '#/parameters/Token'
+    - $ref: '#/parameters/LANG'
+  responses:
+    '200':
+      description: Semper Fi
+      schema:
+        $ref: '#/definitions/carts'
+    default:
+      description: Unexpected error
+      schema:
+        $ref: '#/definitions/customError'
+  security:
+    - appToken: []
+    - userToken: []

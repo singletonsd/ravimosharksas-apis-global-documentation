@@ -1,0 +1,16 @@
+type: object
+required:
+  - id
+  - Piece
+properties:
+  id:
+    type: integer
+    format: int32
+  Piece:
+    $ref: '#/definitions/pieces'
+  description:
+    type: string
+  Category:
+    type: string
+  ImagePath:
+    type: string

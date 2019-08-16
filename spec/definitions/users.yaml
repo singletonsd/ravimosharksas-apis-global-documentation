@@ -1,0 +1,29 @@
+type: object
+properties:
+  refClient:
+    type: string
+  abrege:
+    type: string
+  prenom:
+    type: string
+  nom:
+    type: string
+  etat:
+    type: string
+  groupe:
+    type: string
+  statut:
+    type: string
+  raisonSociale:
+    type: string
+  email:
+    type: string
+  siret:
+    type: string
+  tvaIntraco:
+    type: integer
+    format: int32
+  civilite:
+    type: string
+  secteur:
+    type: string

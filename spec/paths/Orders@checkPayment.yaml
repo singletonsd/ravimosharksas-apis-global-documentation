@@ -1,0 +1,30 @@
+post:
+  summary: check payment Token.
+  description: check payment Token
+  tags:
+    - Order
+  operationId: checkPayment
+  consumes:
+    - application/json
+    - text/json
+  produces:
+    - application/json
+    - text/json
+  parameters:
+    - $ref: '#/parameters/Token'
+    - $ref: '#/parameters/LANG'
+  responses:
+    '200':
+      description: idOrder
+      schema:
+        type: array
+        items:
+          type: integer
+          format: int32
+    default:
+      description: Unexpected error
+      schema:
+        $ref: '#/definitions/customError'
+  security:
+    - appToken: []
+    - userToken: []

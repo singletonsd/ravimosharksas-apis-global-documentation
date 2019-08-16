@@ -1,0 +1,139 @@
+get:
+  summary: Get user's addresses
+  description: ' get adress'
+  tags:
+    - Address
+  operationId: getAddress
+  consumes:
+    - application/json
+    - text/json
+  produces:
+    - application/json
+    - text/json
+  parameters:
+    - $ref: '#/parameters/Token'
+    - $ref: '#/parameters/LANG'
+    - name: RefClient
+      in: query
+      description: Only for techniciens.
+      required: false
+      type: string
+      format: ''
+    - name: AddressId
+      in: query
+      required: false
+      description: Address' id.
+      default: ''
+      type: integer
+      format: int32
+  responses:
+    '200':
+      description: Semper Fi
+      schema:
+        type: array
+        items:
+          $ref: '#/definitions/addresses'
+    default:
+      description: Unexpected error
+      schema:
+        $ref: '#/definitions/customError'
+  security:
+    - appToken: []
+    - userToken: []
+delete:
+  description: Delete user's address
+  tags:
+    - Address
+  operationId: delAddress
+  consumes:
+    - application/json
+    - text/json
+  produces:
+    - application/json
+    - text/json
+  parameters:
+    - $ref: '#/parameters/Token'
+    - $ref: '#/parameters/LANG'
+    - name: AddressId
+      in: query
+      required: true
+      description: Address' id.
+      type: string
+  responses:
+    '200':
+      description: Semper Fi
+      schema:
+        type: string
+    default:
+      description: Unexpected error
+      schema:
+        $ref: '#/definitions/customError'
+  security:
+    - appToken: []
+    - userToken: []
+post:
+  summary: Submit a new user's address.
+  description: Submit a new user's address.
+  tags:
+    - Address
+  operationId: setAddress
+  consumes:
+    - application/json
+    - text/json
+  produces:
+    - application/json
+    - text/json
+  parameters:
+    - $ref: '#/parameters/Token'
+    - $ref: '#/parameters/LANG'
+    - name: address
+      in: body
+      required: true
+      description: Address data
+      schema:
+        $ref: '#/definitions/addresses'
+  responses:
+    '200':
+      description: Semper Fi
+      schema:
+        $ref: '#/definitions/addresses'
+    default:
+      description: Unexpected error
+      schema:
+        $ref: '#/definitions/customError'
+  security:
+    - appToken: []
+    - userToken: []
+put:
+  summary: Update registered address.
+  description: Update an existing address.
+  tags:
+    - Address
+  operationId: putAddress
+  consumes:
+    - application/json
+    - text/json
+  produces:
+    - application/json
+    - text/json
+  parameters:
+    - $ref: '#/parameters/Token'
+    - $ref: '#/parameters/LANG'
+    - name: address
+      in: body
+      required: true
+      description: Address data
+      schema:
+        $ref: '#/definitions/addresses'
+  responses:
+    '200':
+      description: Semper Fi
+      schema:
+        $ref: '#/definitions/addresses'
+    default:
+      description: Unexpected error
+      schema:
+        $ref: '#/definitions/customError'
+  security:
+    - appToken: []
+    - userToken: []

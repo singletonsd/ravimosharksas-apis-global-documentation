@@ -1,0 +1,34 @@
+get:
+  description: CheckEmail
+  tags:
+    - User
+    - Email
+  operationId: checkEmail
+  consumes:
+    - application/json
+    - text/json
+  produces:
+    - application/json
+    - text/json
+  parameters:
+    - name: token
+      in: query
+      required: true
+      description: Key to reset password
+      type: string
+    - name: email
+      in: query
+      required: true
+      description: account email
+      type: string
+  responses:
+    '200':
+      description: Semper Fi
+      schema:
+        type: string
+    default:
+      description: Unexpected error
+      schema:
+        $ref: '#/definitions/customError'
+  security:
+    - appToken: []

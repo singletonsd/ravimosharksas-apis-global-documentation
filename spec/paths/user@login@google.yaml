@@ -1,0 +1,30 @@
+get:
+  summary: Google token
+  description: getting user details from G
+  tags:
+    - User
+    - Login
+  operationId: loginGoogle
+  consumes:
+    - application/json
+    - text/json
+  produces:
+    - application/json
+    - text/json
+  parameters:
+    - $ref: '#/parameters/Token'
+    - $ref: '#/parameters/LANG'
+    - name: Googletoken
+      in: query
+      description: Googletoken
+      required: true
+      type: string
+  responses:
+    '200':
+      description: Semper Fi
+      schema:
+        $ref: '#/definitions/session'
+    default:
+      description: Unexpected error
+      schema:
+        $ref: '#/definitions/customError'

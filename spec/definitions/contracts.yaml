@@ -1,0 +1,26 @@
+type: object
+properties:
+  refContract:
+    type: integer
+    format: int32
+  machines:
+    type: array
+    items:
+      $ref: '#/definitions/machines'
+  client:
+    $ref: '#/definitions/clients'
+  dateDebut:
+    type: string
+    format: date
+  dateFin:
+    type: string
+    format: date
+  reconduction:
+    type: string
+    format: ''
+  loyer:
+    type: number
+    format: float
+  miniconso:
+    type: number
+    format: float

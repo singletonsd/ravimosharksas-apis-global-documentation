@@ -1,0 +1,36 @@
+type: object
+properties:
+  id:
+    type: integer
+    format: int32
+  client:
+    $ref: '#/definitions/clients'
+  name:
+    type: string
+  numero:
+    type: string
+  address:
+    type: string
+  codePostal:
+    type: integer
+    format: int32
+  complement:
+    type: string
+  ville:
+    type: string
+  pays:
+    type: string
+  telephone:
+    type: string
+  nom:
+    type: string
+  livraison:
+    type: string
+  latitude:
+    type: number
+    format: double
+  longitude:
+    type: number
+    format: double
+  typeAddress:
+    type: string

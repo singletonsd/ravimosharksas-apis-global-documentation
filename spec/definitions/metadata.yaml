@@ -1,0 +1,21 @@
+type: object
+properties:
+  links:
+    type: array
+    items:
+      type: string
+  first:
+    type: integer
+    format: int64
+  prev:
+    type: integer
+    format: int64
+  self:
+    type: integer
+    format: int64
+  next:
+    type: integer
+    format: int64
+  last:
+    type: integer
+    format: int64

@@ -1,0 +1,173 @@
+get:
+  summary: Get all Interventions filtered by values provided.
+  description: Get all Interventions filtered by values provided.
+  operationId: getListInterventions
+  tags:
+    - Interventions
+  produces:
+    - application/json
+    - text/json
+  consumes:
+    - application/json
+    - text/json
+  parameters:
+    - $ref: '#/parameters/Token'
+    - $ref: '#/parameters/LANG'
+    - name: InterventionId
+      in: query
+      required: false
+      description: ''
+      default: ''
+      type: integer
+      format: int32
+    - name: RefArticle
+      in: query
+      required: false
+      description: ''
+      default: ''
+      type: string
+      format: ''
+    - name: TaskId
+      in: query
+      required: false
+      description: ''
+      default: ''
+      type: integer
+      format: int32
+    - name: ZoneResaId
+      in: query
+      required: false
+      description: ''
+      default: ''
+      type: integer
+      format: int32
+    - name: MachineId
+      in: query
+      required: false
+      description: ''
+      default: ''
+      type: integer
+      format: int32
+    - name: RefClient
+      in: query
+      required: false
+      description: ''
+      default: ''
+      type: string
+      format: ''
+  responses:
+    '200':
+      description: Semper Fi.
+      schema:
+        type: array
+        items:
+          $ref: '#/definitions/interventions'
+    default:
+      description: Error occurred.
+      schema:
+        $ref: '#/definitions/customError'
+  security:
+    - appToken: []
+    - userToken: []
+post:
+  summary: Add new Intervention.
+  description: Add new Intervention.
+  operationId: setIntervention
+  produces:
+    - application/json
+    - text/json
+  consumes:
+    - application/json
+    - text/json
+  tags:
+    - Interventions
+  parameters:
+    - $ref: '#/parameters/Token'
+    - $ref: '#/parameters/LANG'
+    - name: Visite
+      in: body
+      required: true
+      description: Intervention object
+      schema:
+        type: array
+        items:
+          $ref: '#/definitions/interventions'
+  responses:
+    '200':
+      description: Semper Fi.
+      schema:
+        type: array
+        items:
+          $ref: '#/definitions/interventions'
+    default:
+      description: Error occurred.
+      schema:
+        $ref: '#/definitions/customError'
+  security:
+    - appToken: []
+    - userToken: []
+put:
+  summary: Modify existing intervention.
+  description: Modify existing intervention.
+  operationId: putIntervention
+  produces:
+    - application/json
+    - text/json
+  consumes:
+    - application/json
+    - text/json
+  tags:
+    - Interventions
+  parameters:
+    - $ref: '#/parameters/Token'
+    - $ref: '#/parameters/LANG'
+    - name: Intervention
+      in: body
+      required: true
+      description: Intervention object
+      schema:
+        $ref: '#/definitions/interventions'
+  responses:
+    '200':
+      description: Semper Fi.
+      schema:
+        $ref: '#/definitions/interventions'
+    default:
+      description: Error occurred.
+      schema:
+        $ref: '#/definitions/customError'
+  security:
+    - appToken: []
+    - userToken: []
+delete:
+  description: Delete intervention
+  tags:
+    - Interventions
+  operationId: delIntervention
+  consumes:
+    - application/json
+    - text/json
+  produces:
+    - application/json
+    - text/json
+  parameters:
+    - $ref: '#/parameters/Token'
+    - $ref: '#/parameters/LANG'
+    - name: InterventionId
+      in: query
+      required: true
+      description: Interventions' id.
+      type: integer
+      format: int32
+  responses:
+    '200':
+      description: Semper Fi.
+      schema:
+        type: string
+    default:
+      description: Unexpected error
+      schema:
+        $ref: '#/definitions/customError'
+  security:
+    - appToken: []
+    - userToken: []

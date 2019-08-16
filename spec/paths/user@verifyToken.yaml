@@ -1,0 +1,25 @@
+post:
+  summary: Provide Session Token
+  description: ' Provide Session Token and user.Name, NumberOfCartElements, user.refclient'
+  tags:
+    - User
+    - Login
+  operationId: startSession
+  consumes:
+    - application/json
+    - text/json
+  produces:
+    - application/json
+    - text/json
+  responses:
+    '200':
+      description: Semper Fi
+      schema:
+        $ref: '#/definitions/session'
+    default:
+      description: Unexpected error
+      schema:
+        $ref: '#/definitions/customError'
+  security:
+    - appToken: []
+    - userToken: []

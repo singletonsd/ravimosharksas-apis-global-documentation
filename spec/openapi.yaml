@@ -1,0 +1,122 @@
+swagger: '2.0'
+info:
+  version: 2.0.0
+  title: Ravimo Global API
+  description: Ravimo Mobile and Web Global API
+  contact:
+    name: API Support
+    url: 'http://www.ravimoshark.com/site/default.aspx'
+    email: joseph.assouline@ravimoshark.com
+host: localhost
+basePath: /
+schemes:
+  - http
+  - https
+securityDefinitions:
+  appToken:
+    type: apiKey
+    name: X_APP_ID
+    in: header
+  userToken:
+    type: apiKey
+    name: X_USER_KEY
+    in: header
+parameters:
+  Token:
+    type: string
+    in: header
+    required: true
+    name: Token
+    description: user token
+  LANG:
+    type: string
+    in: header
+    required: true
+    name: LANG
+    default: FR
+    description: user LANG
+  idOrder:
+    name: idOrder
+    in: path
+    required: true
+    type: integer
+    format: int32
+    description: ' id order'
+  Category:
+    name: Category
+    in: query
+    description: >-
+      subcategoryname == WaterTreatment, Dishwasher, Detergents, MACHINES,
+      REPAIRED_PIECES,
+    required: false
+    type: string
+  skipParam:
+    name: skip
+    in: query
+    description: number of item to skip
+    required: true
+    type: integer
+    format: int32
+  limitParam:
+    name: limit
+    in: query
+    description: max records to return
+    required: true
+    type: integer
+    format: int32
+  orderByParam:
+    name: orderBy
+    in: query
+    description: order by property.
+    required: false
+    type: string
+  filterParam:
+    name: filter
+    in: query
+    description: filter data.
+    required: false
+    type: string
+  idParam:
+    name: id
+    in: path
+    description: id to delete or search
+    required: true
+    type: integer
+    format: int64
+  deletedParam:
+    name: deleted
+    in: query
+    description: 'Get all, deleted, not deleted data. Default not deleted.'
+    required: false
+    type: string
+    default: NOT-DELETED
+    enum:
+      - NOT-DELETED
+      - DELETED
+      - ALL
+  metadataParam:
+    name: metadata
+    in: query
+    description: If metadata is needed (for pagination controls)
+    required: false
+    type: boolean
+  idUserParam:
+    name: idUser
+    in: query
+    description: id of user to get information only from it
+    required: false
+    type: integer
+    format: int64
+  idAccountParam:
+    name: idAccount
+    in: query
+    description: id of an account to get information only from it
+    required: false
+    type: integer
+    format: int64
+  emailDataParam:
+    name: data
+    in: body
+    required: true
+    schema:
+      $ref: '#/definitions/emailDataParameter'

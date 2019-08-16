@@ -1,0 +1,32 @@
+type: object
+required:
+  - id
+  - ZoneResa
+properties:
+  id:
+    type: integer
+    format: int32
+  machine:
+    $ref: '#/definitions/machines'
+  zoneResa:
+    $ref: '#/definitions/zoneResas'
+  clientsAddress:
+    $ref: '#/definitions/addresses'
+  dateVisite:
+    type: string
+    format: date
+  th:
+    type: integer
+    format: int32
+  temperatureLavage:
+    type: integer
+    format: int32
+  temperatureRincage:
+    type: integer
+    format: int32
+  conductivite:
+    type: integer
+    format: int32
+  commentaire:
+    type: string
+    format: ''

@@ -1,0 +1,21 @@
+type: object
+properties:
+  clientId:
+    type: integer
+    format: int32
+  technicienId:
+    type: integer
+    format: int32
+  nom:
+    type: string
+  refClient:
+    type: string
+  token:
+    type: string
+  email:
+    type: string
+  cart:
+    $ref: '#/definitions/carts'
+  secteur:
+    type: integer
+    format: int32

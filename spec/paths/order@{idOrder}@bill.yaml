@@ -1,0 +1,25 @@
+post:
+  description: ' Genere Pdf Invoice'
+  tags:
+    - order
+  operationId: orderidorderbill_post
+  consumes: []
+  produces:
+    - multipart/form-data
+    - ' application/x-www-form-urlencoded'
+  parameters:
+    - $ref: '#/parameters/Token'
+    - $ref: '#/parameters/LANG'
+    - $ref: '#/parameters/idOrder'
+  responses:
+    '200':
+      description: Invoice
+      schema:
+        type: file
+    default:
+      description: Unexpected error
+      schema:
+        $ref: '#/definitions/customError'
+  security:
+    - appToken: []
+    - userToken: []

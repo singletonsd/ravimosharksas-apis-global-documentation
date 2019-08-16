@@ -1,0 +1,137 @@
+get:
+  summary: Get all Visites filtered by values provided.
+  description: Get all Visites filtered by values provided.
+  operationId: getListVisites
+  tags:
+    - Visites
+  produces:
+    - application/json
+    - text/json
+  consumes:
+    - application/json
+    - text/json
+  parameters:
+    - $ref: '#/parameters/Token'
+    - $ref: '#/parameters/LANG'
+    - name: TechnicienId
+      in: query
+      required: false
+      description: ''
+      default: ''
+      type: integer
+      format: int32
+    - name: Visitid
+      in: query
+      required: false
+      description: ''
+      default: ''
+      type: integer
+      format: int32
+    - name: ClientsAddressId
+      in: query
+      required: false
+      description: ''
+      default: ''
+      type: integer
+      format: int32
+    - name: RefClient
+      in: query
+      required: false
+      description: ''
+      default: ''
+      type: string
+      format: ''
+    - name: DateVisite
+      in: query
+      required: false
+      description: 'Format: YYYY-MM-DD HH:mm:ss Z.'
+      default: ''
+      type: string
+      format: date
+    - name: MachineId
+      in: query
+      required: false
+      description: Machine's id.
+      default: ''
+      type: integer
+      format: int32
+  responses:
+    '200':
+      description: Semper Fi.
+      schema:
+        type: array
+        items:
+          $ref: '#/definitions/visites'
+    default:
+      description: Error occurred.
+      schema:
+        $ref: '#/definitions/customError'
+  security:
+    - appToken: []
+    - userToken: []
+post:
+  summary: Add new Visite.
+  description: Add new Visite.
+  operationId: setVisite
+  produces:
+    - application/json
+    - text/json
+  consumes:
+    - application/json
+    - text/json
+  tags:
+    - Visites
+  parameters:
+    - $ref: '#/parameters/Token'
+    - $ref: '#/parameters/LANG'
+    - name: Visite
+      in: body
+      required: true
+      description: Visite object
+      schema:
+        $ref: '#/definitions/visites'
+  responses:
+    '200':
+      description: Semper Fi.
+      schema:
+        $ref: '#/definitions/visites'
+    default:
+      description: Error occurred.
+      schema:
+        $ref: '#/definitions/customError'
+  security:
+    - appToken: []
+    - userToken: []
+put:
+  summary: Modify existing Visite.
+  description: Modify existing Visite.
+  operationId: putVisite
+  produces:
+    - application/json
+    - text/json
+  consumes:
+    - application/json
+    - text/json
+  tags:
+    - Visites
+  parameters:
+    - $ref: '#/parameters/Token'
+    - $ref: '#/parameters/LANG'
+    - name: Visite
+      in: body
+      required: true
+      description: Visite object
+      schema:
+        $ref: '#/definitions/visites'
+  responses:
+    '200':
+      description: Semper Fi.
+      schema:
+        $ref: '#/definitions/visites'
+    default:
+      description: Error occurred.
+      schema:
+        $ref: '#/definitions/customError'
+  security:
+    - appToken: []
+    - userToken: []

@@ -1,0 +1,49 @@
+get:
+  summary: Get user's activities in a pdf file.
+  description: Get user's activities in a pdf file.
+  tags:
+    - Activity
+  operationId: getListActivitiesInPDF
+  consumes:
+    - application/json
+    - text/json
+  produces:
+    - application/pdf
+  parameters:
+    - $ref: '#/parameters/Token'
+    - $ref: '#/parameters/LANG'
+    - name: Start
+      in: query
+      description: 'Start date. Format: YYYY-MM-DD'
+      required: false
+      type: string
+      format: date
+    - name: End
+      in: query
+      description: 'End date. Format: YYYY-MM-DD'
+      required: false
+      type: string
+      format: date
+    - name: RefClient
+      in: query
+      required: false
+      description: ''
+      default: ''
+      type: string
+      format: ''
+  responses:
+    '200':
+      description: activity file
+      schema:
+        type: file
+    '400':
+      description: Error description.
+      schema:
+        type: string
+    default:
+      description: Unexpected error
+      schema:
+        $ref: '#/definitions/customError'
+  security:
+    - appToken: []
+    - userToken: []

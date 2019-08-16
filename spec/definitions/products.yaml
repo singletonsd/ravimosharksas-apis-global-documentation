@@ -1,0 +1,14 @@
+type: object
+properties:
+  piece:
+    $ref: '#/definitions/pieces'
+  piecesFiche:
+    $ref: '#/definitions/piecesFiche'
+  piecesKeyPoints:
+    type: array
+    items:
+      $ref: '#/definitions/piecesKeyPoints'
+  piecesDetail:
+    type: array
+    items:
+      $ref: '#/definitions/piecesDetail'

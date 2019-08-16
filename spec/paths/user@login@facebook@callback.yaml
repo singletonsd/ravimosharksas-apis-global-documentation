@@ -1,0 +1,23 @@
+get:
+  summary: Callback from facebook auth.
+  description: Get the user parameters.
+  tags:
+    - User
+    - Login
+  operationId: facebookCallback
+  consumes:
+    - application/json
+    - text/json
+  produces:
+    - application/json
+    - text/json
+  parameters: []
+  responses:
+    '200':
+      description: Semper Fi
+      schema:
+        $ref: '#/definitions/session'
+    default:
+      description: Unexpected error
+      schema:
+        $ref: '#/definitions/customError'

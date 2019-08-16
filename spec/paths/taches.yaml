@@ -1,0 +1,196 @@
+get:
+  summary: Get all taches filtered by values provided.
+  description: Get all taches filtered by values provided.
+  operationId: getListTaches
+  tags:
+    - Taches
+  produces:
+    - application/json
+    - text/json
+  consumes:
+    - application/json
+    - text/json
+  parameters:
+    - $ref: '#/parameters/Token'
+    - $ref: '#/parameters/LANG'
+    - name: TechnicienId
+      in: query
+      required: false
+      description: Technicien's id.
+      default: ''
+      type: integer
+      format: int32
+    - name: TaskId
+      in: query
+      required: false
+      description: Task's id.
+      default: ''
+      type: integer
+      format: int32
+    - name: ClientsAddressId
+      in: query
+      required: false
+      description: ClientsAddress' id.
+      default: ''
+      type: integer
+      format: int32
+    - name: RefClient
+      in: query
+      required: false
+      description: ''
+      default: ''
+      type: string
+      format: ''
+    - name: DateAppel
+      in: query
+      required: false
+      default: ''
+      description: 'Call''s Day. Format: YYYY-MM-DD'
+      type: string
+      format: date
+    - name: Date_Depan
+      in: query
+      required: false
+      default: ''
+      description: 'Fix''s Day. Format: YYYY-MM-DD'
+      type: string
+      format: date
+    - name: Fixed
+      in: query
+      required: false
+      default: 'false'
+      description: If the tasks were fixed or not
+      type: boolean
+      format: ''
+    - name: MachineId
+      in: query
+      required: false
+      description: Machine's id.
+      default: ''
+      type: integer
+      format: int32
+  responses:
+    '200':
+      description: Semper Fi.
+      schema:
+        type: array
+        items:
+          $ref: '#/definitions/taches'
+    default:
+      description: Error occurred.
+      schema:
+        $ref: '#/definitions/customError'
+  security:
+    - appToken: []
+    - userToken: []
+post:
+  summary: Add new Tache
+  description: ''
+  operationId: setTache
+  produces:
+    - application/json
+    - text/json
+  consumes:
+    - application/json
+    - text/json
+  tags:
+    - Taches
+  parameters:
+    - $ref: '#/parameters/Token'
+    - $ref: '#/parameters/LANG'
+    - name: Tache
+      in: body
+      required: true
+      description: Tache object
+      schema:
+        $ref: '#/definitions/taches'
+    - name: NotificateToTech
+      in: query
+      required: false
+      description: If send notification to technician's phone.
+      type: boolean
+      format: ''
+  responses:
+    '200':
+      description: Semper Fi.
+      schema:
+        $ref: '#/definitions/taches'
+    default:
+      description: Error occurred.
+      schema:
+        $ref: '#/definitions/customError'
+  security:
+    - appToken: []
+    - userToken: []
+put:
+  summary: Modify existing tache.
+  description: Modify existing tache.
+  operationId: putTache
+  produces:
+    - application/json
+    - text/json
+  consumes:
+    - application/json
+    - text/json
+  tags:
+    - Taches
+  parameters:
+    - $ref: '#/parameters/Token'
+    - $ref: '#/parameters/LANG'
+    - name: Tache
+      in: body
+      required: true
+      description: Tache object
+      schema:
+        $ref: '#/definitions/taches'
+    - name: NotificateToTech
+      in: query
+      required: false
+      description: If send notification to technician's phone.
+      type: boolean
+      format: ''
+  responses:
+    '200':
+      description: Semper Fi.
+      schema:
+        $ref: '#/definitions/taches'
+    default:
+      description: Error occurred.
+      schema:
+        $ref: '#/definitions/customError'
+  security:
+    - appToken: []
+    - userToken: []
+patch:
+  summary: Modify code of an existing tache.
+  description: Modify code of an existing tache.
+  operationId: putCodeTache
+  produces:
+    - application/json
+    - text/json
+  consumes:
+    - application/json
+    - text/json
+  tags:
+    - Taches
+  parameters:
+    - $ref: '#/parameters/Token'
+    - $ref: '#/parameters/LANG'
+    - name: Tache
+      in: body
+      required: true
+      description: Tache object
+      schema:
+        $ref: '#/definitions/taches'
+  responses:
+    '200':
+      description: Semper Fi.
+      schema:
+        $ref: '#/definitions/taches'
+    default:
+      description: Error occurred.
+      schema:
+        $ref: '#/definitions/customError'
+  security:
+    - appToken: []
+    - userToken: []

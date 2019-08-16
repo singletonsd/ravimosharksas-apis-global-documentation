@@ -1,0 +1,39 @@
+get:
+  summary: Login by email and password.
+  description: Login
+  tags:
+    - User
+    - Login
+  operationId: login
+  consumes:
+    - application/json
+    - text/json
+  produces:
+    - application/json
+    - text/json
+  parameters:
+    - $ref: '#/parameters/LANG'
+    - name: email
+      in: query
+      required: true
+      description: User's email.
+      type: string
+      format: ''
+    - name: password
+      in: query
+      required: true
+      description: User's password.
+      type: string
+      format: ''
+  responses:
+    '200':
+      description: Semper Fi
+      schema:
+        $ref: '#/definitions/session'
+    default:
+      description: Unexpected error
+      schema:
+        $ref: '#/definitions/customError'
+  security:
+    - appToken: []
+    - userToken: []

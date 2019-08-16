@@ -1,0 +1,16 @@
+type: object
+properties:
+  id:
+    type: string
+  paymentToken:
+    type: string
+  validationDate:
+    type: string
+    format: date-time
+  pt:
+    type: number
+    format: float
+  items:
+    type: array
+    items:
+      $ref: '#/definitions/cartItems'

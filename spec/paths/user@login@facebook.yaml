@@ -1,0 +1,21 @@
+get:
+  summary: Login by Facebook account.
+  description: URL to redirect to facebook page.
+  tags:
+    - User
+    - Login
+  operationId: loginFacebook
+  consumes:
+    - application/json
+    - text/json
+  produces:
+    - application/json
+    - text/json
+  parameters: []
+  responses:
+    '200':
+      description: Semper Fi
+    default:
+      description: Unexpected error
+      schema:
+        $ref: '#/definitions/customError'

@@ -1,0 +1,30 @@
+get:
+  summary: Get list of products by category.
+  description: Get list of products by category.
+  tags:
+    - Products
+  operationId: getListProducts
+  consumes:
+    - application/json
+    - text/json
+  produces:
+    - application/json
+    - text/json
+  parameters:
+    - $ref: '#/parameters/Token'
+    - $ref: '#/parameters/LANG'
+    - $ref: '#/parameters/Category'
+  responses:
+    '200':
+      description: Semper Fi
+      schema:
+        type: array
+        items:
+          $ref: '#/definitions/products'
+    default:
+      description: Unexpected error
+      schema:
+        $ref: '#/definitions/customError'
+  security:
+    - appToken: []
+    - userToken: []

@@ -1,0 +1,29 @@
+type: object
+properties:
+  refArticle:
+    type: string
+  designationArticle:
+    type: string
+  statut:
+    type: string
+  prixVente:
+    type: number
+    format: double
+  uniteVente:
+    type: number
+    format: double
+  intituleFamille:
+    type: string
+  dernierPrixAchat:
+    type: number
+    format: double
+  conditionnement:
+    type: string
+  detergentType:
+    type: string
+  poids:
+    type: number
+    format: double
+  poidSuc:
+    type: number
+    format: double

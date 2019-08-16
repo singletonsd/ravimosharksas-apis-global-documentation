@@ -1,0 +1,92 @@
+post:
+  summary: Add item (existing or not) to cart.
+  description: Add item (existing or not) to cart.
+  tags:
+    - Cart
+  operationId: addProduct
+  consumes:
+    - application/json
+    - text/json
+  produces:
+    - application/json
+    - text/json
+  parameters:
+    - $ref: '#/parameters/Token'
+    - $ref: '#/parameters/LANG'
+    - name: Item
+      in: body
+      required: true
+      description: identifiant produit à ajouter
+      schema:
+        $ref: '#/definitions/cartItems'
+  responses:
+    '200':
+      description: Semper Fi
+      schema:
+        $ref: '#/definitions/carts'
+    default:
+      description: Unexpected error
+      schema:
+        $ref: '#/definitions/customError'
+  security:
+    - appToken: []
+    - userToken: []
+get:
+  summary: Get cart's info
+  description: Get cart's info
+  tags:
+    - Cart
+  operationId: getCart
+  consumes:
+    - application/json
+    - text/json
+  produces:
+    - application/json
+    - text/json
+  parameters:
+    - $ref: '#/parameters/Token'
+    - $ref: '#/parameters/LANG'
+  responses:
+    '200':
+      description: Semper Fi
+      schema:
+        $ref: '#/definitions/carts'
+    default:
+      description: Unexpected error
+      schema:
+        $ref: '#/definitions/customError'
+  security:
+    - appToken: []
+    - userToken: []
+delete:
+  summary: Delete item from cart.
+  description: Delete item from cart.
+  tags:
+    - Cart
+  operationId: delProductCart
+  consumes:
+    - application/json
+    - text/json
+  produces:
+    - application/json
+    - text/json
+  parameters:
+    - $ref: '#/parameters/Token'
+    - $ref: '#/parameters/LANG'
+    - name: RefArticle
+      in: query
+      required: true
+      description: Article's reference.
+      type: string
+  responses:
+    '200':
+      description: Semper Fi
+      schema:
+        $ref: '#/definitions/carts'
+    default:
+      description: Unexpected error
+      schema:
+        $ref: '#/definitions/customError'
+  security:
+    - appToken: []
+    - userToken: []

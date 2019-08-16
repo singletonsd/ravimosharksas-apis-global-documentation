@@ -1,0 +1,47 @@
+get:
+  summary: Get all client's contracts.
+  description: Get all client's contracts.
+  tags:
+    - Contracts
+  operationId: getContractList
+  consumes:
+    - application/json
+    - text/json
+  produces:
+    - application/json
+    - text/json
+  parameters:
+    - $ref: '#/parameters/Token'
+    - $ref: '#/parameters/LANG'
+    - name: Active
+      in: query
+      required: false
+      description: Return only active contracts or all.
+      type: boolean
+      format: ''
+    - name: RefClient
+      in: query
+      description: Only for techniciens.
+      required: false
+      type: string
+      format: ''
+    - name: RefContract
+      in: query
+      description: Only for techniciens.
+      required: false
+      type: integer
+      format: int32
+  responses:
+    '200':
+      description: Semper Fi. Array of Contracts.
+      schema:
+        type: array
+        items:
+          $ref: '#/definitions/contracts'
+    default:
+      description: Unexpected error
+      schema:
+        $ref: '#/definitions/customError'
+  security:
+    - appToken: []
+    - userToken: []

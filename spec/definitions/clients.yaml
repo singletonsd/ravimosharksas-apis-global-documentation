@@ -1,0 +1,53 @@
+type: object
+properties:
+  refClient:
+    type: string
+  abrege:
+    type: string
+  prenom:
+    type: string
+  nom:
+    type: string
+  etat:
+    type: string
+  groupe:
+    type: string
+  statutGroupe:
+    type: string
+  statut:
+    type: string
+  raisonSociale:
+    type: string
+  typeClient:
+    type: string
+  score:
+    type: integer
+    format: int32
+  secteur:
+    type: integer
+    format: int32
+  frequence:
+    type: integer
+    format: int32
+  email:
+    type: string
+  interdit:
+    type: boolean
+  lastSuccessfulAttempt:
+    type: string
+    format: date-time
+  idFacebook:
+    type: string
+  idGoogle:
+    type: string
+  siret:
+    type: string
+  tvaIntraco:
+    type: string
+  civilite:
+    type: string
+  nbConnectionAttempt:
+    type: integer
+    format: int32
+  validationKey:
+    type: string

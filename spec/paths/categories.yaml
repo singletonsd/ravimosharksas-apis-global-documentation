@@ -1,0 +1,29 @@
+get:
+  summary: Get categories of products.
+  description: Get categories of products.
+  tags:
+    - Products
+  operationId: getCategories
+  consumes:
+    - application/json
+    - text/json
+  produces:
+    - application/json
+    - text/json
+  parameters:
+    - $ref: '#/parameters/Token'
+    - $ref: '#/parameters/LANG'
+  responses:
+    '200':
+      description: Semper Fi
+      schema:
+        type: array
+        items:
+          $ref: '#/definitions/categories'
+    default:
+      description: Unexpected error
+      schema:
+        $ref: '#/definitions/customError'
+  security:
+    - appToken: []
+    - userToken: []

@@ -1,0 +1,12 @@
+type: object
+properties:
+  id:
+    type: integer
+    format: int32
+  technicien:
+    type: string
+  secteur:
+    type: integer
+    format: int32
+  email:
+    type: string

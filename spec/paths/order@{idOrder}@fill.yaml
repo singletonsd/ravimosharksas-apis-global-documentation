@@ -1,0 +1,30 @@
+post:
+  description: ' contenue ancienne commande'
+  tags:
+    - order
+  operationId: orderidorderfill_post
+  consumes:
+    - application/json
+    - text/json
+  produces:
+    - application/json
+    - text/json
+  parameters:
+    - $ref: '#/parameters/Token'
+    - $ref: '#/parameters/LANG'
+    - $ref: '#/parameters/idOrder'
+  responses:
+    '200':
+      description: nbEltInCart
+      schema:
+        type: array
+        items:
+          type: integer
+          format: int32
+    default:
+      description: Unexpected error
+      schema:
+        $ref: '#/definitions/customError'
+  security:
+    - appToken: []
+    - userToken: []

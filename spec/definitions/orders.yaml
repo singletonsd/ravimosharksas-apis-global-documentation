@@ -1,0 +1,17 @@
+type: object
+properties:
+  id:
+    type: integer
+    format: int32
+  billingAddress:
+    $ref: '#/definitions/addresses'
+  shippingAddress:
+    $ref: '#/definitions/addresses'
+  dateCommande:
+    type: string
+    format: date-time
+  traiter:
+    type: boolean
+    format: ''
+  cart:
+    $ref: '#/definitions/carts'

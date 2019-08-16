@@ -1,0 +1,27 @@
+post:
+  summary: lance procedur payement.
+  description: lance procedur payement
+  tags:
+    - Order
+  operationId: payOrder
+  consumes:
+    - application/json
+    - text/json
+  produces:
+    - application/json
+    - text/json
+  parameters:
+    - $ref: '#/parameters/Token'
+    - $ref: '#/parameters/LANG'
+  responses:
+    '200':
+      description: Semper Fi
+      schema:
+        $ref: '#/definitions/carts'
+    default:
+      description: Unexpected error
+      schema:
+        $ref: '#/definitions/customError'
+  security:
+    - appToken: []
+    - userToken: []

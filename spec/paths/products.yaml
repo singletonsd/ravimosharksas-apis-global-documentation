@@ -1,0 +1,43 @@
+get:
+  summary: Get detail of products filtered.
+  description: Get detail of products filtered.
+  operationId: getProducts
+  tags:
+    - Products
+  produces:
+    - application/json
+    - text/json
+  consumes:
+    - application/json
+    - text/json
+  parameters:
+    - $ref: '#/parameters/Token'
+    - $ref: '#/parameters/LANG'
+    - $ref: '#/parameters/Category'
+    - name: RefArticle
+      in: query
+      required: false
+      description: Article's reference
+      default: ''
+      type: string
+    - name: DesignationArticle
+      in: query
+      required: false
+      description: ''
+      default: ''
+      type: string
+      format: ''
+  responses:
+    '200':
+      description: Semper Fi.
+      schema:
+        type: array
+        items:
+          $ref: '#/definitions/products'
+    default:
+      description: Error occurred.
+      schema:
+        $ref: '#/definitions/customError'
+  security:
+    - appToken: []
+    - userToken: []

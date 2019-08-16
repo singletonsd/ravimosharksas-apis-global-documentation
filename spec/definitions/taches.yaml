@@ -1,0 +1,48 @@
+type: object
+properties:
+  id:
+    type: integer
+    format: int32
+  clientsAddress:
+    $ref: '#/definitions/addresses'
+  machine:
+    $ref: '#/definitions/machines'
+  zoneResa:
+    $ref: '#/definitions/zoneResas'
+  dateAppel:
+    type: string
+    format: date
+  typeInter:
+    type: string
+    format: ''
+  descriptionPanne:
+    type: string
+    format: ''
+  prioritePrice:
+    type: integer
+    format: int32
+  date_Depan:
+    type: string
+    format: date
+  mo:
+    type: number
+    format: double
+  descriptionDepan:
+    type: string
+  savpayant:
+    type: boolean
+  initiator:
+    type: string
+    format: ''
+  code:
+    type: integer
+    format: int32
+  gpsStatusCode:
+    type: integer
+    format: int32
+  techRating:
+    type: number
+    format: double
+  clientRating:
+    type: number
+    format: double

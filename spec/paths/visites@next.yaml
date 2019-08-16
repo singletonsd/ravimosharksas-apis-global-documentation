@@ -1,0 +1,64 @@
+get:
+  summary: Get Visites to be done filtered by values provided.
+  description: Get Visites to be done filtered by values provided.
+  operationId: getListNextVisites
+  tags:
+    - Visites
+  produces:
+    - application/json
+    - text/json
+  consumes:
+    - application/json
+    - text/json
+  parameters:
+    - $ref: '#/parameters/Token'
+    - $ref: '#/parameters/LANG'
+    - name: TechnicienId
+      in: query
+      required: false
+      description: ''
+      default: ''
+      type: integer
+      format: int32
+    - name: ClientsAddressId
+      in: query
+      required: false
+      description: ''
+      default: ''
+      type: integer
+      format: int32
+    - name: RefClient
+      in: query
+      required: false
+      description: ''
+      default: ''
+      type: string
+      format: ''
+    - name: DateVisite
+      in: query
+      required: false
+      description: 'Format: YYYY-MM-DD HH:mm:ss Z.'
+      default: ''
+      type: string
+      format: date
+    - name: MachineId
+      in: query
+      required: false
+      description: Machine's id.
+      default: ''
+      type: integer
+      format: int32
+  responses:
+    '200':
+      description: Semper Fi.
+      schema:
+        type: array
+        items:
+          $ref: '#/definitions/visites'
+    default:
+      description: Error occurred.
+      schema:
+        $ref: '#/definitions/customError'
+  security:
+    - appToken: []
+    - userToken: []

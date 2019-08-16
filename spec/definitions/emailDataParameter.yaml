@@ -1,0 +1,9 @@
+type: object
+required:
+  - email
+  - urlResponse
+properties:
+  email:
+    type: string
+  urlResponse:
+    type: string

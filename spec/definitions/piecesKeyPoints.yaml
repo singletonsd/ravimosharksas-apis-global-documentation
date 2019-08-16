@@ -1,0 +1,15 @@
+type: object
+required:
+  - id
+  - Piece
+properties:
+  id:
+    type: integer
+    format: int32
+  piece:
+    $ref: '#/definitions/pieces'
+  content:
+    type: string
+  ligne:
+    type: integer
+    format: int32

@@ -1,0 +1,80 @@
+get:
+  summary: Get all client's orders
+  description: Register client's addresses.
+  tags:
+    - Order
+  operationId: getListOrders
+  consumes:
+    - application/json
+    - text/json
+  produces:
+    - application/json
+    - text/json
+  parameters:
+    - $ref: '#/parameters/Token'
+    - $ref: '#/parameters/LANG'
+    - name: OrderId
+      in: query
+      required: false
+      description: order's id
+      type: integer
+      format: int32
+    - name: Start
+      in: query
+      description: 'Start Date. Format: YYYY-MM-DD'
+      required: false
+      type: string
+      format: date
+    - name: End
+      in: query
+      description: 'End date. Format: YYYY-MM-DD'
+      required: false
+      type: string
+      format: date
+  responses:
+    '200':
+      description: Semper Fi
+      schema:
+        type: array
+        items:
+          $ref: '#/definitions/orders'
+    default:
+      description: Unexpected error
+      schema:
+        $ref: '#/definitions/customError'
+  security:
+    - appToken: []
+    - userToken: []
+post:
+  summary: Post an order.
+  description: ''
+  operationId: setOrder
+  produces:
+    - application/json
+    - text/json
+  consumes:
+    - application/json
+    - text/json
+  tags:
+    - Order
+  parameters:
+    - $ref: '#/parameters/Token'
+    - $ref: '#/parameters/LANG'
+    - name: Order
+      in: body
+      required: true
+      description: Order object
+      schema:
+        $ref: '#/definitions/orders'
+  responses:
+    '200':
+      description: Semper Fi.
+      schema:
+        $ref: '#/definitions/orders'
+    default:
+      description: Error occurred.
+      schema:
+        $ref: '#/definitions/customError'
+  security:
+    - appToken: []
+    - userToken: []

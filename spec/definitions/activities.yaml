@@ -1,0 +1,30 @@
+type: object
+properties:
+  addresses:
+    type: array
+    items:
+      $ref: '#/definitions/addresses'
+  orders:
+    type: array
+    items:
+      $ref: '#/definitions/orders'
+  contracts:
+    type: array
+    items:
+      $ref: '#/definitions/contracts'
+  taches:
+    type: array
+    items:
+      $ref: '#/definitions/taches'
+  interventions:
+    type: array
+    items:
+      $ref: '#/definitions/interventions'
+  visites:
+    type: array
+    items:
+      $ref: '#/definitions/visites'
+  locations:
+    type: array
+    items:
+      $ref: '#/definitions/locations'

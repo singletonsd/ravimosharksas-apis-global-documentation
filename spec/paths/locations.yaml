@@ -1,0 +1,64 @@
+get:
+  summary: Get all machines with its respective contract filtered by values provided.
+  description: Get all machines filtered by values provided.
+  tags:
+    - Machines
+  operationId: getListLocations
+  produces:
+    - application/json
+    - text/json
+  consumes:
+    - application/json
+    - text/json
+  parameters:
+    - $ref: '#/parameters/Token'
+    - $ref: '#/parameters/LANG'
+    - name: RefContract
+      in: query
+      required: false
+      description: ''
+      default: ''
+      type: string
+      format: ''
+    - name: RefArticle
+      in: query
+      required: false
+      description: ''
+      default: ''
+      type: string
+      format: ''
+    - name: MachineId
+      in: query
+      required: false
+      description: ''
+      default: ''
+      type: integer
+      format: int32
+    - name: NumSerie
+      in: query
+      required: false
+      description: ''
+      default: ''
+      type: string
+      format: ''
+    - name: RefClient
+      in: query
+      required: false
+      description: ''
+      default: ''
+      type: string
+      format: ''
+  responses:
+    '200':
+      description: Semper Fi.
+      schema:
+        type: array
+        items:
+          $ref: '#/definitions/locations'
+    default:
+      description: Error occurred.
+      schema:
+        $ref: '#/definitions/customError'
+  security:
+    - appToken: []
+    - userToken: []

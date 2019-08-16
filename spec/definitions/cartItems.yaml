@@ -1,0 +1,21 @@
+type: object
+properties:
+  id:
+    type: integer
+    format: int32
+  piece:
+    $ref: '#/definitions/pieces'
+  cart:
+    $ref: '#/definitions/carts'
+  pu:
+    type: number
+    format: float
+  pt:
+    type: number
+    format: float
+  remise:
+    type: number
+    format: float
+  quantite:
+    type: integer
+    format: int32

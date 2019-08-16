@@ -1,0 +1,50 @@
+get:
+  summary: Get clients' consuptions.
+  description: Get clients' consuptions.
+  tags:
+    - Consuptions
+  operationId: getConsuptions
+  consumes:
+    - application/json
+    - text/json
+  produces:
+    - application/json
+    - text/json
+  parameters:
+    - $ref: '#/parameters/Token'
+    - $ref: '#/parameters/LANG'
+    - name: RefClient
+      in: query
+      required: false
+      description: ''
+      default: ''
+      type: string
+      format: ''
+    - name: DateVente
+      in: query
+      required: false
+      default: ''
+      description: 'Selling''s Day. Format: YYYY-MM-DD'
+      type: string
+      format: date
+    - name: RefArticle
+      in: query
+      required: false
+      description: ''
+      default: ''
+      type: string
+      format: ''
+  responses:
+    '200':
+      description: Semper Fi
+      schema:
+        type: array
+        items:
+          $ref: '#/definitions/consuptions'
+    default:
+      description: Unexpected error
+      schema:
+        $ref: '#/definitions/customError'
+  security:
+    - appToken: []
+    - userToken: []
