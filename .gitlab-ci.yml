@@ -1,11 +1,5 @@
 image: node:8-alpine
 
-cache:
-  key: ${CI_COMMIT_REF_SLUG}
-  paths:
-      - dist/
-      - node_modules/
-
 stages:
   - install
   - test
@@ -17,6 +11,9 @@ install:
   stage: install
   script:
     - npm i
+  artifacts:
+    paths:
+      - node_modules/
   only:
     changes:
       - spec/**/*
@@ -27,6 +24,9 @@ test:
   stage: test
   script:
     - npm run test
+  artifacts:
+    paths:
+      - node_modules/
   only:
     changes:
       - spec/**/*
@@ -37,6 +37,11 @@ build:
   stage: build
   script:
     - npm run build
+  artifacts:
+    name: "$CI_PROJECT_NAME-${CI_COMMIT_REF_NAME}"
+    paths:
+      - dist/
+    expire_in: 15 days
   only:
     changes:
       - spec/**/*
@@ -58,7 +63,7 @@ pages:
     - cp -r dist/* "${TARGET_FOLDER}"
   artifacts:
     paths:
-    - public
+      - public
   only:
     refs:
       - master
@@ -73,7 +78,6 @@ trigger_libs:
     - apk add --no-cache curl
   script:
     - "curl -X POST -F token=${TRIGGER_RAVIMO_API_GLOBAL_LIB_ANGULAR} -F ref=master https://gitlab.com/api/v4/projects/13483643/trigger/pipeline"
-  cache: {}
   only:
     refs:
       - master
