@@ -89,4 +89,4 @@ trigger_libs:
       - .gitlab-ci.yml
       - package.json
     variables:
-      - $CI_PROJECT_PATH == ${ORIGINAL_REPOSITORY}
+      - $CI_PROJECT_PATH == $ORIGINAL_REPOSITORY
