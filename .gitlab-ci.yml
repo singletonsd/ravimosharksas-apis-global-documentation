@@ -27,9 +27,6 @@ test:
   stage: test
   script:
     - npm run test
-  artifacts:
-    paths:
-      - node_modules/
   only:
     changes:
       - spec/**/*
