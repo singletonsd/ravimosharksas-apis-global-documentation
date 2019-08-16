@@ -1,18 +1,52 @@
-image: maven:3.6.1-jdk-13-alpine
+image: node:8-alpine
 
 before_script:
-    - apk add --no-cache bash curl git
+  - apk add --no-cache bash curl git
+
+cache:
+  paths:
+    - /node_modules/
+    - /public/
+    - /dist/
 
 stages:
+  - install
+  - test
+  - build
   - deploy
+
+install:
+  stage: build
+  script:
+    - npm i
+  only:
+    changes:
+      - spec/**/*
+
+test:
+  stage: test
+  script:
+    - npm run test
+  only:
+    changes:
+      - spec/**/*
+
+build:
+  stage: build
+  script:
+    - npm run build
+  only:
+    changes:
+      - spec/**/*
 
 pages:
   stage: deploy
   before_script:
     - apk add --no-cache bash curl git
   script:
-    - ./scripts/generate_html_documentation.sh
-    - cp swagger.yaml public/swagger.yaml
+    - rm -r public
+    - npm run gh-pages
+    - cp -r /dist/* public/*
   artifacts:
     paths:
     - public
@@ -21,6 +55,13 @@ pages:
       - master
     changes:
       - swagger.yaml
+  cache:
+    paths: []
+  only:
+    refs:
+      - master
+    changes:
+      - spec/**/*
 
 trigger_libs:
   stage: deploy
@@ -28,8 +69,10 @@ trigger_libs:
     - apk add --no-cache bash curl git
   script:
     - "curl -X POST -F token=${TRIGGER_RAVIMO_API_GLOBAL_LIB_ANGULAR} -F ref=master https://gitlab.com/api/v4/projects/13483643/trigger/pipeline"
+  cache:
+    paths: []
   only:
     refs:
       - master
     changes:
-      - swagger.yaml
+      - spec/**/*

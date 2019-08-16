@@ -1,0 +1,15 @@
+{
+  "name": "global",
+  "version": "1.0.0",
+  "dependencies": {},
+  "private": true,
+  "scripts": {
+    "start": "swagger-repo serve",
+    "build": "swagger-repo build -o dist",
+    "test": "swagger-repo validate",
+    "gh-pages": "swagger-repo gh-pages"
+  },
+  "devDependencies": {
+    "swagger-repo": "2.0.0-rc.15"
+  }
+}

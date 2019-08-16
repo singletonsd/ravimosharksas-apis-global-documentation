@@ -1,2 +1,5 @@
 /binaries/
 /public/
+/web_deploy/
+/node_modules/
+/dist/
