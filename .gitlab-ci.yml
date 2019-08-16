@@ -15,6 +15,9 @@ install:
   stage: install
   script:
     - npm i
+  cache:
+    paths:
+      - node_modules/
   only:
     changes:
       - spec/**/*
@@ -23,6 +26,9 @@ test:
   stage: test
   script:
     - npm run test
+  cache:
+    paths:
+      - node_modules/
   only:
     changes:
       - spec/**/*
@@ -31,23 +37,29 @@ build:
   stage: build
   script:
     - npm run build
+  cache:
+    paths:
+      - dist/
   only:
     changes:
       - spec/**/*
 
 pages:
   stage: deploy
+  before_script:
+    - if [ "${CI_COMMIT_REF_NAME}" == "master" ]; then
+        export TARGET_FOLDER=public;
+      else
+        export TARGET_FOLDER=public/${CI_COMMIT_REF_NAME};
+      fi
+    - echo "Saving html into ${TARGET_FOLDER} directory..."
   script:
-    - rm -r public
-    - cp -r /dist/* public/*
+    - rm -rf "${TARGET_FOLDER}"
+    - mkdir -p "${TARGET_FOLDER}"
+    - cp -r /dist/* "${TARGET_FOLDER}/*"
   artifacts:
     paths:
     - public
-  only:
-    refs:
-      - master
-    changes:
-      - swagger.yaml
   cache: {}
   only:
     refs:
