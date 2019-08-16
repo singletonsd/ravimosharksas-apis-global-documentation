@@ -1,7 +1,7 @@
 image: node:8-alpine
 
 variables:
-  ORIGINAL_REPOSITORY: "ravimosharksas/apis/global/documentation"
+  ORIGINAL_REPOSITORY: ravimosharksas/apis/global/documentation
 
 stages:
   - install
@@ -13,7 +13,6 @@ stages:
 install:
   stage: install
   script:
-    - echo "$CI_PROJECT_PATH"
     - npm i
   artifacts:
     paths:
@@ -90,4 +89,4 @@ trigger_libs:
       - .gitlab-ci.yml
       - package.json
     variables:
-      - $CI_PROJECT_PATH == "${ORIGINAL_REPOSITORY}"
+      - $CI_PROJECT_PATH == ${ORIGINAL_REPOSITORY}
