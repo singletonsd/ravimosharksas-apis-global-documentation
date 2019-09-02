@@ -1,6 +1,6 @@
 get:
-  summary: Get user's addresses
-  description: ' get adress'
+  summary: "Get user's addresses"
+  description:  "get user's addresses"
   tags:
     - Address
   operationId: getAddress
@@ -11,31 +11,29 @@ get:
     - application/json
     - text/json
   parameters:
-    - $ref: '#/parameters/Token'
-    - $ref: '#/parameters/LANG'
-    - name: RefClient
-      in: query
-      description: Only for technicians.
-      required: false
-      type: string
-      format: ''
-    - $ref: '#/parameters/idParam'
+    - $ref: "#/parameters/refClient"
+    - $ref: "#/parameters/idParam"
   responses:
-    '200':
-      description: Semper Fi
+    200:
+      description: "Response OK. Array of addresses."
       schema:
         type: array
         items:
-          $ref: '#/definitions/addresses'
-    default:
-      description: Unexpected error
+          $ref: "#/definitions/addresses"
+    400:
+      description: "Some parameters are missing or badly entered."
       schema:
-        $ref: '#/definitions/customError'
+        $ref: "#/definitions/customError"
+    401:
+      description: "Unauthorized"
+      schema:
+        $ref: "#/definitions/customError"
   security:
     - appToken: []
     - userToken: []
+
 delete:
-  description: Delete user's address
+  description: "Delete user's address"
   tags:
     - Address
   operationId: delAddress
@@ -46,24 +44,27 @@ delete:
     - application/json
     - text/json
   parameters:
-    - $ref: '#/parameters/Token'
-    - $ref: '#/parameters/LANG'
-    - $ref: '#/parameters/idParam'
+    - $ref: "#/parameters/idParam"
   responses:
-    '200':
-      description: Semper Fi
+    200:
+      description: "Response OK. Number of address deleted."
       schema:
         type: string
-    default:
-      description: Unexpected error
+    400:
+      description: "Some parameters are missing or badly entered."
       schema:
-        $ref: '#/definitions/customError'
+        $ref: "#/definitions/customError"
+    401:
+      description: "Unauthorized"
+      schema:
+        $ref: "#/definitions/customError"
   security:
     - appToken: []
     - userToken: []
+
 post:
-  summary: Submit a new user's address.
-  description: Submit a new user's address.
+  summary: "Submit a new user's address."
+  description: "Submit a new user's address."
   tags:
     - Address
   operationId: setAddress
@@ -74,29 +75,32 @@ post:
     - application/json
     - text/json
   parameters:
-    - $ref: '#/parameters/Token'
-    - $ref: '#/parameters/LANG'
     - name: address
       in: body
       required: true
-      description: Address data
+      description: "Address data"
       schema:
-        $ref: '#/definitions/addresses'
+        $ref: "#/definitions/addresses"
   responses:
-    '200':
-      description: Semper Fi
+    200:
+      description: "Response OK. Address created."
       schema:
-        $ref: '#/definitions/addresses'
-    default:
-      description: Unexpected error
+        $ref: "#/definitions/addresses"
+    400:
+      description: "Some parameters are missing or badly entered."
       schema:
-        $ref: '#/definitions/customError'
+        $ref: "#/definitions/customError"
+    401:
+      description: "Unauthorized"
+      schema:
+        $ref: "#/definitions/customError"
   security:
     - appToken: []
     - userToken: []
+
 put:
-  summary: Update registered address.
-  description: Update an existing address.
+  summary: "Update registered address."
+  description: "Update an existing address."
   tags:
     - Address
   operationId: putAddress
@@ -107,23 +111,25 @@ put:
     - application/json
     - text/json
   parameters:
-    - $ref: '#/parameters/Token'
-    - $ref: '#/parameters/LANG'
     - name: address
       in: body
       required: true
-      description: Address data
+      description: "Address to modify."
       schema:
-        $ref: '#/definitions/addresses'
+        $ref: "#/definitions/addresses"
   responses:
-    '200':
-      description: Semper Fi
+    200:
+      description: "Response OK. Address modified."
       schema:
-        $ref: '#/definitions/addresses'
-    default:
-      description: Unexpected error
+        $ref: "#/definitions/addresses"
+    400:
+      description: "Some parameters are missing or badly entered."
       schema:
-        $ref: '#/definitions/customError'
+        $ref: "#/definitions/customError"
+    401:
+      description: "Unauthorized"
+      schema:
+        $ref: "#/definitions/customError"
   security:
     - appToken: []
     - userToken: []

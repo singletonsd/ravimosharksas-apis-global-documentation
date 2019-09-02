@@ -1,6 +1,6 @@
 get:
-  summary: Get all client's contracts.
-  description: Get all client's contracts.
+  summary: "Get all client's contracts."
+  description: "Get all client's contracts."
   tags:
     - Contracts
   operationId: getContractList
@@ -11,37 +11,29 @@ get:
     - application/json
     - text/json
   parameters:
-    - $ref: '#/parameters/Token'
-    - $ref: '#/parameters/LANG'
+    - $ref: "#/parameters/refClient"
+    - $ref: "#/parameters/refContract"
     - name: Active
       in: query
       required: false
-      description: Return only active contracts or all.
+      description: "Returns only active contracts or all."
       type: boolean
       format: ''
-    - name: RefClient
-      in: query
-      description: Only for techniciens.
-      required: false
-      type: string
-      format: ''
-    - name: RefContract
-      in: query
-      description: Only for techniciens.
-      required: false
-      type: integer
-      format: int32
   responses:
-    '200':
-      description: Semper Fi. Array of Contracts.
+    200:
+      description: "Response OK."
       schema:
         type: array
         items:
-          $ref: '#/definitions/contracts'
-    default:
-      description: Unexpected error
+          $ref: "#/definitions/contracts"
+    400:
+      description: "Some parameters are missing or badly entered."
       schema:
-        $ref: '#/definitions/customError'
+        $ref: "#/definitions/customError"
+    401:
+      description: "Unauthorized"
+      schema:
+        $ref: "#/definitions/customError"
   security:
     - appToken: []
     - userToken: []

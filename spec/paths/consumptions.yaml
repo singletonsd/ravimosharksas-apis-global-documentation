@@ -1,9 +1,9 @@
 get:
-  summary: "Get user's activities."
-  description: "Get user's activities."
+  summary: "Get clients' consumptions."
+  description: "Get clients' consumptions."
   tags:
-    - Activity
-  operationId: getListActivities
+    - Consumptions
+  operationId: getConsumptions
   consumes:
     - application/json
     - text/json
@@ -11,14 +11,21 @@ get:
     - application/json
     - text/json
   parameters:
-    - $ref: "#/parameters/dateStart"
-    - $ref: "#/parameters/dateEnd"
     - $ref: "#/parameters/refClient"
+    - $ref: "#/parameters/refArticle"
+    - name: dateVente
+      in: query
+      required: false
+      description: 'Selling''s Day. Format: YYYY-MM-DD'
+      type: string
+      format: date
   responses:
     200:
-      description: "Response OK. Activities object."
+      description: "Response OK. Array of consumptions."
       schema:
-        $ref: "#/definitions/activities"
+        type: array
+        items:
+          $ref: '#/definitions/consumptions'
     400:
       description: "Some parameters are missing or badly entered."
       schema:

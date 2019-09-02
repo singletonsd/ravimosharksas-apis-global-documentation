@@ -1,6 +1,6 @@
 post:
-  summary: Add item (existing or not) to cart.
-  description: Add item (existing or not) to cart.
+  summary: "Add item (existing or not) to cart."
+  description: "Add item (existing or not) to cart."
   tags:
     - Cart
   operationId: addProduct
@@ -11,29 +11,32 @@ post:
     - application/json
     - text/json
   parameters:
-    - $ref: '#/parameters/Token'
-    - $ref: '#/parameters/LANG'
-    - name: Item
+    - name: item
       in: body
       required: true
-      description: identifiant produit à ajouter
+      description: "Cart item to add"
       schema:
-        $ref: '#/definitions/cartItems'
+        $ref: "#/definitions/cartItems"
   responses:
-    '200':
+    200:
       description: Semper Fi
       schema:
         $ref: '#/definitions/carts'
-    default:
-      description: Unexpected error
+    400:
+      description: "Some parameters are missing or badly entered."
       schema:
-        $ref: '#/definitions/customError'
+        $ref: "#/definitions/customError"
+    401:
+      description: "Unauthorized"
+      schema:
+        $ref: "#/definitions/customError"
   security:
     - appToken: []
     - userToken: []
+
 get:
-  summary: Get cart's info
-  description: Get cart's info
+  summary: "Get cart's info."
+  description: "Get cart's info."
   tags:
     - Cart
   operationId: getCart
@@ -43,24 +46,26 @@ get:
   produces:
     - application/json
     - text/json
-  parameters:
-    - $ref: '#/parameters/Token'
-    - $ref: '#/parameters/LANG'
   responses:
-    '200':
-      description: Semper Fi
+    200:
+      description: "Response OK."
       schema:
-        $ref: '#/definitions/carts'
-    default:
-      description: Unexpected error
+        $ref: "#/definitions/carts"
+    400:
+      description: "Some parameters are missing or badly entered."
       schema:
-        $ref: '#/definitions/customError'
+        $ref: "#/definitions/customError"
+    401:
+      description: "Unauthorized"
+      schema:
+        $ref: "#/definitions/customError"
   security:
     - appToken: []
     - userToken: []
+
 delete:
-  summary: Delete item from cart.
-  description: Delete item from cart.
+  summary: "Delete item from cart."
+  description: "Delete item from cart."
   tags:
     - Cart
   operationId: delProductCart
@@ -71,22 +76,20 @@ delete:
     - application/json
     - text/json
   parameters:
-    - $ref: '#/parameters/Token'
-    - $ref: '#/parameters/LANG'
-    - name: RefArticle
-      in: query
-      required: true
-      description: Article's reference.
-      type: string
+    - $ref: "#/parameters/refArticle"
   responses:
-    '200':
-      description: Semper Fi
+    200:
+      description: "Response OK. Cart"
       schema:
         $ref: '#/definitions/carts'
-    default:
-      description: Unexpected error
+    400:
+      description: "Some parameters are missing or badly entered."
       schema:
-        $ref: '#/definitions/customError'
+        $ref: "#/definitions/customError"
+    401:
+      description: "Unauthorized"
+      schema:
+        $ref: "#/definitions/customError"
   security:
     - appToken: []
     - userToken: []

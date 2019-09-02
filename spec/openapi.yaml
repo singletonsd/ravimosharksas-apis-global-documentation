@@ -22,6 +22,40 @@ securityDefinitions:
     name: X_USER_KEY
     in: header
 parameters:
+  refClient:
+    name: refClient
+    in: query
+    description: Only for techniciens.
+    required: false
+    type: string
+    format: ''
+  refArticle:
+    name: refArticle
+    in: query
+    required: true
+    description: "Article's reference."
+    type: string
+  refContract:
+    name: refContract
+    in: query
+    description: "Only for technicians."
+    required: false
+    type: integer
+    format: int32
+  dateStart:
+    name: dateStart
+    in: query
+    description: 'Start date. Format: YYYY-MM-DD'
+    required: false
+    type: string
+    format: date
+  dateEnd:
+    name: dateEnd
+    in: query
+    description: 'End date. Format: YYYY-MM-DD'
+    required: false
+    type: string
+    format: date
   Token:
     type: string
     in: header

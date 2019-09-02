@@ -1,6 +1,6 @@
 get:
-  summary: Get all Clients filtered by values provided.
-  description: Get all Pieces filtered by values provided.
+  summary: "Get all Clients filtered by values provided."
+  description: "Get all Clients filtered by values provided."
   tags:
     - Clients
   operationId: getListClients
@@ -11,15 +11,7 @@ get:
     - application/json
     - text/json
   parameters:
-    - $ref: '#/parameters/Token'
-    - $ref: '#/parameters/LANG'
-    - name: RefClient
-      in: query
-      required: false
-      description: ''
-      default: ''
-      type: string
-      format: ''
+    - $ref: '#/parameters/refClient'
     - name: Abrege
       in: query
       required: false
@@ -41,16 +33,20 @@ get:
       type: integer
       format: int32
   responses:
-    '200':
-      description: Semper Fi.
+    200:
+      description: "Response OK. Array of clients."
       schema:
         type: array
         items:
           $ref: '#/definitions/clients'
-    default:
-      description: Error occurred.
+    400:
+      description: "Some parameters are missing or badly entered."
       schema:
-        $ref: '#/definitions/customError'
+        $ref: "#/definitions/customError"
+    401:
+      description: "Unauthorized"
+      schema:
+        $ref: "#/definitions/customError"
   security:
     - appToken: []
     - userToken: []

@@ -1,6 +1,6 @@
 get:
-  summary: Get categories of products.
-  description: Get categories of products.
+  summary: "Get categories of products."
+  description: "Get categories of products."
   tags:
     - Products
   operationId: getCategories
@@ -10,20 +10,21 @@ get:
   produces:
     - application/json
     - text/json
-  parameters:
-    - $ref: '#/parameters/Token'
-    - $ref: '#/parameters/LANG'
   responses:
-    '200':
-      description: Semper Fi
+    200:
+      description: "Response OK. Category"
       schema:
         type: array
         items:
           $ref: '#/definitions/categories'
-    default:
-      description: Unexpected error
+    400:
+      description: "Some parameters are missing or badly entered."
       schema:
-        $ref: '#/definitions/customError'
+        $ref: "#/definitions/customError"
+    401:
+      description: "Unauthorized"
+      schema:
+        $ref: "#/definitions/customError"
   security:
     - appToken: []
     - userToken: []
